@@ -15,6 +15,13 @@ I. Description:
     The extensions this project intends to provide for now are:
       <> Some all-purpose functionalities that are commonly needed.
       <> An Object Oriented system, adaptable to eventual native libraries.
+      <> An Unit Test library.
+      <> A Mock library.
     New extensions may appear on the future, as I learn more and think up new
   ideas ;).
+
+II. Usage notes:
+
+    1)  The Lua module itself is named only "nova" to avoid redundancy and need
+        of typing too many letter XD.
 
