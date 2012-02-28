@@ -9,7 +9,7 @@
 # Requires CMake at least version 2.8.
 cmake_minimum_required (VERSION 2.8)
 
-find_program (LUADOC luadoc)
+include (cmake/luanova_module.cmake)
 
 #add_custom_command (
 
