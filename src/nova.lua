@@ -1,5 +1,4 @@
 --- Main LuaNova module.
--- File version: 0.0.0
 -- @autor Kazuo256
 module("nova", package.seeall)
 
