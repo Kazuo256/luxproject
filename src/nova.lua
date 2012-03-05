@@ -1,13 +1,9 @@
---- Main LuaNova module.
--- @autor Kazuo256
+
+--- LuaNova's main module.
+-- Contains some general purpose functions.
 module("nova", package.seeall)
 
---- Contains information about LuaNova nova's module.
--- @field version The version of this LuaNova module.
-info = {
-  version = "0.0.0"
-}
-
+version = "0.0.0"
 
 --- Prints all key-value pairs of the given table to the standard output.
 -- @param t The table whose field are to be listed.

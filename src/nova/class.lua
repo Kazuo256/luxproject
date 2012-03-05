@@ -1,7 +1,12 @@
 
+local class_meta = { __index = getfenv() }
+
 --- LuaNova's Object Oriented API module.
--- @author Kazuo256
-module("nova.class", package.seeall)
+module("nova.class", function (t) setmetatable(t, class_meta) end)
+
+function class_meta:__call (...)
+  return {}
+end
 
 
 
