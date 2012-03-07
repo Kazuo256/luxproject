@@ -1,16 +1,20 @@
 
 require "nova.object"
 
-local meta = { __index = getfenv() }
+local protoclass = {}
+do
+  protoclass.__index = getfenv()
+  function protoclass:__call (...)
+    -- TODO
+  end
+end
+
+nova.class = nova.object(protoclass)
 
 do
   --- LuaNova's class module.
-  module("nova.class", function (t) setmetatable(t, meta) end)
+  module("nova.class")
   
-  function meta:__call (...)
-    local t = ...
-    return nova.object(t)
-  end
   
 end
 

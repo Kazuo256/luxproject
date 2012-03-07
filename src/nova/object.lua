@@ -1,13 +1,17 @@
 
 local meta = { __index = getfenv() }
 
+--- LuaNova's object module.
+-- This module is used to create objects from prototypes, through the use of
+-- the nova.object() metamethod. It also defines a reference to a nil object,
+-- which may be acquired with nova.object.nilref().
+module("nova.object", function (t) setmetatable(t, meta) end)
 do
-  --- LuaNova's object module.
-  module("nova.object", function (t) setmetatable(t, object_meta) end)
-  
+  --- Local instance of the "nil object".
   local nilref_ = {}
   
-  --- Returns an object reference which represents the nil object.
+  --- Returns the representation of the nil object.
+  -- @return An object reference to the nil object.
   function nilref()
     return nilref_
   end
