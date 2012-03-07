@@ -34,16 +34,16 @@
 <h1>Modules</h1>
 <ul>
 
-	<li><strong>nova</strong></li>
-	
+	<li>
+		<a href="../modules/nova.html">nova</a>
+	</li>
+
 	<li>
 		<a href="../modules/nova.class.html">nova.class</a>
 	</li>
 
-	<li>
-		<a href="../modules/nova.object.html">nova.object</a>
-	</li>
-
+	<li><strong>nova.object</strong></li>
+	
 </ul>
 
 
@@ -59,9 +59,9 @@
 
 <div id="content">
 
-<h1>Module <code>nova</code></h1>
+<h1>Module <code>nova.object</code></h1>
 
-<p>LuaNova's main module. Contains some general purpose functions.</p>
+<p>LuaNova's object module.</p>
 
 
 
@@ -71,8 +71,13 @@
 <table class="function_list">
 
 	<tr>
-	<td class="name" nowrap><a href="#ls">ls</a>&nbsp;(t)</td>
-	<td class="summary">Prints all key-value pairs of the given table to the standard output.</td>
+	<td class="name" nowrap><a href="#meta:__call">meta:__call</a>&nbsp;(prototype)</td>
+	<td class="summary">Creates a new object from a prototype.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#nilref">nilref</a>&nbsp;()</td>
+	<td class="summary">Returns an object reference which represents the nil object.</td>
 	</tr>
 
 </table>
@@ -92,19 +97,36 @@
 
 
 
-<dt><a name="ls"></a><strong>ls</strong>&nbsp;(t)</dt>
+<dt><a name="meta:__call"></a><strong>meta:__call</strong>&nbsp;(prototype)</dt>
 <dd>
-Prints all key-value pairs of the given table to the standard output.
+Creates a new object from a prototype.
 
 
 <h3>Parameters</h3>
 <ul>
 	
 	<li>
-	  t: The table whose field are to be listed.
+	  prototype: A table containing the objects methods and metamethods, along with the default values of its attributes.
 	</li>
 	
 </ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="nilref"></a><strong>nilref</strong>&nbsp;()</dt>
+<dd>
+Returns an object reference which represents the nil object.
+
 
 
 
