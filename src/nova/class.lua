@@ -1,4 +1,5 @@
 
+require "nova.std"
 require "nova.object"
 
 local protoclass = {}
@@ -11,10 +12,9 @@ end
 
 nova.class = nova.object(protoclass)
 
+--- LuaNova's class module.
+module("nova.class")
 do
-  --- LuaNova's class module.
-  module("nova.class")
-  
-  
+
 end
 
