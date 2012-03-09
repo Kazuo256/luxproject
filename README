@@ -22,6 +22,6 @@ I. Description:
 
 II. Usage notes:
 
-    1)  The Lua module itself is named only "nova" to avoid redundancy and need
-        of typing too many letter XD.
+    1)  The Lua module itself is named only "nova" to avoid redundancy and
+        verbosity XD.
 
