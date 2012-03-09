@@ -5,7 +5,7 @@ module("nova.common", package.seeall)
 do
   --- Prints all key-value pairs of the given table to the standard output.
   -- @param t The table whose field are to be listed.
-  function ls(t)
+  function ls (t)
     for k,v in pairs(t) do
       print(k,v)
     end
@@ -18,7 +18,7 @@ do
   -- @param i Used for internal tail recursion. No need to worry about it.
   --          Defaults to nil, and that is ok.
   -- @return An argument list that works just like a "..." expression.
-  function toargs(t, i)
+  function toargs (t, i)
     if not i then return toargs(t, 1) end
     if t[i] then return t[i], toargs(t, i+1) end
   end
@@ -31,7 +31,7 @@ do
   -- @return A function that, upon being called, does the same as f, but
   --         requires only the remaining right-most arguments that were not
   --         binded with it.
-  function bind(f, ...)
+  function bind (f, ...)
     local args = { ... }
     return function (...)
       return f(toargs(args), ...)
@@ -42,7 +42,7 @@ do
   -- @param metatable A metatable to be binded to the setmetatable function.
   -- @return A function that takes a table as argument, and sets its metatable
   --         to the one given here.
-  function metabinder(metatable)
+  function metabinder (metatable)
     return bind(function(meta,t) setmetatable(t,meta) end, metatable)
   end
   

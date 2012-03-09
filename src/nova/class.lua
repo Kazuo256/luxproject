@@ -4,10 +4,16 @@ require "nova.object"
 
 local protoclass = {}
 do
-  protoclass.__index = getfenv()
+
+  protoclass.__index = _G
+
   function protoclass:__call (...)
-    -- TODO
+    local newclass = nova.object(protoclass)
+    return newclass
   end
+
+  protoclass.methods
+
 end
 
 nova.class = nova.object(protoclass)
