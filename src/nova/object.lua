@@ -1,5 +1,5 @@
 
-require "nova.std"
+require "nova.common"
 
 local meta = { __index = getfenv() }
 
@@ -7,7 +7,7 @@ local meta = { __index = getfenv() }
 -- This module is used to create objects from prototypes, through the use of
 -- the nova.object() metamethod. It also defines a reference to a nil object,
 -- which may be acquired with nova.object.nilref().
-module("nova.object", nova.std.bindmetatable(meta))
+module("nova.object", nova.common.metabinder(meta))
 --function (t) setmetatable(t, meta) end)
 do
   --- Local instance of the "nil object".

@@ -1,5 +1,5 @@
 
-require "nova.std"
+require "nova.common"
 require "nova.object"
 
 local protoclass = {}

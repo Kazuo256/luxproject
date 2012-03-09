@@ -1,7 +1,7 @@
 
---- LuaNova's standard module.
--- Here a collection of standard general-purpose functions are available.
-module("nova.std", package.seeall)
+--- LuaNova's common module.
+-- Here a collection of general-purpose functions are available.
+module("nova.common", package.seeall)
 do
   --- Prints all key-value pairs of the given table to the standard output.
   -- @param t The table whose field are to be listed.
@@ -42,7 +42,7 @@ do
   -- @param metatable A metatable to be binded to the setmetatable function.
   -- @return A function that takes a table as argument, and sets its metatable
   --         to the one given here.
-  function bindmetatable(metatable)
+  function metabinder(metatable)
     return bind(function(meta,t) setmetatable(t,meta) end, metatable)
   end
   
