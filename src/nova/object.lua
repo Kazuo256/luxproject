@@ -24,7 +24,7 @@ do
   --                  along with the default values of its attributes.
   function meta:__call (prototype)
     local new_obj = {}
-    prototype.__index = prototype
+    prototype.__index = prototype.__index or prototype
     setmetatable(new_obj, prototype)
     return new_obj
   end
