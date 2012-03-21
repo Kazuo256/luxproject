@@ -25,6 +25,7 @@ do
   function meta:__call (prototype)
     local new_obj = {}
     prototype.__index = prototype.__index or prototype
+    prototype.__proto = prototype
     setmetatable(new_obj, prototype)
     return new_obj
   end
