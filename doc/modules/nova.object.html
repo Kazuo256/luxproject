@@ -75,13 +75,18 @@
 <table class="function_list">
 
 	<tr>
-	<td class="name" nowrap><a href="#meta:__call">meta:__call</a>&nbsp;(obj, prototype)</td>
+	<td class="name" nowrap><a href="#nilref">nilref</a>&nbsp;()</td>
+	<td class="summary">Returns the representation of the nil object.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#object:new">object:new</a>&nbsp;(prototype)</td>
 	<td class="summary">Creates a new object from a prototype.</td>
 	</tr>
 
 	<tr>
-	<td class="name" nowrap><a href="#nilref">nilref</a>&nbsp;()</td>
-	<td class="summary">Returns the representation of the nil object.</td>
+	<td class="name" nowrap><a href="#table">table</a>&nbsp;()</td>
+	<td class="summary">Creates a new table object.</td>
 	</tr>
 
 </table>
@@ -101,7 +106,27 @@
 
 
 
-<dt><a name="meta:__call"></a><strong>meta:__call</strong>&nbsp;(obj, prototype)</dt>
+<dt><a name="nilref"></a><strong>nilref</strong>&nbsp;()</dt>
+<dd>
+Returns the representation of the nil object.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+An object reference to the nil object.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="object:new"></a><strong>object:new</strong>&nbsp;(prototype)</dt>
 <dd>
 Creates a new object from a prototype.
 
@@ -110,11 +135,7 @@ Creates a new object from a prototype.
 <ul>
 	
 	<li>
-	  obj: 
-	</li>
-	
-	<li>
-	  prototype: A table containing the objects methods and metamethods, along with the default values of its attributes.
+	  prototype: A table containing the object's methods and the default values of its attributes.
 	</li>
 	
 </ul>
@@ -131,9 +152,9 @@ Creates a new object from a prototype.
 
 
 
-<dt><a name="nilref"></a><strong>nilref</strong>&nbsp;()</dt>
+<dt><a name="table"></a><strong>table</strong>&nbsp;()</dt>
 <dd>
-Returns the representation of the nil object.
+Creates a new table object. A table object is just like any table, with the addition that it has methods all corresponding to all the functions from the standard <code>table</code> module.
 
 
 
@@ -142,7 +163,7 @@ Returns the representation of the nil object.
 
 
 <h3>Return value:</h3>
-An object reference to the nil object.
+A new table object.
 
 
 

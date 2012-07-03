@@ -19,14 +19,14 @@ do
     return nilref_
   end
   
-  --- Creates a new object from a prototype.
+  --- Method. Creates a new object from a prototype.
   -- @param prototype A table containing the object's methods and the default
   --                  values of its attributes.
-  function meta:new (proto)
-    proto = proto or {}
+  function nova.object:new (prototype)
+    prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
-    setmetatable(proto, self)
-    return proto;
+    setmetatable(prototype, self)
+    return prototype;
   end
 
   --- Metatable for table objects.
@@ -37,7 +37,7 @@ do
   -- methods all corresponding to all the functions from the standard
   -- <code>table</code> module.
   -- @return A new table object.
-  function meta.table ()
+  function table ()
     local t = {}
     setmetatable(t, table_mttab)
     return t
