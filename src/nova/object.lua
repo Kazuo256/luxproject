@@ -20,16 +20,22 @@ do
   end
   
   --- Creates a new object from a prototype.
-  -- @param prototype A table containing the objects methods and metamethods,
-  --                  along with the default values of its attributes.
-  function meta:__call (obj)
-    obj = obj or {}
-    self.__index = self
-    setmetatable(obj, self)
-    return obj
+  -- @param prototype A table containing the object's methods and the default
+  --                  values of its attributes.
+  function meta:new (proto)
+    proto = proto or {}
+    self.__index = rawget(self, "__index") or self
+    setmetatable(proto, self)
+    return proto;
   end
 
-  __call = meta.__call
+  local table_mttab = { __index = table }
+
+  function meta.table ()
+    local t = {}
+    setmetatable(t, table_mttab)
+    return t
+  end
 
 end
 
