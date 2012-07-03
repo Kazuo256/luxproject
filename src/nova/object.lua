@@ -29,8 +29,14 @@ do
     return proto;
   end
 
+  --- Metatable for table objects.
   local table_mttab = { __index = table }
 
+  --- Creates a new table object.
+  -- A table object is just like any table, with the addition that it has
+  -- methods all corresponding to all the functions from the standard
+  -- <code>table</code> module.
+  -- @return A new table object.
   function meta.table ()
     local t = {}
     setmetatable(t, table_mttab)
