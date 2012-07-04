@@ -15,5 +15,5 @@ if [ $1 == "-h" -o $1 == "--help" ]; then
     exit 0
 fi
 
-cp -v -r src/nova.lua src/nova/ $1
+cp -v -r src/nova.lua src/nova/*.lua $1
 
