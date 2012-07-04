@@ -15,5 +15,11 @@ if [ $1 == "-h" -o $1 == "--help" ]; then
     exit 0
 fi
 
-cp -v -r src/nova.lua src/nova/*.lua $1
+if [ ! -d $1/nova ]
+then
+  mkdir $1/nova
+fi
+
+cp -v src/nova.lua $1
+cp -v src/nova/*.lua $1/nova
 
