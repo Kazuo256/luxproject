@@ -24,6 +24,7 @@ module ("nova.object", nova.common.metabinder(meta)) do
     prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
     setmetatable(prototype, self)
+    if prototype.__init then prototype:__init() end
     return prototype;
   end
 
