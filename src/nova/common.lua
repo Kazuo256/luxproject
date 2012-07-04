@@ -1,8 +1,7 @@
 
 --- LuaNova's common module.
 -- Here a collection of general-purpose functions are available.
-module("nova.common", package.seeall)
-do
+module ("nova.common", package.seeall) do
   --- Prints all key-value pairs of the given table to the standard output.
   -- @param t The table whose field are to be listed.
   function ls (t)
@@ -13,7 +12,7 @@ do
   -- Here, an array means the n first elements of a table, indexed from 1 to n.
   -- The argument list works exactly like the "..." expression.
   -- @param t The table from where the argument list will be extracted.
-  -- @param i Used for internal tail recursion. No need to worry about it.
+  -- @param i Used for internal recursion. No need to worry about it.
   --          Defaults to nil, and that is ok.
   -- @return An argument list that works just like a "..." expression.
   function toargs (t, i)
