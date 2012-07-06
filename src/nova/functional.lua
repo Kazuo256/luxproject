@@ -10,9 +10,9 @@ module ("nova.functional", package.seeall) do
   -- @param i Used for internal recursion. No need to worry about it.
   --          Defaults to nil, and that is ok.
   -- @return An argument list that works just like a "..." expression.
-  function toargs (t, i)
-    if not i then return toargs(t, 1) end
-    if t[i] then return t[i], toargs(t, i+1) end
+  function toarglist (t, i)
+    if not i then return toarglist(t, 1) end
+    if t[i] then return t[i], toarglist(t, i+1) end
   end
   
   --- Binds a function to the given (left-most) arguments.
@@ -26,7 +26,7 @@ module ("nova.functional", package.seeall) do
   function bindleft (f, ...)
     local args = { ... }
     return function (...)
-      return f(toargs(args), ...)
+      return f(toarglist(args), ...)
     end
   end
 
