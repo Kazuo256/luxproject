@@ -1,9 +1,9 @@
 
 --- LuaNova's main module.
 -- Contains some general purpose functions.
-module("nova", package.seeall)
+module ("nova", package.seeall) do
 
-version = "0.0.0"
+  version = "0.0.0"
 
-
+end
 
