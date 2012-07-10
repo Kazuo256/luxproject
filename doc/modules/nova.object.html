@@ -39,15 +39,19 @@
 	</li>
 
 	<li>
-		<a href="../modules/nova.class.html">nova.class</a>
+		<a href="../modules/nova.common.html">nova.common</a>
 	</li>
 
 	<li>
-		<a href="../modules/nova.common.html">nova.common</a>
+		<a href="../modules/nova.functional.html">nova.functional</a>
 	</li>
 
 	<li><strong>nova.object</strong></li>
 	
+	<li>
+		<a href="../modules/nova.table.html">nova.table</a>
+	</li>
+
 </ul>
 
 
@@ -65,7 +69,7 @@
 
 <h1>Module <code>nova.object</code></h1>
 
-<p>LuaNova's object module. This module is used to create objects from prototypes, through the use of the nova.object() metamethod. It also defines a reference to a nil object, which may be acquired with nova.object.nilref().</p>
+<p>LuaNova's object module. This module is used to create objects from prototypes, through the use of the nova.object:new() method. It also defines a reference to a nil object, which may be acquired with nova.object.nilref().</p>
 
 
 
@@ -75,18 +79,18 @@
 <table class="function_list">
 
 	<tr>
+	<td class="name" nowrap><a href="#inherit">inherit</a>&nbsp;(super)</td>
+	<td class="summary">Makes a class module inherit from a table.</td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#nilref">nilref</a>&nbsp;()</td>
 	<td class="summary">Returns the representation of the nil object.</td>
 	</tr>
 
 	<tr>
-	<td class="name" nowrap><a href="#object:new">object:new</a>&nbsp;(prototype)</td>
-	<td class="summary">Creates a new object from a prototype.</td>
-	</tr>
-
-	<tr>
-	<td class="name" nowrap><a href="#table">table</a>&nbsp;()</td>
-	<td class="summary">Creates a new table object.</td>
+	<td class="name" nowrap><a href="#nova.object:new">nova.object:new</a>&nbsp;(prototype)</td>
+	<td class="summary">Method.</td>
 	</tr>
 
 </table>
@@ -103,6 +107,32 @@
 
 <h2><a name="functions"></a>Functions</h2>
 <dl class="function">
+
+
+
+<dt><a name="inherit"></a><strong>inherit</strong>&nbsp;(super)</dt>
+<dd>
+Makes a class module inherit from a table. This function is to be used only when declaring modules, like this: <p><code> module ("my.module", nova.object.inherit(some_table)) </code></p> This essentially makes the module inherit everything indexable from the given table. It also turns the module into an object.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  super: A table from which the module will inherit.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
 
 
 
@@ -126,9 +156,9 @@ An object reference to the nil object.
 
 
 
-<dt><a name="object:new"></a><strong>object:new</strong>&nbsp;(prototype)</dt>
+<dt><a name="nova.object:new"></a><strong>nova.object:new</strong>&nbsp;(prototype)</dt>
 <dd>
-Creates a new object from a prototype.
+Method. Creates a new object from a prototype.
 
 
 <h3>Parameters</h3>
@@ -144,26 +174,6 @@ Creates a new object from a prototype.
 
 
 
-
-
-
-</dd>
-
-
-
-
-<dt><a name="table"></a><strong>table</strong>&nbsp;()</dt>
-<dd>
-Creates a new table object. A table object is just like any table, with the addition that it has methods all corresponding to all the functions from the standard <code>table</code> module.
-
-
-
-
-
-
-
-<h3>Return value:</h3>
-A new table object.
 
 
 

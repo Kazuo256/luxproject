@@ -24,18 +24,19 @@ module ("nova.object", package.seeall) do
     return prototype;
   end
 
-  --- Metatable for table objects.
-  local table_mttab = { __index = table }
-
-  --- Creates a new table object.
-  -- A table object is just like any table, with the addition that it has
-  -- methods all corresponding to all the functions from the standard
-  -- <code>table</code> module.
-  -- @return A new table object.
-  function table ()
-    local t = {}
-    setmetatable(t, table_mttab)
-    return t
+  --- Makes a class module inherit from a table.
+  -- This function is to be used only when declaring modules, like this:
+  -- <p><code>
+  -- module ("my.module", nova.object.inherit(some_table))
+  -- </code></p>
+  -- This essentially makes the module inherit everything indexable from the
+  -- given table. It also turns the module into an object.
+  -- @param super A table from which the module will inherit.
+  function inherit (super)
+    return function (class)
+      class.__index = super
+      nova.object:new(class)
+    end
   end
 
 end
