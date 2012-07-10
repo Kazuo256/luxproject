@@ -1,13 +1,9 @@
 
-require "nova.common"
-
-local meta = { __index = getfenv() }
-
 --- LuaNova's object module.
 -- This module is used to create objects from prototypes, through the use of
--- the nova.object() metamethod. It also defines a reference to a nil object,
+-- the nova.object:new() method. It also defines a reference to a nil object,
 -- which may be acquired with nova.object.nilref().
-module ("nova.object", nova.common.metabinder(meta)) do
+module ("nova.object", package.seeall) do
   --- Local instance of the "nil object".
   local nilref_ = {}
   
