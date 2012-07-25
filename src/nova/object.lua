@@ -16,7 +16,7 @@ module ("nova.object", package.seeall) do
   -- Recursive initialization.
   local function init (obj)
     if obj then
-      if obj.__super then init(obj:__super())
+      if obj.__super then init(obj:__super()) end
       if obj.__init then obj:__init() end
     end
   end
