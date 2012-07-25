@@ -17,7 +17,7 @@ module ("nova.object", package.seeall) do
   local function init (obj)
     if obj then
       init(obj.__super)
-      obj:__init()
+      if obj.__init then obj:__init() end
     end
   end
   
