@@ -16,7 +16,7 @@ module ("nova.object", package.seeall) do
   -- Recursive initialization.
   local function init (obj)
     if obj then
-      init(obj:super())
+      if obj.__super then init(obj:__super())
       if obj.__init then obj:__init() end
     end
   end
@@ -34,7 +34,7 @@ module ("nova.object", package.seeall) do
   
   --- Method. Returns the super class of an object.
   -- @return The super class of an object.
-  function nova.object:super ()
+  function nova.object:__super ()
     return self ~= nova.object and getmetatable(self) or nil
   end
 
