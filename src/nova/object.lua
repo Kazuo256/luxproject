@@ -13,6 +13,14 @@ module ("nova.object", package.seeall) do
     return nilref_
   end
   
+  -- Recursive initialization.
+  local function init (obj)
+    if obj then
+      init(obj.__super)
+      obj:__init()
+    end
+  end
+  
   --- Method. Creates a new object from a prototype.
   -- @param prototype A table containing the object's methods and the default
   --                  values of its attributes.
@@ -20,7 +28,8 @@ module ("nova.object", package.seeall) do
     prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
     setmetatable(prototype, self)
-    if prototype.__init then prototype:__init() end
+    prototype.__super = self
+    init(prototype)
     return prototype;
   end
 
