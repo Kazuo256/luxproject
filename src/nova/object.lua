@@ -35,7 +35,7 @@ module ("nova.object", package.seeall) do
   --- Method. Returns the super class of an object.
   -- @return The super class of an object.
   function nova.object:super ()
-    return self == nova.object and self or getmetatable(self)
+    return self ~= nova.object and getmetatable(self) or nil
   end
 
   --- Makes a class module inherit from a table.
