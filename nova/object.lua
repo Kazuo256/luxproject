@@ -23,7 +23,9 @@ module ("nova.object", package.seeall) do
         super.__init(obj)
       elseif init_type == "table" then
         for k,v in pairs(super.__init) do
-          obj[k] = clone(v)
+          if not obj[k] then
+            obj[k] = clone(v)
+          end
         end
       end
     end
