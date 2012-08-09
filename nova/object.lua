@@ -29,7 +29,10 @@ module ("nova.object", package.seeall) do
     end
   end
   
-  --- Method. Creates a new object from a prototype.
+  --- Creates a new object from a prototype.
+  -- If the self object has an <code>__init</code> field as a function, it will
+  -- be applied to the new object. If it has an <code>__init</code> field as a
+  -- table, its contents will be cloned into the new object.
   -- @param prototype A table containing the object's methods and the default
   --                  values of its attributes.
   function nova.object:new (prototype)
@@ -54,7 +57,7 @@ module ("nova.object", package.seeall) do
     return super and super.new and super:new(cloned) or cloned
   end
   
-  --- Method. Returns the super class of an object.
+  --- Returns the super class of an object.
   -- @return The super class of an object.
   function nova.object:__super ()
     return self ~= nova.object and getmetatable(self) or nil
