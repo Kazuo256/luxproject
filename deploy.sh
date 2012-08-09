@@ -20,6 +20,5 @@ then
   mkdir $1/nova
 fi
 
-cp -v src/nova.lua $1
-cp -v src/nova/*.lua $1/nova
+cp -v nova/*.lua $1/nova
 
