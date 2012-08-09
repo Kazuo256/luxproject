@@ -14,10 +14,18 @@ module ("nova.object", package.seeall) do
   end
   
   -- Recursive initialization.
-  local function init (obj)
-    if obj then
-      if obj.__super then init(obj:__super()) end
-      if obj.__init then obj:__init() end
+  local function init (obj, super)
+    if not super then return end
+    init(obj, super:__super())
+    if super.__init then
+      local init_type = type(super.__init)
+      if init_type == "function" then
+        super.__init(obj)
+      elseif init_type == "table" then
+        for k,v in pairs(super.__init) do
+          obj[k] = clone(v)
+        end
+      end
     end
   end
   
@@ -28,8 +36,22 @@ module ("nova.object", package.seeall) do
     prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
     setmetatable(prototype, self)
-    init(prototype)
+    init(prototype, self)
     return prototype;
+  end
+
+  --- Clones an object.
+  -- @return A clone of this object.
+  function nova.object:clone ()
+    if type(self) ~= "table" then return self end
+    print "cloning..."
+    table.foreach(self, print)
+    local cloned = {}
+    for k,v in pairs(self) do
+      cloned[k] = clone(v)
+    end
+    local super = __super(self)
+    return super and super.new and super:new(cloned) or cloned
   end
   
   --- Method. Returns the super class of an object.
