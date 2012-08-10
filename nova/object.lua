@@ -41,7 +41,7 @@ module ("nova.object", package.seeall) do
     prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
     setmetatable(prototype, self)
-    init(prototype, self)
+    init(prototype, prototype)
     return prototype;
   end
 
