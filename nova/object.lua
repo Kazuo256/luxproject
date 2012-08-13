@@ -49,7 +49,7 @@ module ("nova.object", package.seeall) do
     return prototype;
   end
 
-  ---
+  --- Creates a new object from a prototype.
   function new (prototype)
     return base_object:new(prototype)
   end
