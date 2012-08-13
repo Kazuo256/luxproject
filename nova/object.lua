@@ -1,7 +1,7 @@
 
 --- LuaNova's object module.
 -- This module is used to create objects from prototypes, through the use of
--- the nova.object:new() method. It also defines a reference to a nil object,
+-- the nova.object.new() method. It also defines a reference to a nil object,
 -- which may be acquired with nova.object.nilref().
 module ("nova.object", package.seeall) do
 
@@ -89,7 +89,7 @@ module ("nova.object", package.seeall) do
   function inherit (super)
     return function (class)
       class.__index = super
-      nova.object:new(class)
+      base_object:new(class)
     end
   end
 
