@@ -1,7 +1,7 @@
 
---- LuaNova's functional programming module.
+--- LUX's functional programming module.
 -- Some functional programming tools lay around here.
-module ("nova.functional", package.seeall) do
+module ("lux.functional", package.seeall) do
 
   --- Converts an array to an argument list.
   -- Here, an array means the n first elements of a table, indexed from 1 to n.

@@ -1,9 +1,9 @@
 
---- LuaNova's object module.
+--- LUX's object module.
 -- This module is used to create objects from prototypes, through the use of
--- the nova.object.new() method. It also defines a reference to a nil object,
--- which may be acquired with nova.object.nilref().
-module ("nova.object", package.seeall) do
+-- the lux.object.new() method. It also defines a reference to a nil object,
+-- which may be acquired with lux.object.nilref().
+module ("lux.object", package.seeall) do
 
   --- Local instance of the "nil object".
   local nilref_ = {}
@@ -75,13 +75,13 @@ module ("nova.object", package.seeall) do
   --- Returns the super class of an object.
   -- @return The super class of an object.
   function base_object:__super ()
-    return self ~= nova.object and getmetatable(self) or nil
+    return self ~= lux.object and getmetatable(self) or nil
   end
 
   --- Makes a class module inherit from a table.
   -- This function is to be used only when declaring modules, like this:
   -- <p><code>
-  -- module ("my.module", nova.object.inherit(some_table))
+  -- module ("my.module", lux.object.inherit(some_table))
   -- </code></p>
   -- This essentially makes the module inherit everything indexable from the
   -- given table. It also turns the module into an object.

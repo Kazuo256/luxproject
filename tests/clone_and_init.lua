@@ -1,5 +1,5 @@
 
-local object = require "nova.object"
+local object = require "lux.object"
 
 local function show (t, name)
   print("Dumping "..tostring(t).." ("..name..")")

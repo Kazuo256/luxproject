@@ -6,8 +6,8 @@
 .PHONY: all
 all:
 
-ref: nova doc
-	luadoc --no-files -d doc nova
+ref: lux doc
+	luadoc --no-files -d doc lux
 
 doc:
 	mkdir doc
