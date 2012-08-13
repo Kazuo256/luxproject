@@ -6,6 +6,8 @@
 module ("nova.object", package.seeall) do
   --- Local instance of the "nil object".
   local nilref_ = {}
+
+  local base_object = {}
   
   --- Returns the representation of the nil object.
   -- @return An object reference to the nil object.
@@ -37,7 +39,7 @@ module ("nova.object", package.seeall) do
   -- table, its contents will be cloned into the new object.
   -- @param prototype A table containing the object's methods and the default
   --                  values of its attributes.
-  function nova.object:new (prototype)
+  function base_object:new (prototype)
     prototype = prototype or {}
     self.__index = rawget(self, "__index") or self
     setmetatable(prototype, self)
@@ -45,9 +47,15 @@ module ("nova.object", package.seeall) do
     return prototype;
   end
 
+  function new (prototype, prototype2)
+    return prototype2
+      and base_object:new(prototype2)
+      or  base_object:new(prototype)
+  end
+
   --- Clones an object.
   -- @return A clone of this object.
-  function nova.object:clone ()
+  function base_object:clone ()
     if type(self) ~= "table" then return self end
     print "cloning..."
     table.foreach(self, print)
@@ -55,13 +63,17 @@ module ("nova.object", package.seeall) do
     for k,v in pairs(self) do
       cloned[k] = clone(v)
     end
-    local super = __super(self)
+    local super = base_object.__super(self)
     return super and super.new and super:new(cloned) or cloned
+  end
+
+  function clone (obj)
+    return base_object.clone(obj)
   end
   
   --- Returns the super class of an object.
   -- @return The super class of an object.
-  function nova.object:__super ()
+  function base_object:__super ()
     return self ~= nova.object and getmetatable(self) or nil
   end
 
