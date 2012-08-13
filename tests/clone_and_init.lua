@@ -10,7 +10,7 @@ local function dump (name)
   show(_G[name], name)
 end
 
-A = object:new { x = 20 }
+A = object.new { x = 20 }
 dump "A"
 
 A2 = A:clone()

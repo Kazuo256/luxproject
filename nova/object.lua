@@ -4,9 +4,11 @@
 -- the nova.object:new() method. It also defines a reference to a nil object,
 -- which may be acquired with nova.object.nilref().
 module ("nova.object", package.seeall) do
+
   --- Local instance of the "nil object".
   local nilref_ = {}
 
+  --- Local instance of the base object.
   local base_object = {}
   
   --- Returns the representation of the nil object.
@@ -47,10 +49,9 @@ module ("nova.object", package.seeall) do
     return prototype;
   end
 
-  function new (prototype, prototype2)
-    return prototype2
-      and base_object:new(prototype2)
-      or  base_object:new(prototype)
+  ---
+  function new (prototype)
+    return base_object:new(prototype)
   end
 
   --- Clones an object.
