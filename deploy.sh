@@ -15,10 +15,10 @@ if [ $1 == "-h" -o $1 == "--help" ]; then
     exit 0
 fi
 
-if [ ! -d $1/nova ]
+if [ ! -d $1/lux ]
 then
-  mkdir $1/nova
+  mkdir $1/lux
 fi
 
-cp -v nova/*.lua $1/nova
+cp -v lux/*.lua $1/lux
 
