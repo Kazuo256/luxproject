@@ -11,9 +11,10 @@ module "lux.terminal" do
   local function format_color (str)
     return gsub(
       str,
-      "<(%w+)>",
+      "<([:%a]+)>",
       function (tag)
-        return tostring(color[tag])
+        local colorcode = color[tag]
+        return colorcode and tostring(colorcode) or "<"..tag..">"
       end
     )
   end
