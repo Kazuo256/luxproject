@@ -58,8 +58,6 @@ module ("lux.object", package.seeall) do
   -- @return A clone of this object.
   function base_object:clone ()
     if type(self) ~= "table" then return self end
-    print "cloning..."
-    table.foreach(self, print)
     local cloned = {}
     for k,v in pairs(self) do
       cloned[k] = clone(v)
