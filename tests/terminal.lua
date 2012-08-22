@@ -31,3 +31,9 @@ term.write "<red>hey<reset>"
 expect (color.bright .. color.green "hey")
 term.write "<bright><green>hey<reset>"
 
+io.write = _write
+local ok = "<bright><blue>OK<reset>"
+term.line ("+-----".."--".."------+")
+term.line ("|     ".. ok .."      |")
+term.line ("+-----".."--".."------+")
+
