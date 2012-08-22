@@ -1,5 +1,5 @@
 
-local _print = print
+local _write = io.write
 local color = require "lux.externals.ansicolors"
 
 local checks = { head = 1, tail = 1 }
@@ -9,7 +9,7 @@ local function expect(...)
   checks.tail = checks.tail + 1
 end
 
-function print (...)
+function io.write (...)
   local args = checks[checks.head]
   checks.head = checks.head + 1
   for i,v in ipairs{...} do
@@ -20,11 +20,14 @@ end
 local term = require "lux.terminal"
 
 expect "hey"
+term.write "hey"
+
+expect "hey\n"
 term.line "hey"
 
 expect (color.red "hey")
-term.line "<red>hey<reset>"
+term.write "<red>hey<reset>"
 
 expect (color.bright .. color.green "hey")
-term.line "<bright><green>hey<reset>"
+term.write "<bright><green>hey<reset>"
 
