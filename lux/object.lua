@@ -27,7 +27,7 @@ module ("lux.object", package.seeall) do
         super.__init(obj)
       elseif init_type == "table" then
         for k,v in pairs(super.__init) do
-          if not obj[k] then
+          if not rawget(obj, k) then
             obj[k] = clone(v)
           end
         end
