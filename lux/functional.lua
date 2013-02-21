@@ -3,18 +3,6 @@
 -- Some functional programming tools lay around here.
 module ("lux.functional", package.seeall) do
 
-  --- Converts an array to an argument list.
-  -- Here, an array means the n first elements of a table, indexed from 1 to n.
-  -- The argument list works exactly like the "..." expression.
-  -- @param t The table from where the argument list will be extracted.
-  -- @param i Used for internal recursion. No need to worry about it.
-  --          Defaults to nil, and that is ok.
-  -- @return An argument list that works just like a "..." expression.
-  function toarglist (t, i)
-    if not i then return toarglist(t, 1) end
-    if t[i] then return t[i], toarglist(t, i+1) end
-  end
-  
   --- Binds a function to the given (left-most) arguments.
   -- The arguments must be passed in the apropriate order, according to the
   -- function's specification.
@@ -26,7 +14,47 @@ module ("lux.functional", package.seeall) do
   function bindleft (f, ...)
     local args = { ... }
     return function (...)
-      return f(toarglist(args), ...)
+      return f(unpack(args), ...)
+    end
+  end
+
+  --- Creates a <code>n</code>-chained function based on <code>f</code>.
+  -- <p>
+  --  Chained functions receive their arguments in consecutive calls. For
+  --  instance, if <code>f</code> was the usual <code>print</code> and
+  --  <code>n</code> was 1, you would use the resulting function like this:
+  -- </p>
+  -- <p><code>
+  -- local result = chain(print,1)
+  -- </code></p>
+  -- <p><code>
+  -- result (arg1) (arg2, arg3, ...)
+  -- </code></p>
+  -- <p>
+  --  Using <code>n</code> was 2, then the call would be:
+  -- </p>
+  -- <p><code>
+  -- result (arg1) (arg2) (arg3, arg4, ...)
+  -- </code></p>
+  -- <p>
+  --  And so on.
+  -- </p>
+  -- @param f The function being chained.
+  -- @param n The size of the chain.
+  -- @return An <code>n</code>-chained function version of <code>f</code>.
+  function chain (f, n)
+    n = n or 1
+    return function (...)
+      local first, second = ...
+      if n >= 1 and not second then
+        if first then
+          return simplechain(bindleft(f, first), n-1)
+        else
+          return simplechain(f, n)
+        end
+      else
+        return f(...)
+      end
     end
   end
 
