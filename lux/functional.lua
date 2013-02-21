@@ -3,18 +3,6 @@
 -- Some functional programming tools lay around here.
 module ("lux.functional", package.seeall) do
 
-  --- Converts an array to an argument list.
-  -- Here, an array means the n first elements of a table, indexed from 1 to n.
-  -- The argument list works exactly like the "..." expression.
-  -- @param t The table from where the argument list will be extracted.
-  -- @param i Used for internal recursion. No need to worry about it.
-  --          Defaults to nil, and that is ok.
-  -- @return An argument list that works just like a "..." expression.
-  function toarglist (t, i)
-    if not i then return toarglist(t, 1) end
-    if t[i] then return t[i], toarglist(t, i+1) end
-  end
-  
   --- Binds a function to the given (left-most) arguments.
   -- The arguments must be passed in the apropriate order, according to the
   -- function's specification.
@@ -26,7 +14,7 @@ module ("lux.functional", package.seeall) do
   function bindleft (f, ...)
     local args = { ... }
     return function (...)
-      return f(toarglist(args), ...)
+      return f(unpack(args), ...)
     end
   end
 
