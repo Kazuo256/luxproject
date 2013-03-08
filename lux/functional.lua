@@ -48,9 +48,9 @@ module ("lux.functional", package.seeall) do
       local first, second = ...
       if n >= 1 and not second then
         if first then
-          return simplechain(bindleft(f, first), n-1)
+          return chain(bindleft(f, first), n-1)
         else
-          return simplechain(f, n)
+          return chain(f, n)
         end
       else
         return f(...)
