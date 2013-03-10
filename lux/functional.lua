@@ -45,7 +45,7 @@ module ("lux.functional", package.seeall) do
   -- result (arg1) (arg2, arg3, ...)
   -- </code></p>
   -- <p>
-  --  Using <code>n</code> was 2, then the call would be:
+  --  And if <code>n</code> was 2, then the call would be:
   -- </p>
   -- <p><code>
   -- result (arg1) (arg2) (arg3, arg4, ...)
