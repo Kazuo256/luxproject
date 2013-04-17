@@ -125,7 +125,7 @@ end
 
 function vector:size ()
   return math.sqrt(
-    self[1]*self[1] + self[2]*Self[2] + self[3]*self[3] + self[4]*self[4]
+    self[1]*self[1] + self[2]*self[2] + self[3]*self[3] + self[4]*self[4]
   )
 end
 
