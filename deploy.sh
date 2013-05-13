@@ -20,5 +20,5 @@ then
   mkdir $1/lux
 fi
 
-cp -v lux/*.lua lux/*/*.lua $1/lux
+cp -v lux/*.lua lux/externals/*.lua lux/geom/*.lua $1/lux
 
