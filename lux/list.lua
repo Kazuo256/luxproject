@@ -90,3 +90,15 @@ function list:push_front (value, next_value, ...)
   end
 end
 
+--- Gives the first element of the list.
+--  @return The first element of the list.
+function list:front ()
+  return self.head and self.head[1]
+end
+
+--- Gives the last element of the list.
+--  @return The last element of the list.
+function list:back ()
+  return self.tail and self.tail[1]
+end
+

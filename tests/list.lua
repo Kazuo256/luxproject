@@ -42,3 +42,9 @@ assert(l:size() == 1)
 l:push_back(2,3)
 assert(l:size() == 3)
 
+-- list:front and list:back
+
+l = list:new{1,2,3}
+assert(l:front() == 1)
+assert(l:back() == 3)
+
