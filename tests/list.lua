@@ -77,10 +77,11 @@ assert(a == 2 and b == 3)
 
 --[[ list:each ]]--
 
-l = list:new{1,2,3}
+l = list:new{1,2,nil,4}
 local i = 1
+local t = {1,2,nil,4}
 for v in l:each() do
-  assert(v == i)
+  assert(v() == t[i])
   i = i+1
 end
 

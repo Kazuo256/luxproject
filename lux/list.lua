@@ -138,6 +138,9 @@ function list:pop_front (n, t)
 end
 
 --- Iterate through the list.
+--  The iteration variable is an accessor function:
+--  <p><code>l = list:new{...}</code>
+--  <p><code>for v in l:each() do print(v()) end</code></p>
 --  @return Iterator function.
 function list:each ()
   local node = self.head
@@ -145,7 +148,7 @@ function list:each ()
     if not node then return end
     local value = node[1]
     node = node[2]
-    return value
+    return function () return value end
   end
 end
 
