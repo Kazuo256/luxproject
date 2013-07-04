@@ -18,12 +18,12 @@ assert(l.tail[3][3][1] == 1)
 
 l = list:new{}
 l:push_front(1,2,3)
-assert(l.head[1] == 3)
+assert(l.head[1] == 1)
 assert(l.head[2][1] == 2)
-assert(l.head[2][2][1] == 1)
-assert(l.tail[1] == 1)
+assert(l.head[2][2][1] == 3)
+assert(l.tail[1] == 3)
 assert(l.tail[3][1] == 2)
-assert(l.tail[3][3][1] == 3)
+assert(l.tail[3][3][1] == 1)
 
 --[[ constructor ]]--
 
@@ -60,4 +60,11 @@ assert(l.tail[3][3][1] == 1)
 l = list:new{1,2,3}
 assert(l:front() == 1)
 assert(l:back() == 3)
+
+--[[ list:pop_back ]]--
+
+l = list:new{1,2,3}
+assert(l:pop_back(1) == 3)
+a,b = l:pop_back(2)
+assert(a == 1 and b == 2)
 

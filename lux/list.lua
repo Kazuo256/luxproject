@@ -38,9 +38,7 @@ list = object.new {
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
 function list:__init ()
-  for _,v in ipairs(self) do
-    self:push_back(v)
-  end
+  self:push_back(unpack(self))
 end
 
 --- Tells if the list is empty.
@@ -74,18 +72,19 @@ end
 --- Pushes elements at the begining of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself
-function list:push_front (value, ...)
-  if not value then return self end
-  local new_node = { value, self.head, nil }
-  if self.head then
-    self.head[3] = new_node
+function list:push_front (...)
+  local new_front = list:new{...}
+  if not new_front:empty() then
+    new_front.tail[2] = self.head
+    if self:empty() then
+      self.tail = new_front.tail
+    else
+      self.head[3] = new_front.tail
+    end
+    self.head = new_front.head
   end
-  self.head = new_node
-  if not self.tail then
-    self.tail = self.head
-  end
-  self.n = self.n+1
-  return self:push_front(...)
+  self.n = self.n+new_front.n
+  return self
 end
 
 --- Gives the first element of the list.
@@ -102,8 +101,19 @@ end
 
 --- Pops elements from the end of the list.
 --  @param  n Number of elements to pop.
+--  @param  ... For internal use.
 --  @return The popped elemnts.
-function list:pop_back()
-  
+function list:pop_back(n, ...)
+  if not n then n = 1 end
+  if n <= 0 or self:empty() then return ... end
+  local popped = self.tail
+  if self.tail[3] then
+    self.tail[3][2] = nil
+  else
+    self.head = nil
+  end
+  self.tail = popped[3]
+  self.n = self.n-1
+  return self:pop_back(n-1, popped[1], ...)
 end
 
