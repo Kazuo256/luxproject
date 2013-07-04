@@ -75,3 +75,12 @@ assert(l:pop_front(1) == 1)
 a,b = l:pop_front(2)
 assert(a == 2 and b == 3)
 
+--[[ list:each ]]--
+
+l = list:new{1,2,3}
+local i = 1
+for v in l:each() do
+  assert(v == i)
+  i = i+1
+end
+

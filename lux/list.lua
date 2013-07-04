@@ -137,3 +137,15 @@ function list:pop_front (n, t)
   return self:pop_front(n-1, t)
 end
 
+--- Iterate through the list.
+--  @return Iterator function.
+function list:each ()
+  local node = self.head
+  return function ()
+    if not node then return end
+    local value = node[1]
+    node = node[2]
+    return value
+  end
+end
+
