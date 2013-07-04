@@ -35,6 +35,14 @@ list = object.new {
   n     = 0
 }
 
+--- The list's constructor may take a sequence of values to initialize the list
+--  with.
+function list:__init ()
+  for _,v in ipairs(self) do
+    self:push_back(v)
+  end
+end
+
 --- Tells if the list is empty.
 --  @return True if and only if the list is empty.
 function list:empty ()
