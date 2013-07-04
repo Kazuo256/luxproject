@@ -58,8 +58,9 @@ end
 --- Pushes elements at the end of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself.
-function list:push_back (value, next_value, ...)
-  local new_node = { value, nil }
+function list:push_back (value, ...)
+  if not value then return self end
+  local new_node = { value, nil, self.tail }
   if self:empty() then
     self.head = new_node
   else
@@ -67,27 +68,24 @@ function list:push_back (value, next_value, ...)
   end
   self.tail = new_node
   self.n = self.n+1
-  if not next_value then
-    return self
-  else
-    return self:push_back(next_value, ...)
-  end
+  return self:push_back(...)
 end
 
 --- Pushes elements at the begining of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself
-function list:push_front (value, next_value, ...)
-  self.head = { value, self.head }
+function list:push_front (value, ...)
+  if not value then return self end
+  local new_node = { value, self.head, nil }
+  if self.head then
+    self.head[3] = new_node
+  end
+  self.head = new_node
   if not self.tail then
     self.tail = self.head
   end
   self.n = self.n+1
-  if not next_value then
-    return self
-  else
-    return self:push_front(next_value, ...)
-  end
+  return self:push_front(...)
 end
 
 --- Gives the first element of the list.
@@ -100,5 +98,12 @@ end
 --  @return The last element of the list.
 function list:back ()
   return self.tail and self.tail[1]
+end
+
+--- Pops elements from the end of the list.
+--  @param  n Number of elements to pop.
+--  @return The popped elemnts.
+function list:pop_back()
+  
 end
 
