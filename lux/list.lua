@@ -103,8 +103,8 @@ end
 --  @param  n Number of elements to pop.
 --  @param  ... For internal use.
 --  @return The popped elemnts.
-function list:pop_back(n, ...)
-  if not n then n = 1 end
+function list:pop_back (n, ...)
+  n = n or 1
   if n <= 0 or self:empty() then return ... end
   local popped = self.tail
   if self.tail[3] then
@@ -115,5 +115,25 @@ function list:pop_back(n, ...)
   self.tail = popped[3]
   self.n = self.n-1
   return self:pop_back(n-1, popped[1], ...)
+end
+
+--- Pops elements from the the begining of the list.
+--  @param  n Number of elements to pop.
+--  @param  t For internal use.
+--  @return The popped elements.
+function list:pop_front (n, t)
+  n = n or 1
+  t = t or {}
+  if n <= 0 or self:empty() then return unpack(t) end
+  local popped = self.head
+  if self.head[2] then
+    self.head[2][3] = nil
+  else
+    self.tail = nil
+  end
+  self.head = popped[2]
+  self.n = self.n-1
+  table.insert(t, popped[1])
+  return self:pop_front(n-1, t)
 end
 
