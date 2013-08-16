@@ -65,14 +65,14 @@ end
 function test_pop_back ()
   l = list:new{1,2,3}
   assert(l:pop_back(1) == 3)
-  a,b = l:pop_back(2)
+  local a,b = l:pop_back(2)
   assert(a == 1 and b == 2, tostring(a)..","..tostring(b))
 end
 
 function test_pop_front ()
   l = list:new{1,2,3}
   assert(l:pop_front(1) == 1)
-  a,b = l:pop_front(2)
+  local a,b = l:pop_front(2)
   assert(a == 2 and b == 3, tostring(a)..","..tostring(b))
 end
 
