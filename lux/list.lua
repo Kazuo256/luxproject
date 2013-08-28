@@ -37,7 +37,7 @@ list = object.new {
 
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
-function list:__init ()
+function list:__construct ()
   self:push_back(unpack(self))
 end
 
