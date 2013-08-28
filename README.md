@@ -1,11 +1,10 @@
 
-================================================================================
-:::: Lua Utility eXtension Project by Kazuo256 :::::::::::::::::::::::::::::::::::::::::::::::
-================================================================================
+Lua Utility eXtension Project
+=============================
 
 This document is still a stub.
 
-I. Description:
+1. Description:
 
     Lua Utility eXtension (LUX) is a project whose objective is to make some
   extension facilities to the programming language Lua. It is written in Lua
@@ -22,9 +21,9 @@ I. Description:
     New extensions may appear on the future, as I learn more and think up new
   ideas ;).
 
-II. Usage notes:
+2. Usage notes:
 
-    1)  The Lua module itself is named as "lux", so import it with
+    1.  The Lua module itself is named as "lux", so import it with
 
           require "lux.object"
 
