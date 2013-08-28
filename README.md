@@ -30,7 +30,7 @@ This document is still a stub.
     The Lua module itself is named as "lux", so import it with
 
     ```lua
-    require "lux.object"
+    require 'lux.object'
     ```
 
     for instance.
