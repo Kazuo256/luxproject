@@ -28,7 +28,7 @@ module 'lux.info'
 
 local major = 0
 local minor = 4
-local patch = 0
+local patch = 1
 
 --- LUX's version.
 -- @return A string with the current LUX version.
