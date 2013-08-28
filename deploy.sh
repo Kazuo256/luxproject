@@ -20,5 +20,19 @@ then
   mkdir $1/lux
 fi
 
-cp -v lux/*.lua lux/externals/*.lua lux/geom/*.lua $1/lux
+cp -v lux/*.lua $1/lux
+
+if [ ! -d $1/lux/geom ]
+then
+  mkdir $1/lux/geom
+fi
+
+cp lux/geom/*.lua $1/lux/geom
+
+if [ ! -d $1/lux/externals ]
+then
+  mkdir $1/lux/externals
+fi
+
+cp lux/externals/*.lua $1/lux/externals
 
