@@ -25,7 +25,8 @@ This document is still a stub.
 
 2. Usage notes:
 
-    1.The Lua module itself is named as "lux", so import it with
+  1. Importing LUX
+    The Lua module itself is named as "lux", so import it with
     ```lua
     require "lux.object"
     ```
