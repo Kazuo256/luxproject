@@ -23,16 +23,35 @@
 --
 --]]
 
---- Module containing information regarding this LUX Project distribution.
-module 'lux.info'
+--- LUX's testing module.
+module ('lux.test', package.seeall)
 
-local major = 0
-local minor = 4
-local patch = 0
+local term = require 'lux.terminal'
 
---- LUX's version.
--- @return A string with the current LUX version.
-function version ()
-  return major..'.'..minor..'.'..patch
+--- Runs an unit test.
+function unit (unit_name)
+  local tests = {}
+  local test_mttab = { __newindex = tests, __index = getfenv(0) }
+  local script, err = loadfile(unit_name.."-test.lua")
+  unit_name = string.gsub(unit_name, "/", ".")
+  if not script then
+    print(err)
+  end
+  setfenv(script, setmetatable({}, test_mttab)) ()
+  local before = tests.before or function () end
+  for key,case in pairs(tests) do
+    local name = string.match(key, "^test_([%w_]+)$")
+    if type(case) == 'function' and name then
+      before()
+      local check, err = pcall(case)
+      if check then
+        term.write("<bright><green>[Success]<clear> ")
+      else
+        term.write("<bright><red>[Failure]<clear> ")
+      end
+      term.write("<bright>"..unit_name.."."..name.."<clear>\n")
+      if err then term.line(err) end
+    end
+  end
 end
 
