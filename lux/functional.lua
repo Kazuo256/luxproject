@@ -96,5 +96,22 @@ module ("lux.functional", package.seeall) do
     end
   end
 
+  local function do_reverse (r, a, ...)
+    if not a and select('#', ...) == 0 then
+      return r()
+    end
+    local function aux ()
+      return a, r()
+    end
+    return do_reverse(aux, ...)
+  end
+
+  --- Reverses the order of the arguments.
+  -- @param ... Arbitrary arguments.
+  -- @return The arguments in reversed order.
+  function reverse (...)
+    return do_reverse(function () end, ...)
+  end
+
 end
 
