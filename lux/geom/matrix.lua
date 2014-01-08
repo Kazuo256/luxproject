@@ -1,4 +1,4 @@
---[[
+  --[[
 --
 -- Copyright (c) 2013 Wilson Kazuo Mizutani
 --
@@ -26,7 +26,7 @@
 module ('lux.geom', package.seeall)
 
 require 'lux.object'
-require 'lux.geom.vec'
+require 'lux.geom.vector'
 
 matrix = lux.object.new {
   __type = "matrix",
@@ -40,9 +40,9 @@ matrix = lux.object.new {
 function matrix:__init ()
   for i = 1,4 do
     if self[i] then
-      self[i] = vec:new(self[i])
+      self[i] = vector:new(self[i])
     else
-      self[i] = vec.axis(i)
+      self[i] = vector.axis(i)
     end
   end
 end
@@ -80,7 +80,7 @@ function matrix.__mul (lhs, rhs)
   elseif rhs.__type == "vector" then
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
   elseif lhs.__type == "vector" then
-    return vec:new {lhs*rhs[1], lhs*rhs[2], lhs*rhs[3], lhs*rhs[4]}
+    return vector:new {lhs*rhs[1], lhs*rhs[2], lhs*rhs[3], lhs*rhs[4]}
   else -- assume both are matrices
     return matrix:new {
       lhs*rhs[1],
