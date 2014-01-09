@@ -25,30 +25,28 @@
 
 --- LUX's common module.
 -- Here a collection of general-purpose functions are available.
-module ("lux.common", package.seeall) do
+module ("lux", package.seeall)
 
-  --- Prints all key-value pairs of the given table to the standard output.
-  --  @param t The table whose field are to be listed.
-  function ls (t)
-    table.foreach(t, print)
-  end
+--- Prints all key-value pairs of the given table to the standard output.
+--  @param t The table whose field are to be listed.
+function ls (t)
+  table.foreach(t, print)
+end
 
-  --- Reads a Lua script as a data file.
-  --  Makes and returns a table containing everything that was created in the
-  --  global scope of that script.
-  --  @param path   The path to the data file.
-  --  @param loader The function used to load the file. Default is Lua's <code>
-  --                load</code> function.
-  --  @return       The table representing the data file.
-  function datafile (path, loader)
-    loader = loader or load
-    local file = loader(path)
-    local data = {}
-    package.seeall(data)
-    setfenv(file, data) ()
-    setmetatable(data, nil)
-    return data
-  end
-  
+--- Reads a Lua script as a data file.
+--  Makes and returns a table containing everything that was created in the
+--  global scope of that script.
+--  @param path   The path to the data file.
+--  @param loader The function used to load the file. Default is Lua's <code>
+--                load</code> function.
+--  @return       The table representing the data file.
+function datafile (path, loader)
+  loader = loader or load
+  local file = loader(path)
+  local data = {}
+  package.seeall(data)
+  setfenv(file, data) ()
+  setmetatable(data, nil)
+  return data
 end
 
