@@ -32,8 +32,8 @@ local term = require 'lux.terminal'
 function unit (unit_name)
   local tests = {}
   local test_mttab = { __newindex = tests, __index = getfenv(0) }
-  local script, err = loadfile(unit_name.."-test.lua")
-  unit_name = string.gsub(unit_name, "/", ".")
+  local unit_script = "test/units/"..string.gsub(unit_name, "%.", "/")..".lua"
+  local script, err = loadfile(unit_script)
   if not script then
     print(err)
   end

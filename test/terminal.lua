@@ -1,4 +1,6 @@
 
+package.path = package.path..";./lib/?.lua"
+
 local _write = io.write
 local color = require "lux.externals.ansicolors"
 

@@ -1,4 +1,6 @@
 
+package.path = package.path..";./lib/?.lua"
+
 local object = require "lux.object"
 
 local function show (t, name)
