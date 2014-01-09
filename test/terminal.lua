@@ -2,7 +2,7 @@
 package.path = package.path..";./lib/?.lua"
 
 local _write = io.write
-local color = require "lux.externals.ansicolors"
+local color = require "ansicolors"
 
 local checks = { head = 1, tail = 1 }
 

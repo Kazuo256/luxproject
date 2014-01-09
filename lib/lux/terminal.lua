@@ -72,7 +72,7 @@
 --
 module ("lux.terminal", package.seeall)
 
-local color     = require "lux.externals.ansicolors"
+local color     = require "ansicolors"
 local tostring  = tostring
 local gsub      = string.gsub
 local io        = io
