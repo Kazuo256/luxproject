@@ -43,7 +43,7 @@ end
 function Processor:handleDirective (mod, code)
   if mod == '=' then
     return [[output = output .. (]] .. code .. ")\n"
-  elseif mod == '' then
+  elseif mod == ':' then
     return code.."\n"
   end
   return ''
@@ -52,10 +52,14 @@ end
 function Processor:processString (str)
   local env = makeDirectiveEnvironment()
   local code = [[local output = ""]].."\n"
-  for input, mod, directive in str:gmatch("(.-)"..self.config.directive) do
+  local count = 1
+  for input, mod, directive, tail in str:gmatch("(.-)"..self.config.directive) do
+    assert(tail == "\n" or tail == mod.."$")
     code = code .. [[output = output .. ]] .. "[[\n" .. input .. "]]\n"
     code = code .. self:handleDirective(mod, directive)
+    count = count + #input + 1 + #mod + #directive + #tail
   end
+  code = code .. [[output = output .. ]] .. "[[\n" .. str:sub(count) .. "]]\n"
   code = code .. [[return output]] .. "\n"
   return assert(loadstring(code)) ()
 end
