@@ -23,17 +23,17 @@
 --
 --]]
 
---- This class process files using a macro configuration.
+--- This class process files using a macro specification.
 module ('lux.macro', package.seeall)
 
 require 'lux.object'
 require 'lux.functional'
-require 'lux.macro.Configuration'
+require 'lux.macro.Specification'
 
 Processor = lux.object.new {}
 
 Processor.__init = {
-  config = Configuration:new{}
+  spec = Specification:new{}
 }
 
 local function makeDirectiveEnvironment ()
@@ -50,17 +50,15 @@ function Processor:handleDirective (mod, code)
 end
 
 function Processor:processString (str)
-  local env = makeDirectiveEnvironment()
   local code = [[local output = ""]].."\n"
   local count = 1
-  for input, mod, directive, tail in str:gmatch("(.-)"..self.config.directive) do
-    assert(tail == "\n" or tail == mod.."$")
+  for input, mod, directive, step in self.spec:iterateDirectives(str) do
     code = code .. [[output = output .. ]] .. "[[\n" .. input .. "]]\n"
     code = code .. self:handleDirective(mod, directive)
-    count = count + #input + 1 + #mod + #directive + #tail
+    count = count + step
   end
   code = code .. [[output = output .. ]] .. "[[\n" .. str:sub(count) .. "]]\n"
   code = code .. [[return output]] .. "\n"
-  return assert(loadstring(code)) ()
+  return setfenv(assert(loadstring(code)), makeDirectiveEnvironment()) ()
 end
 

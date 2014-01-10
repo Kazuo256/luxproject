@@ -27,8 +27,19 @@
 module ('lux.macro', package.seeall)
 
 require 'lux.object'
+require 'lux.functional'
 
-Configuration = lux.object.new {
-  directive = "%$(%p)(.-)(%p?[%$\n])"
-}
+Specification = lux.object.new {}
+
+local function directiveIterator (str)
+  local yield = coroutine.yield
+  for input, mod, directive, tail in str:gmatch "(.-)%$(%p)(.-)(%p?[%$\n])" do
+    assert(tail == "\n" or tail == mod.."$")
+    yield(input, mod, directive, #input + 1 + #mod + #directive + #tail)
+  end
+end
+
+function Specification:iterateDirectives (str)
+  return coroutine.wrap(lux.functional.bindleft(directiveIterator, str))
+end
 
