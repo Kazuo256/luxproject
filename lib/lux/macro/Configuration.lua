@@ -29,8 +29,6 @@ module ('lux.macro', package.seeall)
 require 'lux.object'
 
 Configuration = lux.object.new {
-  open_directive = '%$',
-  close_directive = '%$',
-  output_directive = '='
+  directive = "%$(%p?)(.-)%$\n?"
 }
 

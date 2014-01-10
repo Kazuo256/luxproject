@@ -40,18 +40,23 @@ local function makeDirectiveEnvironment ()
   return setmetatable({}, { __index = getfenv(0) })
 end
 
-function Processor:handleDirective (env, str)
-  local chunk = assert(loadstring(str))
-  setfenv(chunk, env) ()
+function Processor:handleDirective (mod, code)
+  if mod == '=' then
+    return [[output = output .. (]] .. code .. ")\n"
+  elseif mod == '' then
+    return code.."\n"
+  end
   return ''
 end
 
 function Processor:processString (str)
   local env = makeDirectiveEnvironment()
-  return string.gsub(
-    str,
-    self.config.open_directive..'(.-)'..self.config.close_directive,
-    lux.functional.bindleft(self.handleDirective, self, env)
-  )
+  local code = [[local output = ""]].."\n"
+  for input, mod, directive in str:gmatch("(.-)"..self.config.directive) do
+    code = code .. [[output = output .. ]] .. "[[\n" .. input .. "]]\n"
+    code = code .. self:handleDirective(mod, directive)
+  end
+  code = code .. [[return output]] .. "\n"
+  return assert(loadstring(code)) ()
 end
 
