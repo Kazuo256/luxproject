@@ -36,29 +36,29 @@ Processor.__init = {
   spec = Specification:new{}
 }
 
-local function makeDirectiveEnvironment ()
-  return setmetatable({}, { __index = getfenv(0) })
+local function makeDirectiveEnvironment (outstream)
+  return setmetatable({ output = outstream }, { __index = getfenv(0) })
 end
 
 function Processor:handleDirective (mod, code)
   if mod == '=' then
-    return [[output = output .. (]] .. code .. ")\n"
+    return [[output:send(]] .. code .. ")\n"
   elseif mod == ':' then
     return code.."\n"
   end
   return ''
 end
 
-function Processor:processString (str)
-  local code = [[local output = ""]].."\n"
+function Processor:process (instream, outstream)
+  local code = [[assert(output)]].."\n"
   local count = 1
+  local str = instream:receive "*a"
   for input, mod, directive, step in self.spec:iterateDirectives(str) do
-    code = code .. [[output = output .. ]] .. "[[\n" .. input .. "]]\n"
+    code = code .. [[output:send ]] .. "[[\n" .. input .. "]]\n"
     code = code .. self:handleDirective(mod, directive)
     count = count + step
   end
-  code = code .. [[output = output .. ]] .. "[[\n" .. str:sub(count) .. "]]\n"
-  code = code .. [[return output]] .. "\n"
-  return setfenv(assert(loadstring(code)), makeDirectiveEnvironment()) ()
+  code = code .. [[output:send ]] .. "[[\n" .. str:sub(count) .. "]]\n"
+  setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream)) ()
 end
 
