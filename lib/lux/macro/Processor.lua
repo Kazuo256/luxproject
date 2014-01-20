@@ -45,6 +45,8 @@ function Processor:handleDirective (mod, code)
     return [[output:send(]] .. code .. ")\n"
   elseif mod == ':' then
     return code.."\n"
+  elseif mod == '|' then
+    return "output:send('[[' .. " .. code .. " .. ']]')\n"
   end
   return ''
 end

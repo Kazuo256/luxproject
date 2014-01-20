@@ -66,6 +66,14 @@ $: end
 ****
 *****
 ]]
+  },
+  {
+    name = "single_stringdump",
+    input = [[
+x = $|"a".."b"|$
+]],
+    output =
+"x = [[ab]]\n"
   }
 }
 
