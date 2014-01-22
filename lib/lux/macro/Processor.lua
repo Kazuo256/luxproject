@@ -33,11 +33,19 @@ require 'lux.macro.Specification'
 Processor = lux.object.new {}
 
 Processor.__init = {
-  spec = Specification:new{}
+  spec = Specification:new {}
 }
 
+local generator_env = {}
+
+function generator_env.mq (str)
+  return "[[" .. str .. "]]"
+end
+
 local function makeDirectiveEnvironment (outstream)
-  return setmetatable({ output = outstream }, { __index = getfenv(0) })
+  local env = lux.object.clone(generator_env)
+  env.output = outstream
+  return setmetatable(env, { __index = getfenv(0) })
 end
 
 function Processor:handleDirective (mod, code)

@@ -74,6 +74,14 @@ x = $|"a".."b"|$
 ]],
     output =
 "x = [[ab]]\n"
+  },
+  {
+    name = "single_stringquote",
+    input = [[
+x = $=mq("a".."b")=$
+]],
+    output =
+"x = [[ab]]\n"
   }
 }
 
