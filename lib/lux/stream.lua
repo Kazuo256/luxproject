@@ -72,7 +72,7 @@ function File:__construct ()
 end
 
 function File:send (data)
-  self.file:write(data)
+  self.file:write(tostring(data))
 end
 
 function File:receive (quantity)
