@@ -34,13 +34,13 @@ module ("lux.object", package.seeall) do
 
   --- Local instance of the base object.
   local base_object = {}
-  
+
   --- Returns the representation of the nil object.
   -- @return An object reference to the nil object.
   function nilref()
     return nilref_
   end
-  
+
   -- Recursive initialization.
   local function init (obj, super)
     if not super then return end
@@ -60,7 +60,7 @@ module ("lux.object", package.seeall) do
       end
     end
   end
-  
+
   --- Creates a new object from a prototype.
   -- If the self object has an <code>__init</code> field as a function, it will
   -- be applied to the new object. If it has an <code>__init</code> field as a
@@ -95,7 +95,7 @@ module ("lux.object", package.seeall) do
   function clone (obj)
     return base_object.clone(obj)
   end
-  
+
   --- Returns the super class of an object.
   -- @return The super class of an object.
   function base_object:__super ()
