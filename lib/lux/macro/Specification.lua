@@ -26,10 +26,10 @@
 --- This class represents a macro configuration.
 module ('lux.macro', package.seeall)
 
-require 'lux.object'
+require 'lux.Object'
 require 'lux.functional'
 
-Specification = lux.object.new {}
+Specification = lux.Object:new {}
 
 local function directiveIterator (str)
   local yield = coroutine.yield

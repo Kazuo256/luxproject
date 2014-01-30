@@ -27,9 +27,9 @@
 --  This is a linked list implementation in Lua.
 module ('lux', package.seeall)
 
-local object = require 'lux.object'
+require 'lux.Object'
 
-list = object.new {
+list = Object:new {
   head  = nil,
   tail  = nil,
   n     = 0
