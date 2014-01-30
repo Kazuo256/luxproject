@@ -52,11 +52,12 @@ local function init (obj, super)
 end
 
 --- Creates a new object from a prototype.
--- If the self object has an <code>__construct</code> field as a function, it
--- will be applied to the new object. If it has an <code>__init</code> field as
--- a table, its contents will be cloned into the new object.
--- @param prototype A table containing the object's methods and the default
---                  values of its attributes.
+--  If the self object has an <code>__construct</code> field as a function, it
+--  will be applied to the new object. If it has an <code>__init</code> field as
+--  a table, its contents will be cloned into the new object.
+--  @param prototype
+--    A table containing the object's methods and the default values of its
+--    attributes.
 function Object:new (prototype)
   prototype = prototype or {}
   self.__index = rawget(self, "__index") or self
@@ -65,8 +66,24 @@ function Object:new (prototype)
   return prototype;
 end
 
+--- Returns the super class of an object.
+--  @return The super class of an object.
+function Object:__super ()
+  return getmetatable(self)
+end
+
+--- Binds a method call.
+--  @param method_name
+--    The name of the method to be bound.
+--  @return A function binding a call to the given method.
+function Object:__bind (method_name)
+  return function (...)
+    return self[method_name](self, ...)
+  end
+end
+
 --- Clones the object.
--- @return A clone of this object.
+--  @return A clone of this object.
 function Object:clone ()
   if type(self) ~= "table" then return self end
   local cloned = {}
@@ -75,12 +92,6 @@ function Object:clone ()
   end
   local super = Object.__super(self)
   return super and super.new and super:new(cloned) or cloned
-end
-
---- Returns the super class of an object.
--- @return The super class of an object.
-function Object:__super ()
-  return getmetatable(self)
 end
 
 return Object

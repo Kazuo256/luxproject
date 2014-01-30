@@ -108,3 +108,16 @@ function test_clone ()
   assert(clone.x ~= obj.x)
   assert(clone.x == 20)
 end
+
+function test_bind ()
+  local check = 0
+  function obj:someMethod ()
+    check = check + 1
+  end
+  local bind = obj:__bind 'someMethod'
+  assert(check == 0)
+  bind()
+  assert(check == 1)
+  bind()
+  assert(check == 2)
+end
