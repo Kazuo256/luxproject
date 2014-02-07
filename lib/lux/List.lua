@@ -38,7 +38,7 @@ List = Object:new {
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
 function List:__construct ()
-  self:push_back(unpack(self))
+  self:pushBack(unpack(self))
 end
 
 --- Tells if the list is empty.
@@ -56,7 +56,7 @@ end
 --- Pushes elements at the end of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself.
-function List:push_back (value, ...)
+function List:pushBack (value, ...)
   if not value then return self end
   local new_node = { value, nil, self.tail }
   if self:empty() then
@@ -66,13 +66,13 @@ function List:push_back (value, ...)
   end
   self.tail = new_node
   self.n = self.n+1
-  return self:push_back(...)
+  return self:pushBack(...)
 end
 
 --- Pushes elements at the begining of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself
-function List:push_front (...)
+function List:pushFront (...)
   local new_front = List:new{...}
   if not new_front:empty() then
     new_front.tail[2] = self.head
@@ -103,7 +103,7 @@ end
 --  @param  n Number of elements to pop.
 --  @param  ... For internal use.
 --  @return The popped elemnts.
-function List:pop_back (n, ...)
+function List:popBack (n, ...)
   n = n or 1
   if n <= 0 or self:empty() then return ... end
   local popped = self.tail
@@ -114,14 +114,14 @@ function List:pop_back (n, ...)
   end
   self.tail = popped[3]
   self.n = self.n-1
-  return self:pop_back(n-1, popped[1], ...)
+  return self:popBack(n-1, popped[1], ...)
 end
 
 --- Pops elements from the the begining of the list.
 --  @param  n Number of elements to pop.
 --  @param  t For internal use.
 --  @return The popped elements.
-function List:pop_front (n, t)
+function List:popFront (n, t)
   n = n or 1
   t = t or {}
   if n <= 0 or self:empty() then return unpack(t) end
@@ -134,7 +134,7 @@ function List:pop_front (n, t)
   self.head = popped[2]
   self.n = self.n-1
   table.insert(t, popped[1])
-  return self:pop_front(n-1, t)
+  return self:popFront(n-1, t)
 end
 
 --- Iterate through the list.
