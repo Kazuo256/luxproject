@@ -23,13 +23,13 @@
 --
 --]]
 
-require 'lux.list'
+require 'lux.List'
 
-local list = lux.list
+local List = lux.List
 local l
 
 function before ()
-  l = list:new{}
+  l = List:new{}
 end
 
 function test_push_back ()
@@ -53,7 +53,7 @@ function test_push_front ()
 end
 
 function test_constructor ()
-  l = list:new{1,2,3}
+  l = List:new{1,2,3}
   assert(l.head[1] == 1)
   assert(l.head[2][1] == 2)
   assert(l.head[2][2][1] == 3)
@@ -81,27 +81,27 @@ function test_size ()
 end
 
 function test_front_and_back ()
-  l = list:new{1,2,3}
+  l = List:new{1,2,3}
   assert(l:front() == 1)
   assert(l:back() == 3)
 end
 
 function test_pop_back ()
-  l = list:new{1,2,3}
+  l = List:new{1,2,3}
   assert(l:pop_back(1) == 3)
   local a,b = l:pop_back(2)
   assert(a == 1 and b == 2, tostring(a)..","..tostring(b))
 end
 
 function test_pop_front ()
-  l = list:new{1,2,3}
+  l = List:new{1,2,3}
   assert(l:pop_front(1) == 1)
   local a,b = l:pop_front(2)
   assert(a == 2 and b == 3, tostring(a)..","..tostring(b))
 end
 
 function test_each ()
-  l = list:new{1,2,nil,4}
+  l = List:new{1,2,nil,4}
   local i = 1
   local t = {1,2,nil,4}
   for v in l:each() do
