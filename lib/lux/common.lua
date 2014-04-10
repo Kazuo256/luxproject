@@ -40,7 +40,7 @@ end
 --  @param loader The function used to load the file. Default is Lua's <code>
 --                load</code> function.
 --  @return       The table representing the data file.
-function datafile (path, loader)
+function loadDataFile (path, loader)
   loader = loader or load
   local file = loader(path)
   local data = {}
