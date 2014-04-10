@@ -158,3 +158,5 @@ function Vector:unpack ()
   return self[1], self[2], self[3], self[4]
 end
 
+return Vector
+

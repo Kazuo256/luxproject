@@ -95,3 +95,4 @@ function Object:clone ()
 end
 
 return Object
+

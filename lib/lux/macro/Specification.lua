@@ -43,3 +43,5 @@ function Specification:iterateDirectives (str)
   return coroutine.wrap(lux.functional.bindleft(directiveIterator, str))
 end
 
+return Specification
+

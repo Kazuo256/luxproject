@@ -79,3 +79,7 @@ function File:receive (quantity)
   return self.file:read(quantity)
 end
 
+--------------------------------------------------------------------------------
+
+return lux.stream
+

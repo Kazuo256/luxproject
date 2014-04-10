@@ -72,3 +72,5 @@ function Processor:process (instream, outstream)
   setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream)) ()
 end
 
+return Processor
+

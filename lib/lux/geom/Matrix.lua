@@ -91,3 +91,5 @@ function Matrix.__mul (lhs, rhs)
   end
 end
 
+return Matrix
+
