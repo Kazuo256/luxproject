@@ -77,7 +77,7 @@ local tostring  = tostring
 local gsub      = string.gsub
 local io        = io
 
-local function format_color (str)
+local function formatColor (str)
   return gsub(
     str,
     "<(%a+)>",
@@ -98,7 +98,7 @@ end
 -- @param text A string possibly containing color tags.
 function write (text)
   -- used to throw out extra returned values
-  local output = format_color(text)
+  local output = formatColor(text)
   io.write(output)
 end
 
