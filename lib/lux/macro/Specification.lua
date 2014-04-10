@@ -40,7 +40,7 @@ local function directiveIterator (str)
 end
 
 function Specification:iterateDirectives (str)
-  return coroutine.wrap(lux.functional.bindleft(directiveIterator, str))
+  return coroutine.wrap(lux.functional.bindLeft(directiveIterator, str))
 end
 
 return Specification
