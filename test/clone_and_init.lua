@@ -1,7 +1,7 @@
 
 package.path = package.path..";./lib/?.lua"
 
-local object = require "lux.object"
+local Object = require "lux.Object"
 
 local function show (t, name)
   print("Dumping "..tostring(t).." ("..name..")")
@@ -12,7 +12,7 @@ local function dump (name)
   show(_G[name], name)
 end
 
-A = object.new { x = 20 }
+A = Object.new { x = 20 }
 dump "A"
 
 A2 = A:clone()

@@ -26,10 +26,10 @@
 --- This class represents a macro configuration.
 module ('lux.macro', package.seeall)
 
-require 'lux.object'
+require 'lux.Object'
 require 'lux.functional'
 
-Specification = lux.object.new {}
+Specification = lux.Object:new {}
 
 local function directiveIterator (str)
   local yield = coroutine.yield
@@ -40,6 +40,8 @@ local function directiveIterator (str)
 end
 
 function Specification:iterateDirectives (str)
-  return coroutine.wrap(lux.functional.bindleft(directiveIterator, str))
+  return coroutine.wrap(lux.functional.bindLeft(directiveIterator, str))
 end
+
+return Specification
 

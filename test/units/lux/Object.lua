@@ -23,14 +23,21 @@
 --
 --]]
 
-require 'lux.object'
+require 'lux.Object'
 
 local obj
 
 function before ()
-  obj = lux.object.new {
+  obj = lux.Object:new {
     x = 20
   }
+end
+
+function test_new_with_attribute ()
+  local the_obj = lux.Object:new {
+    y = 30
+  }
+  assert(the_obj.y == 30)
 end
 
 function test_default_attribute ()
@@ -94,3 +101,23 @@ function test_construct_override ()
   assert(grandchild.y[1] == 30)
 end
 
+function test_clone ()
+  local clone = obj:clone()
+  assert(clone.x == obj.x)
+  obj.x = 5
+  assert(clone.x ~= obj.x)
+  assert(clone.x == 20)
+end
+
+function test_bind ()
+  local check = 0
+  function obj:someMethod ()
+    check = check + 1
+  end
+  local bind = obj:__bind 'someMethod'
+  assert(check == 0)
+  bind()
+  assert(check == 1)
+  bind()
+  assert(check == 2)
+end

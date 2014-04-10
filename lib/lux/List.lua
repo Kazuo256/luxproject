@@ -27,9 +27,9 @@
 --  This is a linked list implementation in Lua.
 module ('lux', package.seeall)
 
-local object = require 'lux.object'
+require 'lux.Object'
 
-list = object.new {
+List = Object:new {
   head  = nil,
   tail  = nil,
   n     = 0
@@ -37,26 +37,26 @@ list = object.new {
 
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
-function list:__construct ()
-  self:push_back(unpack(self))
+function List:__construct ()
+  self:pushBack(unpack(self))
 end
 
 --- Tells if the list is empty.
 --  @return True if and only if the list is empty.
-function list:empty ()
+function List:empty ()
   return self.n <= 0
 end
 
 --- Tells the size of the list.
 --  @return The number of elements in the list.
-function list:size ()
+function List:size ()
   return self.n
 end
 
 --- Pushes elements at the end of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself.
-function list:push_back (value, ...)
+function List:pushBack (value, ...)
   if not value then return self end
   local new_node = { value, nil, self.tail }
   if self:empty() then
@@ -66,14 +66,14 @@ function list:push_back (value, ...)
   end
   self.tail = new_node
   self.n = self.n+1
-  return self:push_back(...)
+  return self:pushBack(...)
 end
 
 --- Pushes elements at the begining of the list.
 --  @param  ... Elements to be pushed.
 --  @return The list itself
-function list:push_front (...)
-  local new_front = list:new{...}
+function List:pushFront (...)
+  local new_front = List:new{...}
   if not new_front:empty() then
     new_front.tail[2] = self.head
     if self:empty() then
@@ -89,13 +89,13 @@ end
 
 --- Gives the first element of the list.
 --  @return The first element of the list.
-function list:front ()
+function List:front ()
   return self.head and self.head[1]
 end
 
 --- Gives the last element of the list.
 --  @return The last element of the list.
-function list:back ()
+function List:back ()
   return self.tail and self.tail[1]
 end
 
@@ -103,7 +103,7 @@ end
 --  @param  n Number of elements to pop.
 --  @param  ... For internal use.
 --  @return The popped elemnts.
-function list:pop_back (n, ...)
+function List:popBack (n, ...)
   n = n or 1
   if n <= 0 or self:empty() then return ... end
   local popped = self.tail
@@ -114,14 +114,14 @@ function list:pop_back (n, ...)
   end
   self.tail = popped[3]
   self.n = self.n-1
-  return self:pop_back(n-1, popped[1], ...)
+  return self:popBack(n-1, popped[1], ...)
 end
 
 --- Pops elements from the the begining of the list.
 --  @param  n Number of elements to pop.
 --  @param  t For internal use.
 --  @return The popped elements.
-function list:pop_front (n, t)
+function List:popFront (n, t)
   n = n or 1
   t = t or {}
   if n <= 0 or self:empty() then return unpack(t) end
@@ -134,7 +134,7 @@ function list:pop_front (n, t)
   self.head = popped[2]
   self.n = self.n-1
   table.insert(t, popped[1])
-  return self:pop_front(n-1, t)
+  return self:popFront(n-1, t)
 end
 
 --- Iterate through the list.
@@ -142,7 +142,7 @@ end
 --  <p><code>l = list:new{...}</code>
 --  <p><code>for v in l:each() do print(v()) end</code></p>
 --  @return Iterator function.
-function list:each ()
+function List:each ()
   local node = self.head
   return function ()
     if not node then return end
@@ -151,4 +151,6 @@ function list:each ()
     return function () return value end
   end
 end
+
+return List
 

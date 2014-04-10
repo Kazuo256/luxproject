@@ -32,7 +32,7 @@ module ("lux.functional", package.seeall) do
   -- @param arg The bound argument.
   -- @return A function that, upon being called, does the same as f, but
   --         requires only the arguments beyond the first one.
-  function bindfirst (f, arg)
+  function bindFirst (f, arg)
     local up = arg
     return function (...)
       return f(up, ...)
@@ -48,11 +48,11 @@ module ("lux.functional", package.seeall) do
   -- @return A function that, upon being called, does the same as f, but
   --         requires only the remaining right-most arguments that were not
   --         binded with it.
-  function bindleft (f, arg1, ...)
+  function bindLeft (f, arg1, ...)
     if select('#', ...) == 0 then
-      return bindfirst(f, arg1)
+      return bindFirst(f, arg1)
     else
-      return bindleft(bindfirst(f, arg1), ...)
+      return bindLeft(bindFirst(f, arg1), ...)
     end
   end
 
@@ -86,7 +86,7 @@ module ("lux.functional", package.seeall) do
       local first, second = ...
       if n >= 1 and not second then
         if first then
-          return chain(bindleft(f, first), n-1)
+          return chain(bindLeft(f, first), n-1)
         else
           return chain(f, n)
         end
@@ -96,21 +96,21 @@ module ("lux.functional", package.seeall) do
     end
   end
 
-  local function do_reverse (r, a, ...)
+  local function doReverse (r, a, ...)
     if not a and select('#', ...) == 0 then
       return r()
     end
     local function aux ()
       return a, r()
     end
-    return do_reverse(aux, ...)
+    return doReverse(aux, ...)
   end
 
   --- Reverses the order of the arguments.
   -- @param ... Arbitrary arguments.
   -- @return The arguments in reversed order.
   function reverse (...)
-    return do_reverse(function () end, ...)
+    return doReverse(function () end, ...)
   end
 
 end
