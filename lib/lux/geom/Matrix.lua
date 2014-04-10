@@ -26,10 +26,10 @@
 module ('lux.geom', package.seeall)
 
 require 'lux.object'
-require 'lux.geom.vector'
+require 'lux.geom.Vector'
 
-matrix = lux.object.new {
-  __type = "matrix",
+Matrix = lux.object.new {
+  __type = "Matrix",
   -- Matrix columns.
   [1] = nil,
   [2] = nil,
@@ -37,25 +37,25 @@ matrix = lux.object.new {
   [4] = nil
 }
 
-function matrix:__init ()
+function Matrix:__init ()
   for i = 1,4 do
     if self[i] then
-      self[i] = vector:new(self[i])
+      self[i] = Vector:new(self[i])
     else
-      self[i] = vector.axis(i)
+      self[i] = Vector.axis(i)
     end
   end
 end
 
-function matrix:__tostring ()
+function Matrix:__tostring ()
   return  "("..tostring(self[1]).."\n"..
           " "..tostring(self[2]).."\n"..
           " "..tostring(self[3]).."\n"..
           " "..tostring(self[4])..")"
 end
 
-function matrix:transpose ()
-  return matrix:new {
+function Matrix:transpose ()
+  return Matrix:new {
     { self[1][1], self[2][1], self[3][1], self[4][1] },
     { self[1][2], self[2][2], self[3][2], self[4][2] },
     { self[1][3], self[2][3], self[3][3], self[4][3] },
@@ -64,7 +64,7 @@ function matrix:transpose ()
 end
 
 local function mul_scalar (a, m)
-  return matrix:new {
+  return Matrix:new {
     a*m[1],
     a*m[2],
     a*m[3],
@@ -72,17 +72,17 @@ local function mul_scalar (a, m)
   }
 end
 
-function matrix.__mul (lhs, rhs)
+function Matrix.__mul (lhs, rhs)
   if type(lhs) == "number" then
     return mul_scalar(lhs,rhs)
   elseif type(rhs) == "number" then
     return mul_scalar(rhs, lhs)
-  elseif rhs.__type == "vector" then
+  elseif rhs.__type == "Vector" then
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
-  elseif lhs.__type == "vector" then
-    return vector:new {lhs*rhs[1], lhs*rhs[2], lhs*rhs[3], lhs*rhs[4]}
+  elseif lhs.__type == "Vector" then
+    return Vector:new {lhs*rhs[1], lhs*rhs[2], lhs*rhs[3], lhs*rhs[4]}
   else -- assume both are matrices
-    return matrix:new {
+    return Matrix:new {
       lhs*rhs[1],
       lhs*rhs[2],
       lhs*rhs[3],
