@@ -47,3 +47,16 @@ function test_reverse_7_with_nils ()
   assert(g == 1)
 end
 
+function test_expand_zero_times_hello ()
+  local a1 = lambda.expand(0, 'hello')
+  assert(a1 == nil)
+end
+
+function test_expand_3_times_hello ()
+  local a1, a2, a3, a4 = lambda.expand(3, 'hello')
+  assert(a1 == 'hello')
+  assert(a2 == 'hello')
+  assert(a3 == 'hello')
+  assert(a4 == nil)
+end
+

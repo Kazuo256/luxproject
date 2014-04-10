@@ -25,93 +25,101 @@
 
 --- LUX's functional programming module.
 -- Some functional programming tools lay around here.
-module ("lux.functional", package.seeall) do
+module ("lux.functional", package.seeall)
 
-  --- Binds a function's first parameter to the given argument.
-  -- @param f   The function being binded.
-  -- @param arg The bound argument.
-  -- @return A function that, upon being called, does the same as f, but
-  --         requires only the arguments beyond the first one.
-  function bindFirst (f, arg)
-    local up = arg
-    return function (...)
-      return f(up, ...)
-    end
+--- Binds a function's first parameter to the given argument.
+-- @param f   The function being binded.
+-- @param arg The bound argument.
+-- @return A function that, upon being called, does the same as f, but
+--         requires only the arguments beyond the first one.
+function bindFirst (f, arg)
+  local up = arg
+  return function (...)
+    return f(up, ...)
   end
+end
 
-  --- Binds a function to the given (left-most) arguments.
-  -- The arguments must be passed in the apropriate order, according to the
-  -- function's specification.
-  -- @param f     The function being binded.
-  -- @param arg1  The first bound argument.
-  -- @param ...   The remaining bound arguments, in order.
-  -- @return A function that, upon being called, does the same as f, but
-  --         requires only the remaining right-most arguments that were not
-  --         binded with it.
-  function bindLeft (f, arg1, ...)
-    if select('#', ...) == 0 then
-      return bindFirst(f, arg1)
-    else
-      return bindLeft(bindFirst(f, arg1), ...)
-    end
+--- Binds a function to the given (left-most) arguments.
+-- The arguments must be passed in the apropriate order, according to the
+-- function's specification.
+-- @param f     The function being binded.
+-- @param arg1  The first bound argument.
+-- @param ...   The remaining bound arguments, in order.
+-- @return A function that, upon being called, does the same as f, but
+--         requires only the remaining right-most arguments that were not
+--         binded with it.
+function bindLeft (f, arg1, ...)
+  if select('#', ...) == 0 then
+    return bindFirst(f, arg1)
+  else
+    return bindLeft(bindFirst(f, arg1), ...)
   end
+end
 
-  --- Creates a <code>n</code>-chained function based on <code>f</code>.
-  -- <p>
-  --  Chained functions receive their arguments in consecutive calls. For
-  --  instance, if <code>f</code> was the usual <code>print</code> and
-  --  <code>n</code> was 1, you would use the resulting function like this:
-  -- </p>
-  -- <p><code>
-  -- local result = chain(print,1)
-  -- </code></p>
-  -- <p><code>
-  -- result (arg1) (arg2, arg3, ...)
-  -- </code></p>
-  -- <p>
-  --  And if <code>n</code> was 2, then the call would be:
-  -- </p>
-  -- <p><code>
-  -- result (arg1) (arg2) (arg3, arg4, ...)
-  -- </code></p>
-  -- <p>
-  --  And so on.
-  -- </p>
-  -- @param f The function being chained.
-  -- @param n The size of the chain.
-  -- @return An <code>n</code>-chained function version of <code>f</code>.
-  function chain (f, n)
-    n = n or 1
-    return function (...)
-      local first, second = ...
-      if n >= 1 and not second then
-        if first then
-          return chain(bindLeft(f, first), n-1)
-        else
-          return chain(f, n)
-        end
+--- Creates a <code>n</code>-chained function based on <code>f</code>.
+-- <p>
+--  Chained functions receive their arguments in consecutive calls. For
+--  instance, if <code>f</code> was the usual <code>print</code> and
+--  <code>n</code> was 1, you would use the resulting function like this:
+-- </p>
+-- <p><code>
+-- local result = chain(print,1)
+-- </code></p>
+-- <p><code>
+-- result (arg1) (arg2, arg3, ...)
+-- </code></p>
+-- <p>
+--  And if <code>n</code> was 2, then the call would be:
+-- </p>
+-- <p><code>
+-- result (arg1) (arg2) (arg3, arg4, ...)
+-- </code></p>
+-- <p>
+--  And so on.
+-- </p>
+-- @param f The function being chained.
+-- @param n The size of the chain.
+-- @return An <code>n</code>-chained function version of <code>f</code>.
+function chain (f, n)
+  n = n or 1
+  return function (...)
+    local first, second = ...
+    if n >= 1 and not second then
+      if first then
+        return chain(bindLeft(f, first), n-1)
       else
-        return f(...)
+        return chain(f, n)
       end
+    else
+      return f(...)
     end
   end
+end
 
-  local function doReverse (r, a, ...)
-    if not a and select('#', ...) == 0 then
-      return r()
-    end
-    local function aux ()
-      return a, r()
-    end
-    return doReverse(aux, ...)
+local function doReverse (r, a, ...)
+  if not a and select('#', ...) == 0 then
+    return r()
   end
-
-  --- Reverses the order of the arguments.
-  -- @param ... Arbitrary arguments.
-  -- @return The arguments in reversed order.
-  function reverse (...)
-    return doReverse(function () end, ...)
+  local function aux ()
+    return a, r()
   end
+  return doReverse(aux, ...)
+end
 
+--- Reverses the order of the arguments.
+-- @param ... Arbitrary arguments.
+-- @return The arguments in reversed order.
+function reverse (...)
+  return doReverse(function () end, ...)
+end
+
+--- Expand a value into a value list: value, value, ...
+--  @param n The number of times to expand.
+--  @param value The expanded value
+--  @param ... For internal use inly.
+--  @return A list of copies of value.
+function expand (n, value, ...)
+  if n <= 0 then return ... end
+  return expand(n-1, value, value, ...)
 end
 
