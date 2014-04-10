@@ -25,9 +25,9 @@
 
 module ('lux.geom', package.seeall)
 
-require 'lux.object'
+require 'lux.Object'
 
-Vector = lux.object.new {
+Vector = lux.Object:new {
   -- Vector coordinates.
   0,
   0,
@@ -97,7 +97,7 @@ end
 
 point.__sub = Vector.__sub
 
-local function mul_scalar (a, v)
+local function multiplyByScalar (a, v)
   return Vector:new {
     a*v[1],
     a*v[2],
@@ -108,9 +108,9 @@ end
 
 function Vector.__mul (lhs, rhs)
   if type(lhs) == "number" then
-    return mul_scalar(lhs,rhs)
+    return multiplyByScalar(lhs,rhs)
   elseif type(rhs) == "number" then
-    return mul_scalar(rhs, lhs)
+    return multiplyByScalar(rhs, lhs)
   else -- assume both are Vector
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
   end
@@ -118,7 +118,7 @@ end
 
 function Vector.__div (lhs, rhs)
   if type(rhs) == "number" then
-    return mul_scalar(1.0/rhs, lhs)
+    return multiplyByScalar(1.0/rhs, lhs)
   end
   return error "Cannot divide "..type(lhs).." by "..type(rhs).."."
 end

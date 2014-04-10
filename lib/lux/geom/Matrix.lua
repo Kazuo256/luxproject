@@ -25,10 +25,10 @@
 
 module ('lux.geom', package.seeall)
 
-require 'lux.object'
+require 'lux.Object'
 require 'lux.geom.Vector'
 
-Matrix = lux.object.new {
+Matrix = lux.Object:new {
   __type = "Matrix",
   -- Matrix columns.
   [1] = nil,
@@ -37,7 +37,7 @@ Matrix = lux.object.new {
   [4] = nil
 }
 
-function Matrix:__init ()
+function Matrix:__construct ()
   for i = 1,4 do
     if self[i] then
       self[i] = Vector:new(self[i])
@@ -63,7 +63,7 @@ function Matrix:transpose ()
   }
 end
 
-local function mul_scalar (a, m)
+local function multiplyByScalar (a, m)
   return Matrix:new {
     a*m[1],
     a*m[2],
@@ -74,9 +74,9 @@ end
 
 function Matrix.__mul (lhs, rhs)
   if type(lhs) == "number" then
-    return mul_scalar(lhs,rhs)
+    return multiplyByScalar(lhs,rhs)
   elseif type(rhs) == "number" then
-    return mul_scalar(rhs, lhs)
+    return multiplyByScalar(rhs, lhs)
   elseif rhs.__type == "Vector" then
     return lhs[1]*rhs[1] + lhs[2]*rhs[2] + lhs[3]*rhs[3] + lhs[4]*rhs[4]
   elseif lhs.__type == "Vector" then
