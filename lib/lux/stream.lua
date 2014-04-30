@@ -31,18 +31,18 @@ require 'lux.object'
 StreamBase = lux.object.new {}
 
 function StreamBase:send (data)
-  -- Abstract method.
+  error "Unimplemented abstract method"
 end
 
 function StreamBase:receive (quantity)
-  -- Abstract method
-  return nil
+  error "Unimplemented abstract method"
 end
 
 --------------------------------------------------------------------------------
 
 String = StreamBase:new {
-  buffer = ""
+  buffer = "",
+  position = 1
 }
 
 function String:send (data)
@@ -50,12 +50,17 @@ function String:send (data)
 end
 
 function String:receive (quantity)
-  if quantity == '*a' then
-    local buffer = self.buffer
-    self.buffer = nil
-    return self.buffer
+  if type(quantity) == 'number' then
+    local result = self.buffer:sub(self.position, self.position + quantity)
+    self.position = self.position+#result
+    return result
+  elseif quantity == '*a' then
+    return self:receive(#self.buffer - self.position + 1)
+  elseif quantity == '*l' then
+    local line_end = self.buffer:find('\n', self.position, true)
+    return self:receive(line_end - self.position + 1)
   else
-    error("not implemented, sorry.")
+    error("Unexpected argument: "..quantity)
   end
 end
 
