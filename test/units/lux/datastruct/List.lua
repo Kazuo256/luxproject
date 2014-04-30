@@ -23,9 +23,7 @@
 --
 --]]
 
-require 'lux.List'
-
-local List = lux.List
+local List = require 'lux.datastruct.List'
 local l
 
 function before ()
