@@ -23,22 +23,17 @@
 --
 --]]
 
---- Module containing information regarding this LUX Project distribution.
-local info = {}
+local info    = require 'lux.info'
+local Object  = require 'lux.Object'
 
-local major = 0
-local minor = 5
-local patch = 0
+local Class = Object:new {}
 
-local lua_major, lua_minor = _VERSION:match "(%d+)%.(%d+)"
-
-assert(lua_major >= 5) -- for sanity
-
---- LUX's version.
--- @return A string with the current LUX version.
-function info.version ()
-  return major..'.'..minor..'.'..patch
+local function classSearcher (name)
+  local class_loader = info.searchers()[2](name..'-class')
+  -- TODO
 end
 
-return info
+table.insert(info.searchers(), classSearcher)
+
+return Class
 
