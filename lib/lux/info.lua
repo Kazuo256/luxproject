@@ -40,13 +40,5 @@ function info.version ()
   return major..'.'..minor..'.'..patch
 end
 
-function info.searchers ()
-  if lua_minor <= 1 then
-    return package.loaders
-  else
-    return package.searchers
-  end
-end
-
 return info
 
