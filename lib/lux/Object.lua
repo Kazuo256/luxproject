@@ -84,7 +84,7 @@ end
 --- Clones the object.
 --  @return A clone of this object.
 function Object:clone ()
-  if type(self) ~= "table" then return self end
+  if type(self) ~= "table" or self == Object then return self end
   local cloned = {}
   for k,v in pairs(self) do
     cloned[k] = Object.clone(v)

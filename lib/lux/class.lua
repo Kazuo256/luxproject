@@ -23,8 +23,12 @@
 --
 --]]
 
+local Catcher   = require 'lux.Catcher'
+local Object    = require 'lux.Object'
+
 local class     = require 'lux.Feature' :new {}
-local BaseClass = require 'lux.Object' :new {
+
+local BaseClass = Object:new {
   name = "BaseClass",
   constructor = function (...) end
 }
@@ -35,12 +39,24 @@ function BaseClass:__call (...)
   return new_instance
 end
 
-setmetatable(class.helper, { __index = _G })
+class.helper = Object:new {
+  fallback = _G
+}
+
+function class.helper:__construct()
+  self.definition.methods = {}
+  self.method = Catcher:new {}
+  local definition = self.definition
+  function self.method:onCatch(key, value)
+    assert(type(value) == 'function', "Method is not a function")
+    definition.methods[key] = value
+  end
+end
 
 function class:onDefinition (name, definition)
   local NewClass = BaseClass:new {
     name = name,
-    --constructor = definition.methods
+    constructor = definition.methods[name]
   }
   --NewClass.__init = definition.members
   self.context[name] = NewClass

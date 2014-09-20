@@ -23,42 +23,15 @@
 --
 --]]
 
-local Object  = require 'lux.Object'
-local Feature = Object:new {}
+local Catcher = require 'lux.Object' :new {}
 
-Feature.__init = {
-  context = {},
-  helper = Object,
-  onDefinition = function () error "Undefined callback 'onDefinition'" end,
-  onRequest = function () error "Undefined callback 'onRequest'" end
+Catcher.__init = {
+  onCatch = function () error "Undefined callback 'onCatch'" end
 }
 
-local function onHelpUsage(help)
-  return function (_, key)
-    local tool = help[key]
-    if tool then
-      if type(tool) == 'function' then
-        return help:__bind(key)
-      else
-        return tool
-      end
-    else
-      return (help.fallback or {})[key]
-    end
-  end
+function Catcher:__newindex(key, value)
+  self:onCatch(key, value)
 end
 
-function Feature:__newindex(name, chunk)
-  local env = {}
-  local help = self.helper:new{ definition = env }
-  setmetatable(env, { __index = onHelpUsage(help) })
-  assert(require 'lux.portable' .loadWithEnv(chunk, env)) ()
-  self:onDefinition(name, env)
-end
-
-function Feature:__index(name)
-  return self:onRequest(name)
-end
-
-return Feature
+return Catcher
 
