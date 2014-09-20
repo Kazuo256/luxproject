@@ -37,11 +37,7 @@ local function onHelpUsage(help)
   return function (_, key)
     local tool = help[key]
     if tool then
-      if type(tool) == 'function' then
-        return help:__bind(key)
-      else
-        return tool
-      end
+      return tool
     else
       return (help.fallback or {})[key]
     end
