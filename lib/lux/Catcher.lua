@@ -23,18 +23,27 @@
 --
 --]]
 
---- Module containing information regarding this LUX Project distribution.
-local info = {}
+--- Interface for catching everything that is inserted in an object.
+--  @classmod Catcher
+local Catcher = require 'lux.Object' :new {}
 
-local major = 0
-local minor = 5
-local patch = 0
+Catcher.__init = {}
 
---- LUX's version.
--- @return A string with the current LUX version.
-function info.version ()
-  return major..'.'..minor..'.'..patch
+--- Makes key-value pairs inserted on a Catcher be handled by the
+--  <code>onCatch()</code> callback.
+--  @param key    The key used in the insertion
+--  @param value  The value inserted
+function Catcher:__newindex(key, value)
+  self:onCatch(key, value)
 end
 
-return info
+--- A callback that is called when an insertion is caught.
+--  It must be implemented when extending this prototype.
+--  @param key    The key used in the insertion
+--  @param value  The value inserted
+function Catcher:onCatch(key, value)
+  error "Undefined callback 'onCatch'"
+end
+
+return Catcher
 

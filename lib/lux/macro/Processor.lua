@@ -24,13 +24,13 @@
 --]]
 
 --- This class process files using a macro specification.
-module ('lux.macro', package.seeall)
 
-require 'lux.Object'
-require 'lux.functional'
 require 'lux.macro.Specification'
 
-Processor = lux.Object:new {}
+local Object        = require 'lux.Object'
+local Specification = require 'lux.macro.Specification'
+
+local Processor = Object:new {}
 
 Processor.__init = {
   spec = Specification:new {}
@@ -43,7 +43,7 @@ function generator_env.mq (str)
 end
 
 local function makeDirectiveEnvironment (outstream)
-  local env = lux.Object.clone(generator_env)
+  local env = Object.clone(generator_env)
   env.output = outstream
   return setmetatable(env, { __index = getfenv(0) })
 end

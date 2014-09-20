@@ -23,17 +23,38 @@
 --
 --]]
 
-local info    = require 'lux.info'
 local Object  = require 'lux.Object'
+local Feature = Object:new {}
 
-local Class = Object:new {}
+Feature.__init = {
+  context = {},
+  helper = Object,
+  onDefinition = function () error "Undefined callback 'onDefinition'" end,
+  onRequest = function () error "Undefined callback 'onRequest'" end
+}
 
-local function classSearcher (name)
-  local class_loader = info.searchers()[2](name..'-class')
-  -- TODO
+local function onHelpUsage(help)
+  return function (_, key)
+    local tool = help[key]
+    if tool then
+      return tool
+    else
+      return (help.fallback or {})[key]
+    end
+  end
 end
 
-table.insert(info.searchers(), classSearcher)
+function Feature:__newindex(name, chunk)
+  local env = {}
+  local help = self.helper:new{ definition = env }
+  setmetatable(env, { __index = onHelpUsage(help) })
+  assert(require 'lux.portable' .loadWithEnv(chunk, env)) ()
+  self:onDefinition(name, env)
+end
 
-return Class
+function Feature:__index(name)
+  return self:onRequest(name)
+end
+
+return Feature
 

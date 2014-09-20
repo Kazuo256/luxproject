@@ -25,11 +25,8 @@
 
 --- LUX's list class.
 --  This is a linked list implementation in Lua.
-module ('lux', package.seeall)
 
-require 'lux.Object'
-
-List = Object:new {
+local List = require 'lux.Object' :new {
   head  = nil,
   tail  = nil,
   n     = 0

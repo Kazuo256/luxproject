@@ -23,18 +23,18 @@
 --
 --]]
 
-require 'lux.Object'
+local Object = require 'lux.Object'
 
 local obj
 
 function before ()
-  obj = lux.Object:new {
+  obj = Object:new {
     x = 20
   }
 end
 
 function test_new_with_attribute ()
-  local the_obj = lux.Object:new {
+  local the_obj = Object:new {
     y = 30
   }
   assert(the_obj.y == 30)

@@ -1,7 +1,5 @@
 
-require 'lux.functional'
-
-local lambda = lux.functional
+local lambda = require 'lux.functional'
 
 function before ()
   -- nothing for now

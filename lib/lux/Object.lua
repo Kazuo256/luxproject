@@ -26,10 +26,9 @@
 --- LUX's object module.
 -- This module is used to create objects using prototypes, through
 -- the lux.Object:new() method.
-module ("lux", package.seeall)
 
 --- Local instance of the base object.
-Object = {}
+local Object = {}
 
 -- Recursive initialization.
 local function init (obj, super)
@@ -38,7 +37,7 @@ local function init (obj, super)
     if type(super.__init) == "table" then
       for k,v in pairs(super.__init) do
         if not rawget(obj, k) then
-          obj[k] = Object.clone(v)
+          rawset(obj, k, Object.clone(v))
         end
       end
     end
@@ -85,7 +84,7 @@ end
 --- Clones the object.
 --  @return A clone of this object.
 function Object:clone ()
-  if type(self) ~= "table" then return self end
+  if type(self) ~= "table" or self == Object then return self end
   local cloned = {}
   for k,v in pairs(self) do
     cloned[k] = Object.clone(v)

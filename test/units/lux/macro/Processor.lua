@@ -1,5 +1,5 @@
 
-require 'lux.macro.Processor'
+local Processor = require 'lux.macro.Processor'
 
 local proc, instream, outstream
 local fixtures = {
@@ -86,7 +86,7 @@ x = $=mq("a".."b")=$
 }
 
 function before ()
-  proc = lux.macro.Processor:new {}
+  proc = Processor:new {}
   instream = {}
   function instream:receive (quantity)
     assert(quantity == "*a")
