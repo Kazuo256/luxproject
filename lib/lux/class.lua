@@ -23,15 +23,30 @@
 --
 --]]
 
-local class = require 'lux.Feature' :new {}
+local class     = require 'lux.Feature' :new {}
+local BaseClass = require 'lux.Object' :new {
+  name = "BaseClass",
+  constructor = function (...) end
+}
+
+function BaseClass:__call (...)
+  local new_instance = self:new{}
+  self.constructor (new_instance, ...)
+  return new_instance
+end
 
 setmetatable(class.helper, { __index = _G })
 
-function class:onDefinition(name, definition)
-  self.context[name] = definition
+function class:onDefinition (name, definition)
+  local NewClass = BaseClass:new {
+    name = name,
+    --constructor = definition.methods
+  }
+  --NewClass.__init = definition.members
+  self.context[name] = NewClass
 end
 
-function class:onRequest(name)
+function class:onRequest (name)
   return self.context[name]
 end
 
