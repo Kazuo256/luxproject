@@ -23,42 +23,57 @@
 --
 --]]
 
-local Catcher   = require 'lux.Catcher'
-local Object    = require 'lux.Object'
+local Catcher = require 'lux.Catcher'
+local Object  = require 'lux.Object'
 
-local class     = require 'lux.Feature' :new {}
-
+-- First, we define the BaseClass prototype
 local BaseClass = Object:new {
   name = "BaseClass",
   constructor = function (...) end
 }
 
+-- It supports traditional constructor syntax
 function BaseClass:__call (...)
-  local new_instance = self:new{}
+  local new_instance = self.prototype:new{}
   self.constructor (new_instance, ...)
   return new_instance
 end
 
+-- Here we start the main feature of this module
+local class = require 'lux.Feature' :new {}
+
+-- The feature helper
 class.helper = Object:new {
   fallback = _G
 }
 
-function class.helper:__construct()
-  self.definition.methods = {}
-  self.method = Catcher:new {}
-  local definition = self.definition
-  function self.method:onCatch(key, value)
-    assert(type(value) == 'function', "Method is not a function")
-    definition.methods[key] = value
+local function makeCatch(definition, catch)
+  return function(_, key, value)
+    definition[catch][key] = value
   end
 end
 
+function class.helper:__construct()
+  self.definition.methods = {}
+  self.definition.members = {}
+  self.method = Catcher:new { onCatch = makeCatch(self.definition, 'methods') }
+  self.member = Catcher:new { onCatch = makeCatch(self.definition, 'members') }
+end
+
+-- The feature's callbacks
 function class:onDefinition (name, definition)
   local NewClass = BaseClass:new {
     name = name,
-    constructor = definition.methods[name]
+    constructor = definition.methods[name],
+    prototype = Object:new{}
   }
-  --NewClass.__init = definition.members
+  NewClass.__init = definition
+  NewClass.prototype.__init = definition.members
+  for k,v in pairs(definition.methods) do
+    if type(v) == 'function' then
+      NewClass.prototype[k] = v
+    end
+  end
   self.context[name] = NewClass
 end
 
