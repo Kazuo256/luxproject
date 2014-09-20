@@ -23,18 +23,17 @@
 --
 --]]
 
---- Module containing information regarding this LUX Project distribution.
-local info = {}
+local class = require 'lux.Feature' :new {}
 
-local major = 0
-local minor = 5
-local patch = 0
+setmetatable(class.helper, { __index = _G })
 
---- LUX's version.
--- @return A string with the current LUX version.
-function info.version ()
-  return major..'.'..minor..'.'..patch
+function class:onDefinition(name, definition)
+  self.context[name] = definition
 end
 
-return info
+function class:onRequest(name)
+  return self.context[name]
+end
+
+return class
 
