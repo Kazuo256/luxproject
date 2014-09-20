@@ -23,14 +23,26 @@
 --
 --]]
 
+--- Interface for catching everything that is inserted in an object.
+--  @classmod Catcher
 local Catcher = require 'lux.Object' :new {}
 
-Catcher.__init = {
-  onCatch = function () error "Undefined callback 'onCatch'" end
-}
+Catcher.__init = {}
 
+--- Makes key-value pairs inserted on a Catcher be handled by the
+--  <code>onCatch()</code> callback.
+--  @param key    The key used in the insertion
+--  @param value  The value inserted
 function Catcher:__newindex(key, value)
   self:onCatch(key, value)
+end
+
+--- A callback that is called when an insertion is caught.
+--  It must be implemented when extending this prototype.
+--  @param key    The key used in the insertion
+--  @param value  The value inserted
+function Catcher:onCatch(key, value)
+  error "Undefined callback 'onCatch'"
 end
 
 return Catcher
