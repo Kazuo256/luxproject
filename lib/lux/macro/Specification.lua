@@ -27,7 +27,7 @@
 module ('lux.macro', package.seeall)
 
 require 'lux.Object'
-require 'lux.functional'
+local functional = require 'lux.functional'
 
 Specification = lux.Object:new {}
 
@@ -40,7 +40,7 @@ local function directiveIterator (str)
 end
 
 function Specification:iterateDirectives (str)
-  return coroutine.wrap(lux.functional.bindLeft(directiveIterator, str))
+  return coroutine.wrap(functional.bindLeft(directiveIterator, str))
 end
 
 return Specification

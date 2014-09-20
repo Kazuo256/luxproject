@@ -25,14 +25,14 @@
 
 --- LUX's functional programming module.
 -- Some functional programming tools lay around here.
-module ("lux.functional", package.seeall)
+local functional = {}
 
 --- Binds a function's first parameter to the given argument.
 -- @param f   The function being binded.
 -- @param arg The bound argument.
 -- @return A function that, upon being called, does the same as f, but
 --         requires only the arguments beyond the first one.
-function bindFirst (f, arg)
+function functional.bindFirst (f, arg)
   local up = arg
   return function (...)
     return f(up, ...)
@@ -48,11 +48,11 @@ end
 -- @return A function that, upon being called, does the same as f, but
 --         requires only the remaining right-most arguments that were not
 --         binded with it.
-function bindLeft (f, arg1, ...)
+function functional.bindLeft (f, arg1, ...)
   if select('#', ...) == 0 then
-    return bindFirst(f, arg1)
+    return functional.bindFirst(f, arg1)
   else
-    return bindLeft(bindFirst(f, arg1), ...)
+    return functional.bindLeft(bindFirst(f, arg1), ...)
   end
 end
 
@@ -80,15 +80,15 @@ end
 -- @param f The function being chained.
 -- @param n The size of the chain.
 -- @return An <code>n</code>-chained function version of <code>f</code>.
-function chain (f, n)
+function functional.chain (f, n)
   n = n or 1
   return function (...)
     local first, second = ...
     if n >= 1 and not second then
       if first then
-        return chain(bindLeft(f, first), n-1)
+        return functional.chain(bindLeft(f, first), n-1)
       else
-        return chain(f, n)
+        return functional.chain(f, n)
       end
     else
       return f(...)
@@ -109,8 +109,20 @@ end
 --- Reverses the order of the arguments.
 -- @param ... Arbitrary arguments.
 -- @return The arguments in reversed order.
-function reverse (...)
+function functional.reverse (...)
   return doReverse(function () end, ...)
+end
+
+--- Map function. Might overflow the stack and is not tail recursive.
+--  @param f An unary function
+--  @param ... The to-be-mapped elements
+--  @return All the results of applying f to the given elements one by one.
+function functional.map (f, a, ...)
+  if not a and select('#', ...) == 0 then
+    return -- empty list of elements
+  else
+    return f(a), map(f, ...)
+  end
 end
 
 --- Expand a value into a value list: value, value, ...
@@ -118,8 +130,10 @@ end
 --  @param value The expanded value
 --  @param ... For internal use inly.
 --  @return A list of copies of value.
-function expand (n, value, ...)
+function functional.expand (n, value, ...)
   if n <= 0 then return ... end
-  return expand(n-1, value, value, ...)
+  return functional.expand(n-1, value, value, ...)
 end
+
+return functional
 
