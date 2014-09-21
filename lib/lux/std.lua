@@ -23,24 +23,34 @@
 --
 --]]
 
---- LUX's common module.
--- Here a collection of general-purpose functions are available.
-module ("lux", package.seeall)
+--------
+-- LUX's standard module.
+-- Here a collection of general-purpose functions are available. This module is
+-- also set up in a way that the global environment is accessible through it.
+-- This allows you to change the current evironment to it add still have access
+-- to the global default environment.
+local std = {}
 
 --- Prints all key-value pairs of the given table to the standard output.
 --  @param t The table whose field are to be listed.
-function ls (t)
+function std.ls (t)
   table.foreach(t, print)
 end
 
 --- Reads a Lua script as a data file.
+--
 --  Makes and returns a table containing everything that was created in the
 --  global scope of that script.
---  @param path   The path to the data file.
---  @param loader The function used to load the file. Default is Lua's <code>
---                load</code> function.
---  @return       The table representing the data file.
-function loadDataFile (path, loader)
+--
+--  @param path
+--  The path to the data file.
+--
+--  @param loader
+--  The function used to load the file. Default is Lua's @{load} function.
+--
+--  @return
+--  The table representing the data file.
+function std.loadDataFile (path, loader)
   loader = loader or load
   local file = loader(path)
   local data = {}
@@ -49,4 +59,6 @@ function loadDataFile (path, loader)
   setmetatable(data, nil)
   return data
 end
+
+return setmetatable(std, { __index = _G })
 

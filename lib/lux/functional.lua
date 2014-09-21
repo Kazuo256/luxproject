@@ -28,10 +28,16 @@
 local functional = {}
 
 --- Binds a function's first parameter to the given argument.
--- @param f   The function being binded.
--- @param arg The bound argument.
--- @return A function that, upon being called, does the same as f, but
---         requires only the arguments beyond the first one.
+--
+-- @param f
+-- function being bound.
+--
+-- @param arg
+-- The bound argument.
+--
+-- @return
+-- A function that, upon being called, does the same as f, but requires only
+-- the arguments beyond the first one.
 function functional.bindFirst (f, arg)
   local up = arg
   return function (...)
@@ -42,12 +48,19 @@ end
 --- Binds a function to the given (left-most) arguments.
 -- The arguments must be passed in the apropriate order, according to the
 -- function's specification.
--- @param f     The function being binded.
--- @param arg1  The first bound argument.
--- @param ...   The remaining bound arguments, in order.
--- @return A function that, upon being called, does the same as f, but
---         requires only the remaining right-most arguments that were not
---         binded with it.
+--
+-- @param f
+-- The function being binded.
+--
+-- @param arg1
+-- The first bound argument.
+--
+-- @param ...
+-- The remaining bound arguments, in order.
+--
+-- @return
+-- A function that, upon being called, does the same as f, but requires only the
+-- remaining right-most arguments that were not binded with it.
 function functional.bindLeft (f, arg1, ...)
   if select('#', ...) == 0 then
     return functional.bindFirst(f, arg1)
@@ -56,31 +69,18 @@ function functional.bindLeft (f, arg1, ...)
   end
 end
 
---- Creates a <code>n</code>-chained function based on <code>f</code>.
--- <p>
---  Chained functions receive their arguments in consecutive calls. For
---  instance, if <code>f</code> was the usual <code>print</code> and
---  <code>n</code> was 1, you would use the resulting function like this:
--- </p>
--- <p><code>
--- local result = chain(print,1)
--- </code></p>
--- <p><code>
--- result (arg1) (arg2, arg3, ...)
--- </code></p>
--- <p>
---  And if <code>n</code> was 2, then the call would be:
--- </p>
--- <p><code>
+--- Creates a <code>n</code>-curried function based on <code>f</code>.
+--
+-- @usage
+-- local result = std.curry(print,2)
 -- result (arg1) (arg2) (arg3, arg4, ...)
--- </code></p>
--- <p>
---  And so on.
--- </p>
--- @param f The function being chained.
--- @param n The size of the chain.
--- @return An <code>n</code>-chained function version of <code>f</code>.
-function functional.chain (f, n)
+--
+-- @param f The function being curried.
+--
+-- @param n How much the function should be curried.
+--
+-- @return An <code>n</code>-curried version of <code>f</code>.
+function functional.curry (f, n)
   n = n or 1
   return function (...)
     local first, second = ...
@@ -115,7 +115,8 @@ end
 
 --- Map function. Might overflow the stack and is not tail recursive.
 --  @param f An unary function
---  @param ... The to-be-mapped elements
+--  @param a First mapped element
+--  @param ... Other to-be-mapped elements
 --  @return All the results of applying f to the given elements one by one.
 function functional.map (f, a, ...)
   if not a and select('#', ...) == 0 then

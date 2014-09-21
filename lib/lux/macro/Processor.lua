@@ -23,13 +23,13 @@
 --
 --]]
 
---- This class process files using a macro specification.
-
 require 'lux.macro.Specification'
 
 local Object        = require 'lux.Object'
 local Specification = require 'lux.macro.Specification'
 
+--- This class process files using a macro specification.
+-- @classmod macro.Processor
 local Processor = Object:new {}
 
 Processor.__init = {

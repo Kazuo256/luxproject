@@ -51,7 +51,8 @@ function List:size ()
 end
 
 --- Pushes elements at the end of the list.
---  @param  ... Elements to be pushed.
+--  @param value First pushed element.
+--  @param  ... Other elements to be pushed.
 --  @return The list itself.
 function List:pushBack (value, ...)
   if not value then return self end

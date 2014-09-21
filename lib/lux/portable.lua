@@ -23,6 +23,8 @@
 --
 --]]
 
+--- This module allows for portable programming in Lua.
+-- It currently support versions 5.1 and 5.2.
 local portable = {}
 
 local lambda = require 'lux.functional'
@@ -62,6 +64,12 @@ function portable.popEnvironment ()
   setEnv(pop(env_stack))
 end
 
+--- Re-loads a funcion with the given env and an optional chunk name.
+-- It is important to note that the reloaded funcion loses its closure.
+-- @function loadWithEnv
+-- @param f The original function
+-- @param env The new environment
+-- @param[opt] source The reloaded funciton chunk name
 if lua_minor <= 1 then
   function portable.loadWithEnv(f, env, source)
     local loaded, err =  loadstring(string.dump(f, source))

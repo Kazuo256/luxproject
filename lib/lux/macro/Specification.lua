@@ -23,11 +23,12 @@
 --
 --]]
 
+
 --- This class represents a macro configuration.
+-- @classmod macro.Specification
+local Specification = require 'lux.Object' :new {}
 
 local functional = require 'lux.functional'
-
-local Specification = require 'lux.Object' :new {}
 
 local function directiveIterator (str)
   local yield = coroutine.yield
