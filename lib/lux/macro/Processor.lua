@@ -68,7 +68,7 @@ function Processor:process (instream, outstream, env)
     count = count + step
   end
   code = code .. [[output:write ]] .. "[[\n" .. str:sub(count) .. "]]\n"
-  setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream, env)) ()
+  portable.loadWithEnv(assert(loadstring(code)), makeDirectiveEnvironment(outstream, env)) ()
 end
 
 return Processor
