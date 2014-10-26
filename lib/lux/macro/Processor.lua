@@ -25,6 +25,7 @@
 
 local Object        = require 'lux.Object'
 local Specification = require 'lux.macro.Specification'
+local portable      = require 'lux.portable'
 
 --- This class process files using a macro specification.
 -- @classmod macro.Processor
@@ -43,7 +44,7 @@ end
 local function makeDirectiveEnvironment (outstream, env)
   env = env or Object.clone(generator_env)
   env.output = outstream
-  return setmetatable(env, { __index = getfenv(0) })
+  return setmetatable(env, { __index = portable.getEnv() })
 end
 
 function Processor:handleDirective (mod, code)

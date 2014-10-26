@@ -55,6 +55,9 @@ local function setEnv (env)
   end
 end
 
+portable.getEnv = getEnv
+portable.setEnv = setEnv
+
 function portable.pushEnvironment (env)
   push(env_stack, getEnv())
   setEnv(env)
