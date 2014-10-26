@@ -58,6 +58,10 @@ end
 portable.getEnv = getEnv
 portable.setEnv = setEnv
 
+function portable.isVersion(major, minor)
+  return major == lua_major and minor == lua_minor
+end
+
 function portable.pushEnvironment (env)
   push(env_stack, getEnv())
   setEnv(env)
