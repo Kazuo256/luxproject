@@ -1,18 +1,18 @@
 
 package.path = package.path..";./lib/?.lua"
 
-require 'lux.macro.Processor'
-require 'lux.stream'
+local Processor = require 'lux.macro.Processor'
+local stream    = require 'lux.stream'
 
-local input = lux.stream.File:new {
+local input = stream.File:new {
   path = "./test/input.in.lua"
 }
-local output = lux.stream.File:new {
+local output = stream.File:new {
   path = "./test/input.lua",
   mode = "w"
 }
 
-local proc = lux.macro.Processor:new {}
+local proc = Processor:new {}
 
 functions = {
   foo = {

@@ -24,32 +24,33 @@
 --]]
 
 --- This module holds classes that represent streams of data.
-module ('lux.stream', package.seeall)
+--  @module stream
+local stream = {}
 
-require 'lux.object'
+local Object = require 'lux.Object'
 
-StreamBase = lux.object.new {}
+stream.Base = Object:new {}
 
-function StreamBase:send (data)
+function stream.Base:send (data)
   error "Unimplemented abstract method"
 end
 
-function StreamBase:receive (quantity)
+function stream.Base:receive (quantity)
   error "Unimplemented abstract method"
 end
 
 --------------------------------------------------------------------------------
 
-String = StreamBase:new {
+stream.String = stream.Base:new {
   buffer = "",
   position = 1
 }
 
-function String:send (data)
+function stream.String:send (data)
   self.buffer = self.buffer .. data
 end
 
-function String:receive (quantity)
+function stream.String:receive (quantity)
   if type(quantity) == 'number' then
     local result = self.buffer:sub(self.position, self.position + quantity)
     self.position = self.position+#result
@@ -66,25 +67,25 @@ end
 
 --------------------------------------------------------------------------------
 
-File = StreamBase:new {
+stream.File = stream.Base:new {
   loader = io.open,
   path = "",
   mode = "r"
 }
 
-function File:__construct ()
+function stream.File:__construct ()
   self.file = self.loader(self.path, self.mode)
 end
 
-function File:send (data)
+function stream.File:send (data)
   self.file:write(tostring(data))
 end
 
-function File:receive (quantity)
+function stream.File:receive (quantity)
   return self.file:read(quantity)
 end
 
 --------------------------------------------------------------------------------
 
-return lux.stream
+return stream
 

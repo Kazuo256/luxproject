@@ -23,8 +23,6 @@
 --
 --]]
 
-require 'lux.macro.Specification'
-
 local Object        = require 'lux.Object'
 local Specification = require 'lux.macro.Specification'
 
@@ -42,8 +40,8 @@ function generator_env.mq (str)
   return "[[" .. str .. "]]"
 end
 
-local function makeDirectiveEnvironment (outstream)
-  local env = Object.clone(generator_env)
+local function makeDirectiveEnvironment (outstream, env)
+  env = env or Object.clone(generator_env)
   env.output = outstream
   return setmetatable(env, { __index = getfenv(0) })
 end
@@ -59,7 +57,7 @@ function Processor:handleDirective (mod, code)
   return ''
 end
 
-function Processor:process (instream, outstream)
+function Processor:process (instream, outstream, env)
   local code = [[assert(output)]].."\n"
   local count = 1
   local str = instream:receive "*a"
@@ -69,7 +67,7 @@ function Processor:process (instream, outstream)
     count = count + step
   end
   code = code .. [[output:send ]] .. "[[\n" .. str:sub(count) .. "]]\n"
-  setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream)) ()
+  setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream, env)) ()
 end
 
 return Processor
