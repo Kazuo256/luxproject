@@ -88,14 +88,14 @@ x = $=mq("a".."b")=$
 function before ()
   proc = Processor:new {}
   instream = {}
-  function instream:receive (quantity)
+  function instream:read (quantity)
     assert(quantity == "*a")
     return self.input
   end
   outstream = {
     stored = ""
   }
-  function outstream:send (data)
+  function outstream:write (data)
     self.stored = self.stored .. data
   end
   function outstream:check (output)

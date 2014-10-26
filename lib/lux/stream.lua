@@ -31,11 +31,11 @@ local Object = require 'lux.Object'
 
 stream.Base = Object:new {}
 
-function stream.Base:send (data)
+function stream.Base:write (data)
   error "Unimplemented abstract method"
 end
 
-function stream.Base:receive (quantity)
+function stream.Base:read (quantity)
   error "Unimplemented abstract method"
 end
 
@@ -46,20 +46,20 @@ stream.String = stream.Base:new {
   position = 1
 }
 
-function stream.String:send (data)
+function stream.String:write (data)
   self.buffer = self.buffer .. data
 end
 
-function stream.String:receive (quantity)
+function stream.String:read (quantity)
   if type(quantity) == 'number' then
     local result = self.buffer:sub(self.position, self.position + quantity)
     self.position = self.position+#result
     return result
   elseif quantity == '*a' then
-    return self:receive(#self.buffer - self.position + 1)
+    return self:read(#self.buffer - self.position + 1)
   elseif quantity == '*l' then
     local line_end = self.buffer:find('\n', self.position, true)
-    return self:receive(line_end - self.position + 1)
+    return self:read(line_end - self.position + 1)
   else
     error("Unexpected argument: "..quantity)
   end
@@ -77,11 +77,11 @@ function stream.File:__construct ()
   self.file = self.loader(self.path, self.mode)
 end
 
-function stream.File:send (data)
+function stream.File:write (data)
   self.file:write(tostring(data))
 end
 
-function stream.File:receive (quantity)
+function stream.File:read (quantity)
   return self.file:read(quantity)
 end
 

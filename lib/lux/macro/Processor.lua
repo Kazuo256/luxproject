@@ -48,11 +48,11 @@ end
 
 function Processor:handleDirective (mod, code)
   if mod == '=' then
-    return [[output:send(]] .. code .. ")\n"
+    return [[output:write(]] .. code .. ")\n"
   elseif mod == ':' then
     return code.."\n"
   elseif mod == '|' then
-    return "output:send('[[' .. " .. code .. " .. ']]')\n"
+    return "output:write('[[' .. " .. code .. " .. ']]')\n"
   end
   return ''
 end
@@ -60,13 +60,13 @@ end
 function Processor:process (instream, outstream, env)
   local code = [[assert(output)]].."\n"
   local count = 1
-  local str = instream:receive "*a"
+  local str = instream:read "*a"
   for input, mod, directive, step in self.spec:iterateDirectives(str) do
-    code = code .. [[output:send ]] .. "[[\n" .. input .. "]]\n"
+    code = code .. [[output:write ]] .. "[[\n" .. input .. "]]\n"
     code = code .. self:handleDirective(mod, directive)
     count = count + step
   end
-  code = code .. [[output:send ]] .. "[[\n" .. str:sub(count) .. "]]\n"
+  code = code .. [[output:write ]] .. "[[\n" .. str:sub(count) .. "]]\n"
   setfenv(assert(loadstring(code)), makeDirectiveEnvironment(outstream, env)) ()
 end
 
