@@ -16,10 +16,15 @@ function class:Another()
   function getX(tmp)
     return tmp or x
   end
+  function __call (...)
+    print "call"
+  end
 end
 
 p = class.Another(2,2)
 
 p:move(1, -1)
+
+p()
 
 
