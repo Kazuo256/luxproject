@@ -23,13 +23,48 @@
 --
 --]]
 
---- LUX's class-based object-oriented feature.
---  This module provides a feature for defining classes. It is very different
---  from the prototype-based version. It is faster, but uses more memory.
---  @module oo.class
+--- LUX's object-oriented feature module.
+--  This module provides some basic functionalities for object-oriented
+--  programming in Lua. It is divided in two parts, which you can @{require}
+--  separately.
+--
+--  <h2><code>lux.oo.prototype</code></h2>
+--
+--  This part provides a prototype-based implementation. It returns the root
+--  prototype object, with which you can create new objects using
+--  @{prototype:new}. Objects created this way automatically inherit fields and
+--  methods from their parent, but may override them. It is not possible to
+--  inherit from multiple objects. For usage instructions, refer to
+--  @{prototype}.
+--
+--  <h2><code>lux.oo.class</code></h2>
+--
+--  This part provides a class-based implementation. It returns a special table
+--  @{class} through which you can define classes. As of the current version of
+--  LUX, there is no support for inheritance.
+--
+--  @module lux.oo
 
---- Stuff happens here
---  @table
+--- A special table for defining classes.
+--  By defining a named method in it, a new class is created. It uses the given
+--  method to create its instances. Once defined, the class can be retrieved by
+--  using accessing the @{class} table with its name.
+--
+--  Since the fields are declared in a scope of
+--  their own, local variables are kept their closures. Thus, it is
+--  possible to have private members. Public member can be created by not using
+--  the <code>local</code> keyword or explicitly referring to <code>self</code>
+--  within the class definition.
+--
+--  @feature class
+--  @usage
+--  local class = require 'lux.oo.class'
+--  function class:MyClass()
+--    local a_number = 42
+--    function show ()
+--      print(a_number)
+--    end
+--  end
 local class = {}
 
 local scope_meta = {}

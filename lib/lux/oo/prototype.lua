@@ -23,12 +23,10 @@
 --
 --]]
 
---- LUX's prototype-based object-oriented feature.
---  This module provides a root prototype object. You can create new objects
---  using its <code>prototype:new{}</code> method.
---  @classmod oo.prototype
+--- @module lux.oo
 
---- Local instance of the base object.
+--- The root prototype object.
+--  @feature prototype
 local prototype = {}
 
 -- Recursive initialization.
