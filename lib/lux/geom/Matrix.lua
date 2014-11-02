@@ -23,12 +23,9 @@
 --
 --]]
 
-module ('lux.geom', package.seeall)
+local Vector = require 'lux.geom.Vector'
 
-require 'lux.Object'
-require 'lux.geom.Vector'
-
-Matrix = lux.Object:new {
+Matrix = require 'lux.oo.prototype' :new {
   __type = "Matrix",
   -- Matrix columns.
   [1] = nil,

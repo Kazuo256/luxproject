@@ -23,11 +23,7 @@
 --
 --]]
 
-module ('lux.geom', package.seeall)
-
-require 'lux.Object'
-
-Vector = lux.Object:new {
+Vector = require 'lux.oo.prototype' :new {
   -- Vector coordinates.
   0,
   0,
