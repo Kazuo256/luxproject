@@ -23,13 +23,13 @@
 --
 --]]
 
-local Object        = require 'lux.Object'
+local prototype     = require 'lux.oo.prototype'
 local Specification = require 'lux.macro.Specification'
 local portable      = require 'lux.portable'
 
 --- This class process files using a macro specification.
 -- @classmod macro.Processor
-local Processor = Object:new {}
+local Processor = prototype:new {}
 
 Processor.__init = {
   spec = Specification:new {}
@@ -42,7 +42,7 @@ function generator_env.mq (str)
 end
 
 local function makeDirectiveEnvironment (outstream, env)
-  env = env or Object.clone(generator_env)
+  env = env or prototype.clone(generator_env)
   env.output = outstream
   return setmetatable(env, { __index = portable.getEnv() })
 end

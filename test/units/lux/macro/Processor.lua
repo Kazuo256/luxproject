@@ -108,7 +108,7 @@ local function make_error_text (errmsg, result)
 end
 
 for _,fixture in ipairs(fixtures) do
-  getfenv()["test_"..fixture.name] = function ()
+  _ENV["test_"..fixture.name] = function ()
     instream.input = fixture.input
     local check, errmsg = pcall(
       function ()

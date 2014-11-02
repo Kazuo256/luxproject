@@ -23,12 +23,12 @@
 --
 --]]
 
-local Object  = require 'lux.Object'
-local Feature = Object:new {}
+local prototype  = require 'lux.oo.prototype'
+local Feature = prototype:new {}
 
 Feature.__init = {
   context = {},
-  helper = Object,
+  helper = prototype,
   onDefinition = function () error "Undefined callback 'onDefinition'" end,
   onRequest = function () error "Undefined callback 'onRequest'" end
 }

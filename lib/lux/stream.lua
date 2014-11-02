@@ -27,9 +27,9 @@
 --  @module stream
 local stream = {}
 
-local Object = require 'lux.Object'
+local prototype = require 'lux.oo.prototype'
 
-stream.Base = Object:new {}
+stream.Base = prototype:new {}
 
 function stream.Base:write (data)
   error "Unimplemented abstract method"

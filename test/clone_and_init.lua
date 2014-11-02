@@ -1,18 +1,20 @@
 
 package.path = package.path..";./lib/?.lua"
 
-local Object = require "lux.Object"
+local prototype = require "lux.oo.prototype"
 
 local function show (t, name)
   print("Dumping "..tostring(t).." ("..name..")")
-  table.foreach(t, print)
+  for k,v in pairs(table) do
+    print(k,v)
+  end
 end
 
 local function dump (name)
   show(_G[name], name)
 end
 
-A = Object.new { x = 20 }
+A = prototype:new { x = 20 }
 dump "A"
 
 A2 = A:clone()
