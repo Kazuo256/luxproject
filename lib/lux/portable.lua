@@ -71,6 +71,10 @@ function portable.popEnvironment ()
   setEnv(pop(env_stack))
 end
 
+if lua_minor <= 1 then
+  table.unpack = unpack
+end
+
 --- Re-loads a funcion with the given env and an optional chunk name.
 -- It is important to note that the reloaded funcion loses its closure.
 -- @function loadWithEnv

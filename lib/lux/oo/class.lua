@@ -74,11 +74,12 @@ local function makeConstructor (definition)
   return function (the_class, ...)
     local self = setmetatable({ __class = the_class, __meta = {} }, scope_meta)
     assert(require 'lux.portable' .loadWithEnv(definition, self)) (self)
-    setmetatable(self, nil);
-    -- Call constructor if available
-    (self[the_class.name] or no_op) (self, ...)
+    setmetatable(self, nil)
     self.__meta.__index = self.__meta.__index or _G
-    return setmetatable(self, self.__meta)
+    -- Call constructor if available
+    setmetatable(self, self.__meta);
+    (the_class.constructor or no_op) (self, ...)
+    return self
   end
 end
 
@@ -93,8 +94,10 @@ end
 
 function scope_meta:__newindex (key, value)
   if type(value) == 'function' then
-    if key:match "^__" then
-      self.__meta[key] = value
+    if key == self.__class.name then
+      self.__class.constructor = function(_, ...) return value(...) end
+      local construct = getmetatable(self.__class).__call
+      rawset(self, key, function(...) return construct(self.__class, ...) end)
     else
       rawset(self, key, function(_, ...) return value(...) end)
     end
