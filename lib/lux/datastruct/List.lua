@@ -26,7 +26,7 @@
 --- LUX's list class.
 --  This is a linked list implementation in Lua.
 
-local List = require 'lux.Object' :new {
+local List = require 'lux.oo.prototype' :new {
   head  = nil,
   tail  = nil,
   n     = 0

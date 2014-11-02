@@ -27,17 +27,18 @@
 module ('lux.test', package.seeall)
 
 local term = require 'lux.terminal'
+local port = require 'lux.portable'
 
 --- Runs an unit test.
 function unit (unit_name)
   local tests = {}
-  local test_mttab = { __newindex = tests, __index = getfenv(0) }
+  local test_mttab = { __newindex = tests, __index = _G }
   local unit_script = "test/units/"..string.gsub(unit_name, "%.", "/")..".lua"
   local script, err = loadfile(unit_script)
   if not script then
     print(err)
   end
-  setfenv(script, setmetatable({}, test_mttab)) ()
+  script = port.loadWithEnv(script, setmetatable({}, test_mttab), 'unit_name') ()
   local before = tests.before or function () end
   for key,case in pairs(tests) do
     local name = string.match(key, "^test_([%w_]+)$")

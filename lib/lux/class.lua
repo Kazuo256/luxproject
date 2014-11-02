@@ -23,11 +23,11 @@
 --
 --]]
 
-local Catcher = require 'lux.Catcher'
-local Object  = require 'lux.Object'
+local Catcher   = require 'lux.Catcher'
+local prototype = require 'lux.oo.prototype'
 
 -- First, we define the BaseClass prototype
-local BaseClass = Object:new {
+local BaseClass = prototype:new {
   name = "BaseClass",
   constructor = function (...) end
 }
@@ -43,7 +43,7 @@ end
 local class = require 'lux.Feature' :new {}
 
 -- The feature helper
-class.helper = Object:new {
+class.helper = prototype:new {
   fallback = _G
 }
 
@@ -65,7 +65,7 @@ function class:onDefinition (name, definition)
   local NewClass = BaseClass:new {
     name = name,
     constructor = definition.methods[name],
-    prototype = Object:new{}
+    prototype = prototype:new{}
   }
   NewClass.__init = definition
   NewClass.prototype.__init = definition.members
