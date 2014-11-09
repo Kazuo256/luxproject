@@ -106,7 +106,7 @@ local function construct (the_class, ...)
   return obj
 end
 
-definition_scope.__index = definition_scope
+definition_scope.__index = _G
 
 function definition_scope.__newindex (obj, key, value)
   if type(value) == 'function' then
