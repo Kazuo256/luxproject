@@ -67,6 +67,7 @@
 --  end
 local class = {}
 
+local classes = {}
 local scope_meta = {}
 local no_op = function () end
 
@@ -83,13 +84,17 @@ local function makeConstructor (definition)
   end
 end
 
-local function onDefinition (classes, name, definition)
+function class:define (name, definition)
   assert(not classes[name], "Redefinition of class '"..name.."'")
   local new_class = {
     name = name
   }
   setmetatable(new_class, { __call = makeConstructor(definition) })
-  rawset(classes, name, new_class)
+  classes[name] = new_class
+end
+
+function class:forName (name)
+  return classes[name]
 end
 
 function scope_meta:__newindex (key, value)
@@ -104,5 +109,10 @@ function scope_meta:__newindex (key, value)
   end
 end
 
-return setmetatable(class, { __newindex = onDefinition })
+setmetatable(class, {
+  __index     = class.forName,
+  __newindex  = class.define
+})
+
+return class
 
