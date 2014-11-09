@@ -56,6 +56,9 @@
 --  the <code>local</code> keyword or explicitly referring to <code>self</code>
 --  within the class definition.
 --
+--  Inheritance is possible through a special field in the classes, 'inheritAs'.
+--  You use it the same way you the declare classes with @{class}.
+--
 --  @feature class
 --  @usage
 --  local class = require 'lux.oo.class'
@@ -65,6 +68,14 @@
 --      print(a_number)
 --    end
 --  end
+--  function class.MyClass.inheritAs:MyChildClass()
+--    local a_string = "foo"
+--    function show_twice ()
+--      show()
+--      show()
+--    end
+--  end
+--
 local class = {}
 
 local port              = require 'lux.portable'
