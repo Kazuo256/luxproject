@@ -67,46 +67,63 @@
 --  end
 local class = {}
 
-local classes = {}
-local scope_meta = {}
-local no_op = function () end
+local port              = require 'lux.portable'
+local classes           = {}
+local definition_scope  = {}
+local no_op             = function () end
 
-local function makeConstructor (definition)
-  return function (the_class, ...)
-    local self = setmetatable({ __class = the_class, __meta = {} }, scope_meta)
-    assert(require 'lux.portable' .loadWithEnv(definition, self)) (self)
-    setmetatable(self, nil)
-    self.__meta.__index = self.__meta.__index or _G
-    -- Call constructor if available
-    setmetatable(self, self.__meta);
-    (the_class.constructor or no_op) (self, ...)
-    return self
+local function applyDefinition (the_class, obj)
+  if not the_class then
+    return
+  else
+    applyDefinition(the_class.parent, obj)
+    assert(port.loadWithEnv(the_class.definition, obj)) (obj)
+  end
+end
+
+local function construct (the_class, ...)
+  local obj = setmetatable({ __class = the_class, __meta = {} }, definition_scope)
+  applyDefinition(the_class, obj)
+  setmetatable(obj, nil)
+  obj.__meta.__index = obj.__meta.__index or _G
+  if the_class.parent then
+    obj.super = the_class.parent.constructor
+  end
+  -- Call constructor if available
+  setmetatable(obj, obj.__meta);
+  (the_class.constructor or no_op) (...)
+  return obj
+end
+
+definition_scope.__index = definition_scope
+
+function definition_scope.__newindex (obj, key, value)
+  if type(value) == 'function' then
+    if key == obj.__class.name then
+      obj.__class.constructor = value
+      rawset(obj, key, function(...) return construct(obj.__class, ...) end)
+    else
+      rawset(obj, key, function(_, ...) return value(...) end)
+    end
   end
 end
 
 function class:define (name, definition)
   assert(not classes[name], "Redefinition of class '"..name.."'")
   local new_class = {
-    name = name
+    name = name,
+    definition = definition
   }
-  setmetatable(new_class, { __call = makeConstructor(definition) })
+  new_class.inheritAs = setmetatable({ owner = new_class }, { __newindex = class.define })
+  if self ~= class then
+    new_class.parent = self.owner
+  end
+  setmetatable(new_class, { __call = construct })
   classes[name] = new_class
 end
 
 function class:forName (name)
   return classes[name]
-end
-
-function scope_meta:__newindex (key, value)
-  if type(value) == 'function' then
-    if key == self.__class.name then
-      self.__class.constructor = function(_, ...) return value(...) end
-      local construct = getmetatable(self.__class).__call
-      rawset(self, key, function(...) return construct(self.__class, ...) end)
-    else
-      rawset(self, key, function(_, ...) return value(...) end)
-    end
-  end
 end
 
 setmetatable(class, {
