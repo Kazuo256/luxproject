@@ -56,8 +56,8 @@
 --  the <code>local</code> keyword or explicitly referring to <code>self</code>
 --  within the class definition.
 --
---  Inheritance is possible through a special field in the classes, 'inheritAs'.
---  You use it the same way you the declare classes with @{class}.
+--  Inheritance is possible through a special field in the classes, '__inherit'.
+--  You use it inside the class definition passing self as the first parameter.
 --
 --  @feature class
 --  @usage
@@ -68,7 +68,8 @@
 --      print(a_number)
 --    end
 --  end
---  function class.MyClass.inheritAs:MyChildClass()
+--  function class:MyChildClass()
+--    __inherit.MyClass(self)
 --    local a_string = "foo"
 --    function show_twice ()
 --      show()
