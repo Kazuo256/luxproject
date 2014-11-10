@@ -85,9 +85,7 @@ if lua_minor <= 1 then
   function portable.loadWithEnv(f, env, source)
     local loaded, err = loadstring(string.dump(f, source))
     if not loaded then return nil, err end
-    setfenv(loaded, env)
-    assert(getfenv(loaded) == env)
-    return loaded
+    return setfenv(loaded, env)
   end
 else
   function portable.loadWithEnv(f, env, source)
