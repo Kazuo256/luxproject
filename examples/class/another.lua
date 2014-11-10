@@ -35,6 +35,8 @@ function class.Another.inheritAs:Master()
 
   local z
 
+  print("HAHA")
+
   function Master()
     super(42, 42)
     z = getX() + 10

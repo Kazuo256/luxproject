@@ -98,7 +98,7 @@ local function construct (the_class, ...)
   setmetatable(obj, nil)
   obj.__meta.__index = obj.__meta.__index or _G
   if the_class.parent then
-    obj.super = the_class.parent.constructor
+    obj.super = the_class.parent.constructor or no_op
   end
   -- Call constructor if available
   setmetatable(obj, obj.__meta);
