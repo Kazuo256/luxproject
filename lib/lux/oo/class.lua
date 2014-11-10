@@ -79,30 +79,28 @@
 local class = {}
 
 local port              = require 'lux.portable'
+local lambda            = require 'lux.functional'
 local classes           = {}
 local definition_scope  = {}
 local no_op             = function () end
 
-local function applyDefinition (the_class, obj)
-  if not the_class then
-    return
-  else
-    applyDefinition(the_class.parent, obj)
-    assert(port.loadWithEnv(the_class.definition, obj)) (obj)
-  end
+local function makeEmptyObject (the_class)
+  return {
+    __inherit = class,
+    __class = the_class,
+    __meta = { __index = _G },
+  }
 end
 
-local function construct (the_class, ...)
-  local obj = setmetatable({ __class = the_class, __meta = {} }, definition_scope)
-  applyDefinition(the_class, obj)
-  setmetatable(obj, nil)
-  obj.__meta.__index = obj.__meta.__index or _G
-  if the_class.parent then
-    obj.super = the_class.parent.constructor or no_op
+local function construct (the_class, obj, ...)
+  if not obj or obj == class then
+    obj = makeEmptyObject(the_class)
   end
+  setmetatable(obj, definition_scope)
+  assert(port.loadWithEnv(the_class.definition, obj)) (obj, ...)
+  rawset(obj, the_class.name, lambda.bindLeft(construct, the_class, nil))
   -- Call constructor if available
   setmetatable(obj, obj.__meta);
-  (the_class.constructor or no_op) (...)
   return obj
 end
 
@@ -110,12 +108,7 @@ definition_scope.__index = _G
 
 function definition_scope.__newindex (obj, key, value)
   if type(value) == 'function' then
-    if key == obj.__class.name then
-      obj.__class.constructor = value
-      rawset(obj, key, function(...) return construct(obj.__class, ...) end)
-    else
-      rawset(obj, key, function(_, ...) return value(...) end)
-    end
+    rawset(obj, key, function(_, ...) return value(...) end)
   end
 end
 
@@ -123,12 +116,9 @@ function class:define (name, definition)
   assert(not classes[name], "Redefinition of class '"..name.."'")
   local new_class = {
     name = name,
-    definition = definition
+    definition = definition,
+    __isclass = true
   }
-  new_class.inheritAs = setmetatable({ owner = new_class }, { __newindex = class.define })
-  if self ~= class then
-    new_class.parent = self.owner
-  end
   setmetatable(new_class, { __call = construct })
   classes[name] = new_class
 end
