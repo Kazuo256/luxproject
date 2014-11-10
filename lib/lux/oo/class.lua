@@ -100,18 +100,21 @@ function obj_metatable:__index (key)
 end
 
 local function construct (the_class, obj, ...)
+  local owns
   if not obj or obj == class then
     obj = makeEmptyObject(the_class)
+    owns = true
   end
   setmetatable(obj, definition_scope)
   assert(port.loadWithEnv(the_class.definition, obj)) (obj, ...)
   rawset(obj, the_class.name, lambda.bindLeft(construct, the_class, nil))
-  -- Call constructor if available
-  setmetatable(obj, obj.__meta);
+  if owns then
+    setmetatable(obj, obj.__meta);
+  end
   return obj
 end
 
-definition_scope.__index = _G
+definition_scope.__index = obj_metatable.__index
 
 function definition_scope.__newindex (obj, key, value)
   if type(value) == 'function' then
