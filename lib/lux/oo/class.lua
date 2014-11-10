@@ -83,14 +83,20 @@ local port              = require 'lux.portable'
 local lambda            = require 'lux.functional'
 local classes           = {}
 local definition_scope  = {}
+local obj_metatable     = {}
 local no_op             = function () end
 
 local function makeEmptyObject (the_class)
   return {
     __inherit = class,
     __class = the_class,
-    __meta = { __index = _G },
+    __meta = obj_metatable,
+    __members = {}
   }
+end
+
+function obj_metatable:__index (key)
+  return self.__members[key] or _G[key]
 end
 
 local function construct (the_class, obj, ...)
@@ -109,7 +115,9 @@ definition_scope.__index = _G
 
 function definition_scope.__newindex (obj, key, value)
   if type(value) == 'function' then
-    rawset(obj, key, function(_, ...) return value(...) end)
+    rawset(obj.__members, key, function(_, ...) return value(...) end)
+  else
+    rawset(obj.__members, key, value)
   end
 end
 
