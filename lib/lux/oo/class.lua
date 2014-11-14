@@ -89,7 +89,6 @@ local function makeEmptyObject (the_class)
     __inherit = class,
     __class = the_class,
     __meta = {},
-    __members = {}
   }
 end
 
