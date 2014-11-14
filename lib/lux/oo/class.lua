@@ -121,6 +121,10 @@ function class:forName (name)
   return classes[name]
 end
 
+function class:bind (name)
+  return function (...) return classes[name](nil, ...) end
+end
+
 setmetatable(class, {
   __index     = class.forName,
   __newindex  = class.define
