@@ -79,10 +79,8 @@
 --
 local class = {}
 
-local port              = require 'lux.portable'
 local lambda            = require 'lux.functional'
 local classes           = {}
-local definition_scope  = {}
 local obj_metatable     = {}
 local no_op             = function () end
 
@@ -90,13 +88,9 @@ local function makeEmptyObject (the_class)
   return {
     __inherit = class,
     __class = the_class,
-    __meta = obj_metatable,
+    __meta = {},
     __members = {}
   }
-end
-
-function obj_metatable:__index (key)
-  return self.__members[key] or _G[key]
 end
 
 local function construct (the_class, obj, ...)
@@ -105,23 +99,11 @@ local function construct (the_class, obj, ...)
     obj = makeEmptyObject(the_class)
     owns = true
   end
-  setmetatable(obj, definition_scope)
-  assert(port.loadWithEnv(the_class.definition, obj)) (obj, ...)
-  rawset(obj, the_class.name, lambda.bindLeft(construct, the_class, nil))
+  assert(the_class.definition) (obj, ...)
   if owns then
     setmetatable(obj, obj.__meta);
   end
   return obj
-end
-
-definition_scope.__index = obj_metatable.__index
-
-function definition_scope.__newindex (obj, key, value)
-  if type(value) == 'function' then
-    rawset(obj.__members, key, function(_, ...) return value(...) end)
-  else
-    rawset(obj.__members, key, value)
-  end
 end
 
 function class:define (name, definition)

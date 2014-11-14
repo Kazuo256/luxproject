@@ -6,19 +6,19 @@ local class = require 'lux.oo.class'
 function class:Another(the_x, the_y)
   local x, y = the_x, the_y
   print "new"
-  function move (dx, dy)
+  function self:move (dx, dy)
     x = self:getX(33)+dx
     y = y+dy
     print('moved!', x, y)
   end
-  function getX(tmp)
+  function self:getX(tmp)
     return tmp or x
   end
-  function __meta:__call (...)
+  function self.__meta:__call (...)
     print("call", x, y, ...)
   end
-  function clone ()
-    return Another(x, y)
+  function self:clone ()
+    return class:Another(x, y)
   end
 end
 
@@ -31,13 +31,13 @@ p:clone() 'test'
 
 function class:Master()
 
-  __inherit.Another(self, 42, 42)
+  class.Another(self, 42, 42)
 
   local z = self:getX() + 10
 
   print("HAHA")
 
-  function show ()
+  function self:show ()
     print "hey"
     self("child", z)
   end
