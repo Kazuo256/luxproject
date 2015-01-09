@@ -124,7 +124,8 @@ end
 local function import (pack, name)
   local result = rawget(pack, name)
   if not result then
-    result = require(pack.__name.."."..name) or rawget(pack, name)
+    local maybe = require(pack.__name.."."..name)
+    result = rawget(pack, name) or maybe
   end
   return result
 end
