@@ -107,7 +107,7 @@ end
 local redef_err = "Redefinition of class '%s' in package '%s'"
 
 local function define (pack, name, definition)
-  assert(not pack[name], redef_err:format(name, current_package))
+  assert(not rawget(pack, name), redef_err:format(name, current_package))
   local new_class = {
     name = name,
     definition = definition,
@@ -117,10 +117,20 @@ local function define (pack, name, definition)
   rawset(pack, name, new_class)
 end
 
+local function import (pack, name)
+  local result = rawget(pack, name)
+  return result or require(pack.__name.."."..name)
+end
+
+local package_mttab = {
+  __index = import,
+  __newindex = define
+}
+
 function class:package (name)
   local pack = packages[name]
   if not pack then
-    pack = setmetatable({}, { __newindex = define })
+    pack = setmetatable({ __name = name }, package_mttab)
     packages[name] = pack
   end
   return pack
