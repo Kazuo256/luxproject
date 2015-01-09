@@ -1,9 +1,9 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
-local class = require 'lux.oo.class'
+local example = require 'lux.oo.class' :package 'example'
 
-function class:Another(the_x, the_y)
+function example:Another(the_x, the_y)
   local x, y = the_x, the_y
   print "new"
   function self:move (dx, dy)
@@ -22,17 +22,16 @@ function class:Another(the_x, the_y)
   end
 end
 
-local Another = class:forName 'Another'
-print(Another)
-p = Another(2,2)
+print(example.Another)
+p = example.Another(2,2)
 
 p:move(1, -1)
 
 p:clone() 'test'
 
-function class:Master()
+function example:Master()
 
-  Another:inherit(self, 42, 42)
+  example.Another:inherit(self, 42, 42)
 
   local z = self:getX() + 10
 
@@ -45,9 +44,7 @@ function class:Master()
 
 end
 
-local Master = class:forName 'Master'
-
-q = Master()
+q = example.Master()
 
 q:move(4, 4)
 q:show()

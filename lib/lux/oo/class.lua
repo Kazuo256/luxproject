@@ -81,7 +81,7 @@
 local class = {}
 
 local lambda            = require 'lux.functional'
-local classes           = {}
+local packages          = {}
 local obj_metatable     = {}
 local no_op             = function () end
 
@@ -104,24 +104,29 @@ local function createAndConstruct (the_class, ...)
   return setmetatable(obj, obj.__meta);
 end
 
-function class:define (name, definition)
-  assert(not classes[name], "Redefinition of class '"..name.."'")
+local redef_err = "Redefinition of class '%s' in package '%s'"
+
+local function define (pack, name, definition)
+  assert(not pack[name], redef_err:format(name, current_package))
   local new_class = {
     name = name,
     definition = definition,
     inherit = construct
   }
   setmetatable(new_class, { __call = createAndConstruct })
-  classes[name] = new_class
+  rawset(pack, name, new_class)
 end
 
-function class:forName (name)
-  return classes[name]
+function class:package (name)
+  local pack = packages[name]
+  if not pack then
+    pack = setmetatable({}, { __newindex = define })
+    packages[name] = pack
+  end
+  return pack
 end
 
-setmetatable(class, {
-  __newindex  = class.define
-})
+class:package 'std'
 
 return class
 
