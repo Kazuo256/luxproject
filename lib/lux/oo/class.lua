@@ -123,7 +123,10 @@ end
 
 local function import (pack, name)
   local result = rawget(pack, name)
-  return result or require(pack.__name.."."..name)
+  if not result then
+    result = require(pack.__name.."."..name) or rawget(pack, name)
+  end
+  return result
 end
 
 local package_mttab = {
