@@ -109,8 +109,7 @@ function class:define (name, definition)
   assert(not classes[name], "Redefinition of class '"..name.."'")
   local new_class = {
     name = name,
-    definition = definition,
-    __isclass = true
+    definition = definition
   }
   setmetatable(new_class, { __call = construct })
   classes[name] = new_class
