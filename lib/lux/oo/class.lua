@@ -56,7 +56,7 @@
 --  the <code>local</code> keyword or explicitly referring to <code>self</code>
 --  within the class definition.
 --
---  Inheritance is possible through a special field in the classes, '__inherit'.
+--  Inheritance is possible through the <code>my_class:inherit()</code> method.
 --  You use it inside the class definition passing self as the first parameter.
 --
 --  @feature class
@@ -68,8 +68,9 @@
 --      print(a_number)
 --    end
 --  end
---  function class:MyChildClass()
---    __inherit.MyClass(self)
+--  local MyClass = class:forName 'MyClass'
+--  function MyChildClass()
+--    MyClass:inherit(self)
 --    local a_string = "foo"
 --    function show_twice ()
 --      show()
@@ -93,25 +94,24 @@ local function makeEmptyObject (the_class)
 end
 
 local function construct (the_class, obj, ...)
-  local owns
-  if not obj or obj == class then
-    obj = makeEmptyObject(the_class)
-    owns = true
-  end
   assert(the_class.definition) (obj, ...)
-  if owns then
-    setmetatable(obj, obj.__meta);
-  end
   return obj
+end
+
+local function createAndConstruct (the_class, ...)
+  local obj = makeEmptyObject(the_class)
+  construct(the_class, obj, ...)
+  return setmetatable(obj, obj.__meta);
 end
 
 function class:define (name, definition)
   assert(not classes[name], "Redefinition of class '"..name.."'")
   local new_class = {
     name = name,
-    definition = definition
+    definition = definition,
+    inherit = construct
   }
-  setmetatable(new_class, { __call = construct })
+  setmetatable(new_class, { __call = createAndConstruct })
   classes[name] = new_class
 end
 
@@ -119,12 +119,7 @@ function class:forName (name)
   return classes[name]
 end
 
-function class:bind (name)
-  return function (...) return classes[name](nil, ...) end
-end
-
 setmetatable(class, {
-  __index     = class.forName,
   __newindex  = class.define
 })
 

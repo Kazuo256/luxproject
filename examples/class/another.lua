@@ -18,12 +18,13 @@ function class:Another(the_x, the_y)
     print("call", x, y, ...)
   end
   function self:clone ()
-    return class:Another(x, y)
+    return self.__class(x, y)
   end
 end
 
-print(class.Another)
-p = class:Another(2,2)
+local Another = class:forName 'Another'
+print(Another)
+p = Another(2,2)
 
 p:move(1, -1)
 
@@ -31,7 +32,7 @@ p:clone() 'test'
 
 function class:Master()
 
-  class.Another(self, 42, 42)
+  Another:inherit(self, 42, 42)
 
   local z = self:getX() + 10
 
@@ -44,7 +45,9 @@ function class:Master()
 
 end
 
-q = class:Master()
+local Master = class:forName 'Master'
+
+q = Master()
 
 q:move(4, 4)
 q:show()
