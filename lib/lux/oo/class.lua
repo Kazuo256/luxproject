@@ -135,7 +135,7 @@ local package_mttab = {
 --  Tries to provide a previously registered package with the given name. If it
 --  is not found, it is created, registered and returned.
 --  @param name The package name
-function class:package (name)
+function class.package (name)
   local pack = packages[name]
   if not pack then
     pack = setmetatable({ __name = name }, package_mttab)
