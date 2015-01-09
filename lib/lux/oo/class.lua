@@ -45,10 +45,14 @@
 --
 --  @module lux.oo
 
---- A special table for defining classes.
---  By defining a named method in it, a new class is created. It uses the given
---  method to create its instances. Once defined, the class can be retrieved by
---  using accessing the @{class} table with its name.
+--- A special table for defining classes through a simple package system.
+--
+--  In order to use it in any way, call the <code>class.package</code> function
+--  to get a package (all classes belong in package). Then, by defining a named
+--  method in it, a new class is created. It uses the given method to create its
+--  instances. Once defined, the class can be retrieved by using accessing the
+--  package table with its name. If it is not defined, the package tries to
+--  <code>require</code> using its name concatenated with the class' name.
 --
 --  Since the fields are declared in a scope of
 --  their own, local variables are kept their closures. Thus, it is
@@ -62,15 +66,15 @@
 --  @feature class
 --  @usage
 --  local class = require 'lux.oo.class'
---  function class:MyClass()
+--  local pack  = class.package 'pack'
+--  function pack:MyClass()
 --    local a_number = 42
 --    function show ()
 --      print(a_number)
 --    end
 --  end
---  local MyClass = class:forName 'MyClass'
---  function MyChildClass()
---    MyClass:inherit(self)
+--  function pack:MyChildClass()
+--    pack.MyClass:inherit(self)
 --    local a_string = "foo"
 --    function show_twice ()
 --      show()
@@ -127,6 +131,10 @@ local package_mttab = {
   __newindex = define
 }
 
+--- Loads a class package
+--  Tries to provide a previously registered package with the given name. If it
+--  is not found, it is created, registered and returned.
+--  @param name The package name
 function class:package (name)
   local pack = packages[name]
   if not pack then
