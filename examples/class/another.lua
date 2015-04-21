@@ -1,8 +1,9 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
-local example = require 'lux.oo.class' :package 'example'
+local example = require 'lux.oo.class' .package 'example'
 
+-- This is a class definition
 function example:Another(the_x, the_y)
   local x, y = the_x, the_y
   print "new"
@@ -29,6 +30,7 @@ p:move(1, -1)
 
 p:clone() 'test'
 
+-- This class inherits the previous one
 function example:Master()
 
   example.Another:inherit(self, 42, 42)
