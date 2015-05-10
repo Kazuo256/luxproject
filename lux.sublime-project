@@ -2,11 +2,18 @@
     "folders":
     [
         {
+            "path": ".",
+            "folder_exclude_patterns": ["lib", "test", "examples"]
+        },
+        {
             "path": "lib"
         },
         {
             "path": "test"
-        }
+        },
+        {
+            "path": "examples"
+        },
     ],
     "settings":
     {
