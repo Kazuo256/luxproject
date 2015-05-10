@@ -7,7 +7,7 @@ This document is still a stub.
 1. Description:
 
   Lua Utility eXtension (LUX) is a project whose objective is to make some extension
-  facilities to the programming language Lua. It is written in Lua 5.1.X,
+  facilities to the programming language Lua. It is written in Lua 5.X,
   which means you may use it in your own project without having to worry
   (much) about which Lua distribution you are using - it may very well be your
   own distribution - as long as it is derived from Lua 5.1 or later.
