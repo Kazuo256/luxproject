@@ -26,7 +26,7 @@
 local class = require 'lux.oo.prototype' :new {}
 
 function class:initialize (obj, ...)
-  assert(self.instance) (obj, ...)
+  -- Does nothing
 end
 
 function class:__call (...)

@@ -5,15 +5,15 @@ local class = require 'lux.oo.class2'
 
 Example = class:new{}
 
-function Example:instance (attr1, attr2)
+function Example:initialize (obj, attr1, attr2)
   
   local x, y = 42, 1337
 
-  function self:getXY()
+  function obj:getXY()
     return x, y
   end
 
-  function self:foo ()
+  function obj:foo ()
     print("foo", attr1, attr2)
     x, y = x+y, x*y
   end
@@ -32,11 +32,11 @@ obj2:foo()
 
 local NotExample = class:new{}
 
-function NotExample:instance ()
+function NotExample:initialize (obj)
   
-  Example:extend(self, {}, function () end)
+  Example:extend(obj, {}, function () end)
 
-  function self:__call ()
+  function obj:__call ()
     print "called obj"
   end
 
