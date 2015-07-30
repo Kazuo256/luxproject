@@ -25,20 +25,30 @@
 
 local class = require 'lux.oo.prototype' :new {}
 
-function class:initialize (obj, ...)
+function class:instance (obj, ...)
   -- Does nothing
+end
+
+function class:inherit (another_class)
+  assert(not self.__super, "Multiple inheritance not allowed!")
+  assert(another_class:__super() == class, "Must inherit a class!")
+  self.__super = another_class
 end
 
 function class:__call (...)
   local obj = {
-    __class = self
+    __class = self,
+    __extended = not self.__super
   }
-  self:initialize(obj, ...)
+  self:instance(obj, ...)
+  assert(obj.__extended, "Missing call to parent constructor!")
   return setmetatable(obj, obj)
 end
 
-function class:extend (obj, ...)
-  self:initialize(obj, ...)
+function class:super (obj, ...)
+  assert(not obj.__extended, "Already called parent constructor!")
+  self.__super:instance(obj, ...)
+  obj.__extended = true
 end
 
 return class
