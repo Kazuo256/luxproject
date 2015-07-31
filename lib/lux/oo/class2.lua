@@ -30,15 +30,15 @@ function class:instance (obj, ...)
 end
 
 function class:inherit (another_class)
-  assert(not self.__super, "Multiple inheritance not allowed!")
+  assert(not self.__parent, "Multiple inheritance not allowed!")
   assert(another_class:__super() == class, "Must inherit a class!")
-  self.__super = another_class
+  self.__parent = another_class
 end
 
 function class:__call (...)
   local obj = {
     __class = self,
-    __extended = not self.__super
+    __extended = not self.__parent
   }
   self:instance(obj, ...)
   assert(obj.__extended, "Missing call to parent constructor!")
@@ -47,7 +47,7 @@ end
 
 function class:super (obj, ...)
   assert(not obj.__extended, "Already called parent constructor!")
-  self.__super:instance(obj, ...)
+  self.__parent:instance(obj, ...)
   obj.__extended = true
 end
 
