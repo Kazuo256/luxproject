@@ -23,7 +23,7 @@
 --
 --]]
 
-local prototype = require 'lux.oo.prototype'
+local prototype = require 'lux.prototype'
 
 local obj
 

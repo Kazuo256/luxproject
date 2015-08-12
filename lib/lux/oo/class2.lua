@@ -23,7 +23,7 @@
 --
 --]]
 
-local class = require 'lux.oo.prototype' :new {}
+local class = require 'lux.prototype' :new {}
 
 function class:instance (obj, ...)
   -- Does nothing

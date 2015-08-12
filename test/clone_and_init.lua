@@ -1,7 +1,7 @@
 
 package.path = package.path..";./lib/?.lua"
 
-local prototype = require "lux.oo.prototype"
+local prototype = require "lux.prototype"
 
 local function show (t, name)
   print("Dumping "..tostring(t).." ("..name..")")

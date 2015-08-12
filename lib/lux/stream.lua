@@ -1,6 +1,6 @@
 --[[
 --
--- Copyright (c) 2013-2014 Wilson Kazuo Mizutani
+-- Copyright (c) 2013-2015 Wilson Kazuo Mizutani
 --
 -- This software is provided 'as-is', without any express or implied
 -- warranty. In no event will the authors be held liable for any damages
@@ -27,7 +27,7 @@
 --  @module stream
 local stream = {}
 
-local prototype = require 'lux.oo.prototype'
+local prototype = require 'lux.prototype'
 
 stream.Base = prototype:new {}
 
