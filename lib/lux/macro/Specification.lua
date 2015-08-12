@@ -26,7 +26,7 @@
 
 --- This class represents a macro configuration.
 -- @classmod macro.Specification
-local Specification = require 'lux.oo.prototype' :new {}
+local Specification = require 'lux.prototype' :new {}
 
 local functional = require 'lux.functional'
 
