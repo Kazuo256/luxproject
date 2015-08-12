@@ -1,7 +1,7 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
-local class = require 'lux.oo.class2'
+local class = require 'lux.class'
 
 Example = class:new{}
 
