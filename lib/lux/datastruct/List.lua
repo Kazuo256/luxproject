@@ -25,12 +25,14 @@
 
 --- LUX's list class.
 --  This is a linked list implementation in Lua.
-
+--  @prototype lux.datastruct.List
 local List = require 'lux.prototype' :new {
   head  = nil,
   tail  = nil,
   n     = 0
 }
+
+require 'lux.portable' -- for table.unpack
 
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
