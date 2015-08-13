@@ -23,12 +23,12 @@
 --
 --]]
 
---- This module provides a prototype-based implementation of the object
---  orientated programming paradigm. It returns the root prototype object, with
---  which you can create new objects using @{prototype:new}. Objects created this
---  way automatically inherit fields and methods from their parent, and may
---  override them. It is not possible to inherit from multiple objects.
---  @module lux.prototype
+--- A prototype-based implementation for object oriented programming.
+--  It returns the root prototype object, with which you can create new objects
+--  using @{prototype:new}. Objects created this way automatically inherit
+--  fields and methods from their parent, and may override them. It is not
+--  possible to inherit from multiple objects.
+--  @prototype lux.prototype
 local prototype = {}
 
 -- Recursive initialization.

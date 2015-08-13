@@ -11,5 +11,5 @@ merge = true
 examples = "examples"
 format = "discount"
 
-new_type("feature", "Features")
+new_type("prototype", "Prototypes", true)
 

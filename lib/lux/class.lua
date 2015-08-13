@@ -23,18 +23,39 @@
 --
 --]]
 
+--- A class-based implementation object oriented programming.
+--  Ironically, this is actually a prototype, which means it inherits from
+--  @{lux.prototype}, but otherwise provides its own mechanism for OOP.
+--
+--  Be sure to check @{instance}, @{inherit} and @{super} usages.
+--  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
+--- Defines how an instance of the class should be constructed.
+--  @param obj The to-be-constructed object
+--  @param ... Any arguments required by the construction
+--  @usage
+--  local MyClass = require 'lux.class' :new{}
+--  function MyClass:instance (obj)
+--    local a_number = 42
+--    function obj:show ()
+--      print(a_number)
+--    end
+--  end
 function class:instance (obj, ...)
   -- Does nothing
 end
 
+--- Makes this class inherit from another.
+--  @param another_class The being inherited from
 function class:inherit (another_class)
   assert(not self.__parent, "Multiple inheritance not allowed!")
   assert(another_class:__super() == class, "Must inherit a class!")
   self.__parent = another_class
 end
 
+--- The class constructor.
+--  @param ... The constructor parameters as specified in @{instance}
 function class:__call (...)
   local obj = {
     __class = self,
@@ -45,6 +66,9 @@ function class:__call (...)
   return setmetatable(obj, obj)
 end
 
+--- Calls the parent class' constructor.
+--  @param obj The object being constructed by the child class
+--  @param ... The parent class' constructor parameters
 function class:super (obj, ...)
   assert(not obj.__extended, "Already called parent constructor!")
   self.__parent:instance(obj, ...)

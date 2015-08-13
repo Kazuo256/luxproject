@@ -23,6 +23,7 @@
 --
 --]]
 
+--- A module-packing feature for more comfortable `require`-ing
 local packs = {}
 local pack_meta = {}
 
