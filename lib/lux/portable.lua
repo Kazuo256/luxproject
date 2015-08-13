@@ -73,6 +73,7 @@ end
 
 if lua_minor <= 1 then
   table.unpack = unpack
+  table.pack = function (...) return { n = select('#', ...), ... } end
 end
 
 --- Re-loads a funcion with the given env and an optional chunk name.
