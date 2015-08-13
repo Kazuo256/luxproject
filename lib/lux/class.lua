@@ -47,7 +47,14 @@ function class:instance (obj, ...)
 end
 
 --- Makes this class inherit from another.
+--  It is necessary to call `self:super(obj, ...)` inside this class'
+--  @{instance} definition method.
 --  @param another_class The being inherited from
+--  @usage
+--  local class = require 'lux.class'
+--  local ParentClass = class:new{}
+--  local ChildClass = class:new{}
+--  ChildClass:inherit(ParentClass)
 function class:inherit (another_class)
   assert(not self.__parent, "Multiple inheritance not allowed!")
   assert(another_class:__super() == class, "Must inherit a class!")
@@ -67,8 +74,16 @@ function class:__call (...)
 end
 
 --- Calls the parent class' constructor.
+--  Should only be called inside this class' @{instance} definition method when
+--  it inherits from another class.
 --  @param obj The object being constructed by the child class
 --  @param ... The parent class' constructor parameters
+--  @usage
+--  -- After ChildClass inherited ParentClass
+--  function ChildClass:instance (obj, x, y)
+--    self:super(obj, x + y) -- parent's constructor parameters
+--    -- Finish instancing
+--  end
 function class:super (obj, ...)
   assert(not obj.__extended, "Already called parent constructor!")
   self.__parent:instance(obj, ...)
