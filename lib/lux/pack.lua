@@ -32,7 +32,7 @@ function pack_meta:__index (name)
   if not result then
     local maybe = require(self.__name.."."..name)
     result = rawget(self, name) or maybe
-    rawset(pack, result)
+    rawset(self, result)
   end
   return result
 end
