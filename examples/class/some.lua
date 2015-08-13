@@ -21,7 +21,7 @@ function Example:instance (obj, attr1, attr2)
 end
 
 function Example:fromArray (array)
-  return Example(unpack(array))
+  return Example(table.unpack(array))
 end
 
 obj = Example('asd', 'dsa')
