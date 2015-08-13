@@ -25,7 +25,7 @@
 
 local Vector = require 'lux.geom.Vector'
 
-Matrix = require 'lux.oo.prototype' :new {
+Matrix = require 'lux.prototype' :new {
   __type = "Matrix",
   -- Matrix columns.
   [1] = nil,
