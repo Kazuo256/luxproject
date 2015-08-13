@@ -23,10 +23,12 @@
 --
 --]]
 
---- @module lux.oo
-
---- The root prototype object.
---  @feature prototype
+--- This module provides a prototype-based implementation of the object
+--  orientated programming paradigm. It returns the root prototype object, with
+--  which you can create new objects using @{prototype:new}. Objects created this
+--  way automatically inherit fields and methods from their parent, and may
+--  override them. It is not possible to inherit from multiple objects.
+--  @module lux.prototype
 local prototype = {}
 
 -- Recursive initialization.
@@ -50,8 +52,8 @@ local function init (obj, super)
 end
 
 --- Creates a new object from a prototype.
---  If the self object has a <code>__construct</code> field as a function, it
---  will be applied to the new object. If it has an <code>__init</code> field as
+--  If the self object has a `__construct` field as a function, it
+--  will be applied to the new object. If it has an `__init` field as
 --  a table, its contents will be cloned into the new object.
 --  @param object A table containing the object's fields.
 --  @usage
@@ -66,9 +68,9 @@ end
 
 --- Returns the parent of an object.
 --  Note that this may get confusing if you use prototypes as classes, because
---  <code>obj:__super()</code> will most likely return the object's class, not
+--  `obj:__super()` will most likely return the object's class, not
 --  its class' parent class. In this case, it is better and more explicit to use
---  <code>Class:__super()</code> directly.
+--  `Class:__super()` directly.
 --  @return The object's parent.
 function prototype:__super ()
   return getmetatable(self)
@@ -99,8 +101,8 @@ end
 
 --- Clones the object.
 --  Not to be confused with @{prototype:new}. This recursevely clones an object
---  and its fields. <strong>It may go into an infinite loop if there is a cyclic
---  reference inside the object</strong>. This function may also be used to
+--  and its fields. __It may go into an infinite loop if there is a cyclic
+--  reference inside the object__. This function may also be used to
 --  clone arbitrary Lua tables.
 --  @return A clone of this object.
 function prototype:clone ()
