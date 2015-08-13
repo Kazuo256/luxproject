@@ -1,4 +1,5 @@
 -- Copyright (c) 2009 Rob Hoelz <rob@hoelzro.net>
+-- Adapted by Wilson Kazuo Mizutani
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +24,7 @@ local tostring = tostring
 local setmetatable = setmetatable
 local schar = string.char
 
-module 'ansicolors'
+local ansicolors = {}
 
 local colormt = {}
 
@@ -36,7 +37,7 @@ function colormt:__concat(other)
 end
 
 function colormt:__call(s)
-    return self .. s .. _M.reset
+    return self .. s .. ansicolors.reset
 end
 
 colormt.__metatable = {}
@@ -78,5 +79,7 @@ local colors = {
 }
 
 for c, v in pairs(colors) do
-    _M[c] = makecolor(v)
+    ansicolors[c] = makecolor(v)
 end
+
+return ansicolors

@@ -69,10 +69,10 @@
 --  <li><code>oncyan</code></li>
 --  <li><code>onwhite</code></li>
 --  </ul>
---
-module ("lux.terminal", package.seeall)
+--  @module lux.color
+local terminal = {}
 
-local color     = require "ansicolors"
+local color     = require "lux.term.ansicolors"
 local tostring  = tostring
 local gsub      = string.gsub
 local io        = io
@@ -90,15 +90,16 @@ end
 
 --- Print a line with formatted colors.
 -- @param text A string possibly containing color tags.
-function line (text)
-  write(text.."\n")
+function terminal.line (text)
+  terminal.write(text.."\n")
 end
 
 --- Writes to the standard output with formatted colors.
 -- @param text A string possibly containing color tags.
-function write (text)
+function terminal.write (text)
   -- used to throw out extra returned values
   local output = formatColor(text)
   io.write(output)
 end
 
+return terminal

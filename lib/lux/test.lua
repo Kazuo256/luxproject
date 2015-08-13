@@ -24,13 +24,14 @@
 --]]
 
 --- LUX's testing module.
-module ('lux.test', package.seeall)
+--  @module lux.test
+local test = {}
 
-local term = require 'lux.terminal'
+local term = require 'lux.term.color'
 local port = require 'lux.portable'
 
 --- Runs an unit test.
-function unit (unit_name)
+function test.unit (unit_name)
   local tests = {}
   local test_mttab = { __newindex = tests, __index = _G }
   local unit_script = "test/units/"..string.gsub(unit_name, "%.", "/")..".lua"
@@ -56,3 +57,4 @@ function unit (unit_name)
   end
 end
 
+return test

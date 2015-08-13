@@ -35,7 +35,7 @@ local List = require 'lux.prototype' :new {
 --- The list's constructor may take a sequence of values to initialize the list
 --  with.
 function List:__construct ()
-  self:pushBack(unpack(self))
+  self:pushBack(table.unpack(self))
 end
 
 --- Tells if the list is empty.
@@ -122,7 +122,7 @@ end
 function List:popFront (n, t)
   n = n or 1
   t = t or {}
-  if n <= 0 or self:empty() then return unpack(t) end
+  if n <= 0 or self:empty() then return table.unpack(t) end
   local popped = self.head
   if self.head[2] then
     self.head[2][3] = nil

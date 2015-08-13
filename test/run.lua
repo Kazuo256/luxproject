@@ -25,10 +25,10 @@
 
 package.path = package.path..";./lib/?.lua"
 
-require 'lux.test'
+local test = require 'lux.test'
 
-lux.test.unit "lux.prototype"
-lux.test.unit "lux.datastruct.List"
-lux.test.unit "lux.macro.Processor"
-lux.test.unit "lux.functional"
+test.unit "lux.prototype"
+test.unit "lux.datastruct.List"
+test.unit "lux.macro.Processor"
+test.unit "lux.functional"
 
