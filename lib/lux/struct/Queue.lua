@@ -78,7 +78,7 @@ function Queue:instance (obj, max)
 
   local function iterate ()
     while not obj:isEmpty() do
-      coroutine.yield(self:pop())
+      coroutine.yield(obj:pop())
     end
   end
 
