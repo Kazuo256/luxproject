@@ -33,7 +33,7 @@ local Vector = require 'lux.prototype' :new {
   __type = "Vector"
 }
 
-point = Vector:new {
+local point = Vector:new {
   [4] = 1,
   __type = "point"
 }
