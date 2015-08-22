@@ -23,7 +23,7 @@
 --
 --]]
 
-Vector = require 'lux.prototype' :new {
+local Vector = require 'lux.prototype' :new {
   -- Vector coordinates.
   0,
   0,
