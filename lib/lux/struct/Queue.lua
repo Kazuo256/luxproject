@@ -24,7 +24,7 @@
 --]]
 
 --- An array-based queue.
---  @classmod
+--  @classmod lux.struct.Queue
 local Queue = require 'lux.class' :new{}
 
 function Queue:instance (obj, max)

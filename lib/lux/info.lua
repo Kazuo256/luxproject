@@ -24,6 +24,7 @@
 --]]
 
 --- Module containing information regarding this LUX Project distribution.
+--  @module lux.info
 local info = {}
 
 local major = 0

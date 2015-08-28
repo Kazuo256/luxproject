@@ -23,12 +23,12 @@
 --
 --]]
 
---------
--- LUX's standard module.
--- Here a collection of general-purpose functions are available. This module is
--- also set up in a way that the global environment is accessible through it.
--- This allows you to change the current evironment to it add still have access
--- to the global default environment.
+--- LUX's standard module.
+--  Here a collection of general-purpose functions are available. This module is
+--  also set up in a way that the global environment is accessible through it.
+--  This allows you to change the current evironment to it add still have access
+--  to the global default environment.
+--  @module lux.std
 local std = {}
 
 --- Prints all key-value pairs of the given table to the standard output.
@@ -60,5 +60,23 @@ function std.loadDataFile (path, loader)
   return data
 end
 
-return setmetatable(std, { __index = _G })
+--- Allows a single-loop `for` when `value` is `true`
+--
+--  @param value
+--  The checked value
+--  
+--  @return
+--  A pseudo-iterator function that runs only once.
+--
+--  @usage
+--  for x in std.catch(calculateExpr()) do
+--    -- this block executes only if the value caught evaluates to "true"
+--  end
+function std.catch (value)
+  return function (_, v)
+    return (value ~= v) and value or nil
+  end
+end
+
+return std
 

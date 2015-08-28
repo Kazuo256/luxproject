@@ -24,6 +24,7 @@
 --]]
 
 --- A module-packing feature for more comfortable `require`-ing
+--  @module lux.pack
 local packs = {}
 local pack_meta = {}
 
