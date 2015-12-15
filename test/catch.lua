@@ -24,7 +24,7 @@ function profile (method, seed)
   math.randomseed(seed)
   local start = os.clock()
   for i=1,10000000 do
-    with_catch()
+    method()
   end
   return os.clock() - start
 end
