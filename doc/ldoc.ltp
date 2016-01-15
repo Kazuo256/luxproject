@@ -297,18 +297,20 @@
 #           for kind, mods, type in ldoc.kinds() do
               <h2>$(kind)</h2>
 #             kind = kind:lower()
-#             for m in mods() do
-                <table class="module_list">
-        	        <tr>
-        		        <td class="name">
-                      <a href="$(no_spaces(kind))/$(m.name).html">
-                        $(m.name)
-                      </a>
-                    </td>
-        		        <td class="summary">$(M(m.summary))</td>
-        	        </tr>
-                </table>
-#             end -- for modules
+              <table class="table">
+#               for m in mods() do
+                  <tbody>
+        	          <tr>
+        		          <td>
+                        <a href="$(no_spaces(kind))/$(m.name).html">
+                          $(m.name)
+                        </a>
+                      </td>
+        		          <td>$(M(m.summary))</td>
+        	          </tr>
+                  </tbody>
+#               end -- for modules
+              </table>
 #           end -- for kinds
 #         end -- if module
         
