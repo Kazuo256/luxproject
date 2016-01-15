@@ -45,8 +45,9 @@ end
 --  @param path
 --  The path to the data file.
 --
---  @param loader
---  The function used to load the file. Default is Lua's @{load} function.
+--  @param[opt] loader
+--  The function used to load the file. Default is Lua's standard @{load}
+--  function.
 --
 --  @return
 --  The table representing the data file.

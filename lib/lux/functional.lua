@@ -29,13 +29,13 @@ local functional = {}
 
 --- Binds a function's first parameter to the given argument.
 --
--- @param f
+-- @tparam function f
 -- function being bound.
 --
--- @param arg
+-- @tparam any arg
 -- The bound argument.
 --
--- @return
+-- @treturn function
 -- A function that, upon being called, does the same as f, but requires only
 -- the arguments beyond the first one.
 function functional.bindFirst (f, arg)
@@ -48,16 +48,16 @@ end
 -- The arguments must be passed in the apropriate order, according to the
 -- function's specification.
 --
--- @param f
+-- @tparam function f
 -- The function being binded.
 --
--- @param arg1
+-- @tparam any arg1
 -- The first bound argument.
 --
--- @param ...
+-- @tparam[optchain] any ...
 -- The remaining bound arguments, in order.
 --
--- @return
+-- @treturn function
 -- A function that, upon being called, does the same as f, but requires only the
 -- remaining right-most arguments that were not binded with it.
 function functional.bindLeft (f, arg1, ...)
@@ -76,9 +76,9 @@ end
 --
 -- @param f The function being curried.
 --
--- @param n How much the function should be curried.
+-- @param[opt=1] n How much the function should be curried.
 --
--- @return An <code>n</code>-curried version of <code>f</code>.
+-- @treturn function An <code>n</code>-curried version of <code>f</code>.
 function functional.curry (f, n)
   n = n or 1
   return function (...)
