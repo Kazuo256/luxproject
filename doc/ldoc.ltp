@@ -20,6 +20,9 @@
   
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
         <div class="navbar-header">
           <a class="navbar-brand" href="../index.html">Lua Utility eXtension</a>
         </div>
@@ -59,6 +62,9 @@
             <a href="https://github.com/Kazuo256/luxproject">GitHub Page</a>
           </li>
         </ul>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
       </div>
     </nav>
 
