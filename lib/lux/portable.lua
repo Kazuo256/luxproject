@@ -24,7 +24,7 @@
 --]]
 
 --- This module allows for portable programming in Lua.
--- It currently support versions 5.1 and 5.2.
+-- It currently support versions 5.1 through 5.3.
 local portable = {}
 
 local lambda = require 'lux.functional'
