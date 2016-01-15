@@ -13,7 +13,7 @@ pretty = "lxsh"
 style = "doc"
 template = "doc"
 merge = true
-
+manual_url "http://www.lua.org/manual/5.3/manual.html"
 examples = "examples"
 format = "discount"
 

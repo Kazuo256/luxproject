@@ -29,7 +29,7 @@ local functional = {}
 
 --- Binds a function's first parameter to the given argument.
 --
--- @param f
+-- @tparam function f
 -- function being bound.
 --
 -- @param arg
@@ -48,13 +48,13 @@ end
 -- The arguments must be passed in the apropriate order, according to the
 -- function's specification.
 --
--- @param f
+-- @tparam function f
 -- The function being binded.
 --
 -- @param arg1
 -- The first bound argument.
 --
--- @param ...
+-- @param[optchain] ...
 -- The remaining bound arguments, in order.
 --
 -- @return
