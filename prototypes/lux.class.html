@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>LUX Documentation and Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+    <link rel="stylesheet"
+    href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
+        <div class="col-xs-12 col-md-10 col-lg-8">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#luxNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">
+              Lua Utility eXtension
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="luxNavbar">
+            <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Modules
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../modules/lux.functional.html">
+                            lux.functional
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.info.html">
+                            lux.info
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.pack.html">
+                            lux.pack
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.portable.html">
+                            lux.portable
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.std.html">
+                            lux.std
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/stream.html">
+                            stream
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.color.html">
+                            lux.color
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.test.html">
+                            lux.test
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Classes
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../classes/macro.Processor.html">
+                            macro.Processor
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../classes/macro.Specification.html">
+                            macro.Specification
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../classes/lux.struct.Queue.html">
+                            lux.struct.Queue
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Prototypes
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          class="active">
+                          <a href="../prototypes/lux.class.html">
+                            lux.class
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../prototypes/lux.prototype.html">
+                            lux.prototype
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../prototypes/lux.datastruct.List.html">
+                            lux.datastruct.List
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Examples
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../examples/some.lua.html">
+                            some.lua
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://github.com/Kazuo256/luxproject">
+                  GitHub Page
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
+      <div class="col-xs-12 col-md-8 col-lg-6">
+        <div id="main">
+
+
+          <!-- Menu -->
+
+
+
+          <div id="content">
+
+
+            <h1>
+              lux.class
+              <small>a LUX prototype</small>
+            </h1>
+
+            <div class="row" style="height:2em"></div>
+
+            <p>
+              A class-based implementation object oriented programming.
+                Ironically, this is actually a prototype, which means it inherits from
+  <a href="../prototypes/lux.prototype.html#">lux.prototype</a>, but otherwise provides its own mechanism for OOP.</p>
+
+<p>  Be sure to check <a href="../prototypes/lux.class.html#class:instance">instance</a>, <a href="../prototypes/lux.class.html#class:inherit">inherit</a> and <a href="../prototypes/lux.class.html#class:super">super</a> usages.
+            </p>
+
+
+
+              <h2>
+                <a name="Functions"></a>
+                Functions
+              </h2>
+
+              <dl class="function">
+                  <dt>
+                    <a name = "class:instance"></a>
+                    <h3 class="text-primary">class:instance&nbsp;(obj, ...)</h3>
+                  </dt>
+                  <dd>
+                    Defines how an instance of the class should be constructed.
+
+
+
+                        <h4>Parameters:</h4>
+                      <ul>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                obj</kbd>
+                              <p>
+                                 The to-be-constructed object
+                              </p>
+                              </li>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                ...</kbd>
+                              <p>
+                                 Any arguments required by the construction
+                              </p>
+                              </li>
+                      </ul>
+
+
+                      <h4>Usage:</h4>
+                      <ul>
+
+                          <pre class="example">
+  <span class="keyword">local</span> MyClass = <span class="global">require</span> <span class="string">'lux.class'</span> :new{}
+  <span class="keyword">function</span> MyClass:instance (obj)
+    <span class="keyword">local</span> a_number = <span class="number">42</span>
+    <span class="keyword">function</span> obj:show ()
+      <span class="global">print</span>(a_number)
+    <span class="keyword">end</span>
+  <span class="keyword">end</span></pre>
+
+                      </ul>
+
+
+                  </dd>
+                  <div class="row" style="height:2em"></div>
+                  <dt>
+                    <a name = "class:inherit"></a>
+                    <h3 class="text-primary">class:inherit&nbsp;(another_class)</h3>
+                  </dt>
+                  <dd>
+                    Makes this class inherit from another.
+                      It is necessary to call <code>self:super(obj, &hellip;)</code> inside this class'
+  <a href="../prototypes/lux.class.html#class:instance">instance</a> definition method.
+
+                        <h4>Parameters:</h4>
+                      <ul>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                another_class</kbd>
+                              <p>
+                                 The being inherited from
+                              </p>
+                              </li>
+                      </ul>
+
+
+                      <h4>Usage:</h4>
+                      <ul>
+
+                          <pre class="example">
+  <span class="keyword">local</span> class = <span class="global">require</span> <span class="string">'lux.class'</span>
+  <span class="keyword">local</span> ParentClass = class:new{}
+  <span class="keyword">local</span> ChildClass = class:new{}
+  ChildClass:inherit(ParentClass)</pre>
+
+                      </ul>
+
+
+                  </dd>
+                  <div class="row" style="height:2em"></div>
+                  <dt>
+                    <a name = "class:__call"></a>
+                    <h3 class="text-primary">class:__call&nbsp;(...)</h3>
+                  </dt>
+                  <dd>
+                    The class constructor.
+
+
+
+                        <h4>Parameters:</h4>
+                      <ul>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                ...</kbd>
+                              <p>
+                                 The constructor parameters as specified in <a href="../prototypes/lux.class.html#class:instance">instance</a>
+                              </p>
+                              </li>
+                      </ul>
+
+
+
+
+                  </dd>
+                  <div class="row" style="height:2em"></div>
+                  <dt>
+                    <a name = "class:super"></a>
+                    <h3 class="text-primary">class:super&nbsp;(obj, ...)</h3>
+                  </dt>
+                  <dd>
+                    Calls the parent class' constructor.
+                      Should only be called inside this class' <a href="../prototypes/lux.class.html#class:instance">instance</a> definition method when
+  it inherits from another class.
+
+                        <h4>Parameters:</h4>
+                      <ul>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                obj</kbd>
+                              <p>
+                                 The object being constructed by the child class
+                              </p>
+                              </li>
+                            <li>
+                              <kbd>
+                                <strong class="text-type">
+                                    any
+                                </strong>
+                                ...</kbd>
+                              <p>
+                                 The parent class' constructor parameters
+                              </p>
+                              </li>
+                      </ul>
+
+
+                      <h4>Usage:</h4>
+                      <ul>
+
+                          <pre class="example">
+  <span class="comment">-- After ChildClass inherited ParentClass
+</span>  <span class="keyword">function</span> ChildClass:instance (obj, x, y)
+    self:super(obj, x + y) <span class="comment">-- parent's constructor parameters
+</span>    <span class="comment">-- Finish instancing
+</span>  <span class="keyword">end</span></pre>
+
+                      </ul>
+
+
+                  </dd>
+                  <div class="row" style="height:2em"></div>
+              </dl>
+
+
+        </div> <!-- id="content" -->
+      </div> <!-- id="main" -->
+      <div id="about">
+      </div> <!-- id="about" -->
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
+    </div> <!-- content row -->
+  </div> <!-- class="container" -->
+</body>
+</html>
+

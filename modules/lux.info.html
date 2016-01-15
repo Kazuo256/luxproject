@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>LUX Documentation and Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+    <link rel="stylesheet"
+    href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
+        <div class="col-xs-12 col-md-10 col-lg-8">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#luxNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">
+              Lua Utility eXtension
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="luxNavbar">
+            <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Modules
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../modules/lux.functional.html">
+                            lux.functional
+                          </a>
+                        </li>
+                        <li
+                          class="active">
+                          <a href="../modules/lux.info.html">
+                            lux.info
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.pack.html">
+                            lux.pack
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.portable.html">
+                            lux.portable
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.std.html">
+                            lux.std
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/stream.html">
+                            stream
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.color.html">
+                            lux.color
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../modules/lux.test.html">
+                            lux.test
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Classes
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../classes/macro.Processor.html">
+                            macro.Processor
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../classes/macro.Specification.html">
+                            macro.Specification
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../classes/lux.struct.Queue.html">
+                            lux.struct.Queue
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Prototypes
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../prototypes/lux.class.html">
+                            lux.class
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../prototypes/lux.prototype.html">
+                            lux.prototype
+                          </a>
+                        </li>
+                        <li
+                          >
+                          <a href="../prototypes/lux.datastruct.List.html">
+                            lux.datastruct.List
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      Examples
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li
+                          >
+                          <a href="../examples/some.lua.html">
+                            some.lua
+                          </a>
+                        </li>
+                    </ul>
+                  </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://github.com/Kazuo256/luxproject">
+                  GitHub Page
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
+      <div class="col-xs-12 col-md-8 col-lg-6">
+        <div id="main">
+
+
+          <!-- Menu -->
+
+
+
+          <div id="content">
+
+
+            <h1>
+              lux.info
+              <small>a LUX module</small>
+            </h1>
+
+            <div class="row" style="height:2em"></div>
+
+            <p>
+              Module containing information regarding this LUX Project distribution.
+
+
+            </p>
+
+
+
+              <h2>
+                <a name="Functions"></a>
+                Functions
+              </h2>
+
+              <dl class="function">
+                  <dt>
+                    <a name = "version"></a>
+                    <h3 class="text-primary">version&nbsp;()</h3>
+                  </dt>
+                  <dd>
+                    LUX&rsquo;s version.
+
+
+
+
+                      <h4>Returns:</h4>
+                        <ol>
+
+                            <kbd><strong class="text-type">
+                            any</strong></kbd>
+                            <p>
+                              A string with the current LUX version.
+                            </p>
+
+                        </ol>
+
+
+
+                  </dd>
+                  <div class="row" style="height:2em"></div>
+              </dl>
+
+
+        </div> <!-- id="content" -->
+      </div> <!-- id="main" -->
+      <div id="about">
+      </div> <!-- id="about" -->
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
+    </div> <!-- content row -->
+  </div> <!-- class="container" -->
+</body>
+</html>
+
