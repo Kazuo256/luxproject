@@ -16,79 +16,80 @@
 </head>
 <body>
 
-  <div class="container">
-
-#   local function vspace(n)
-#     return '<div class="row" style="height:'..n..'em"></div>'
-#   end
+# local function vspace(n)
+#   return '<div class="row" style="height:'..n..'em"></div>'
+# end
   
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-0 col-md-1 col-lg-2"></div>
-          <div class="col-xs-12 col-md-10 col-lg-8">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse"
-                      data-target="#luxNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="../index.html">
-                Lua Utility eXtension
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="luxNavbar">
-              <ul class="nav navbar-nav">
-#               local this_mod = module and module.name
-#               -- The following code ensures navbar link order
-#               local kinds = {
-#                 Modules = 1, Classes = 2, Prototypes = 3, Examples = 4
-#               }
-#               for kind, mods, type in ldoc.kinds() do
-#                 kinds[kinds[kind] or 5] = {kind, mods, type}
-#               end
-#               for i=1,#kinds do
-#                 local kind, mods, type = kinds[i][1], kinds[i][2], kinds[i][3]
-#                 if ldoc.allowed_in_contents(type,module) then
-                    <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown"
-                         href="#">
-                        $(kind)
-                        <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-#                       for mod in mods() do
-#                         local name = ldoc.display_name(mod)
-                          <li
-                            $(mod.name == this_mod and 'class="active"' or '')>
-                            <a href="$(ldoc.ref_to_module(mod))">
-                              $(name)
-                            </a>
-                          </li>
-#                       end
-                      </ul>
-                    </li>
-#                 end
-#               end
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="https://github.com/Kazuo256/luxproject">
-                    GitHub Page
-                  </a>
-                </li>
-              </ul>
-            </div>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
+        <div class="col-xs-12 col-md-10 col-lg-8">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#luxNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">
+              Lua Utility eXtension
+            </a>
           </div>
-          <div class="col-xs-0 col-md-1 col-lg-2"></div>
+          <div class="collapse navbar-collapse" id="luxNavbar">
+            <ul class="nav navbar-nav">
+#             local this_mod = module and module.name
+#             -- The following code ensures navbar link order
+#             local kinds = {
+#               Modules = 1, Classes = 2, Prototypes = 3, Examples = 4
+#             }
+#             for kind, mods, type in ldoc.kinds() do
+#               kinds[kinds[kind] or 5] = {kind, mods, type}
+#             end
+#             for i=1,#kinds do
+#               local kind, mods, type = kinds[i][1], kinds[i][2], kinds[i][3]
+#               if ldoc.allowed_in_contents(type,module) then
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       href="#">
+                      $(kind)
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+#                     for mod in mods() do
+#                       local name = ldoc.display_name(mod)
+                        <li
+                          $(mod.name == this_mod and 'class="active"' or '')>
+                          <a href="$(ldoc.ref_to_module(mod))">
+                            $(name)
+                          </a>
+                        </li>
+#                     end
+                    </ul>
+                  </li>
+#               end
+#             end
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://github.com/Kazuo256/luxproject">
+                  GitHub Page
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="col-xs-0 col-md-1 col-lg-2"></div>
       </div>
-    </nav>
+    </div>
+  </nav>
+  
+  <div class="container-fluid">
+
 
     <div class="row">
-      <div class="col-xs-0 col-md-1 col-lg-2"></div>
-      <div class="col-xs-12 col-md-10 col-lg-8">
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
+      <div class="col-xs-12 col-md-8 col-lg-6">
         <div id="main">
       
 #         local iter = ldoc.modules.iter
@@ -153,7 +154,7 @@
 #                 for item in items() do
                     <dt>
                       <a name = "$(item.name)"></a>
-                      <h3>$(display_name(item))</h3>
+                      <h3 class="text-primary">$(display_name(item))</h3>
                     </dt>
                     <dd>
                       $(M(item.summary))
@@ -315,7 +316,7 @@
       </div> <!-- id="main" -->
       <div id="about">
       </div> <!-- id="about" -->
-      <div class="col-xs-0 col-md-1 col-lg-2"></div>
+      <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->
 </body>
