@@ -7,6 +7,7 @@ file = "lib"
 dir = "doc/html"
 pretty = "lxsh"
 style = "doc"
+template = "doc"
 merge = true
 
 examples = "examples"

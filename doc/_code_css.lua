@@ -1,5 +1,4 @@
-
-/* nope */
+return [[
 
 /* styles for prettification of source */
 pre .comment { color: #558817; }
@@ -17,3 +16,4 @@ pre .user-keyword { color: #800080; }
 pre .prompt { color: #558817; }
 pre .url { color: #272fc2; text-decoration: underline; }
 
+]]
