@@ -1,5 +1,6 @@
 
 local Processor = require 'lux.macro.Processor'
+local port      = require 'lux.portable'
 
 local proc, instream, outstream
 local fixtures = {
@@ -108,7 +109,7 @@ local function make_error_text (errmsg, result)
 end
 
 for _,fixture in ipairs(fixtures) do
-  _ENV["test_"..fixture.name] = function ()
+  port.getEnv()["test_"..fixture.name] = function ()
     instream.input = fixture.input
     local check, errmsg = pcall(
       function ()
