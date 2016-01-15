@@ -19,3 +19,5 @@ pre .url { color: #272fc2; text-decoration: underline; }
 
 .text-type { color: #75A837; }
 
+ul { list-style-type: none; }
+
