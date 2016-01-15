@@ -21,49 +21,63 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-8">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="../index.html">Lua Utility eXtension</a>
-        </div>
-        <ul class="nav navbar-nav">
-#         local this_mod = module and module.name
-#         -- The following code ensures navbar link order
-#         local kinds = {
-#           Modules = 1, Classes = 2, Prototypes = 3, Examples = 4
-#         }
-#         for kind, mods, type in ldoc.kinds() do
-#           kinds[kinds[kind]] = {kind, mods, type}
-#         end
-#         for i=1,#kinds do
-#           local kind, mods, type = kinds[i][1], kinds[i][2], kinds[i][3]
-#           if ldoc.allowed_in_contents(type,module) then
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  $(kind)
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-#                 for mod in mods() do
-#                   local name = ldoc.display_name(mod)
-                    <li $(mod.name == this_mod and 'class="active"' or '')>
-                      <a href="$(ldoc.ref_to_module(mod))">
-                        $(name)
+          <div class="col-xs-0 col-md-1 col-lg-2"></div>
+          <div class="col-xs-12 col-md-10 col-lg-8">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                      data-target="#luxNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                Lua Utility eXtension
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="luxNavbar">
+              <ul class="nav navbar-nav">
+#               local this_mod = module and module.name
+#               -- The following code ensures navbar link order
+#               local kinds = {
+#                 Modules = 1, Classes = 2, Prototypes = 3, Examples = 4
+#               }
+#               for kind, mods, type in ldoc.kinds() do
+#                 kinds[kinds[kind]] = {kind, mods, type}
+#               end
+#               for i=1,#kinds do
+#                 local kind, mods, type = kinds[i][1], kinds[i][2], kinds[i][3]
+#                 if ldoc.allowed_in_contents(type,module) then
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown"
+                         href="#">
+                        $(kind)
+                        <span class="caret"></span>
                       </a>
+                      <ul class="dropdown-menu">
+#                       for mod in mods() do
+#                         local name = ldoc.display_name(mod)
+                          <li
+                            $(mod.name == this_mod and 'class="active"' or '')>
+                            <a href="$(ldoc.ref_to_module(mod))">
+                              $(name)
+                            </a>
+                          </li>
+#                       end
+                      </ul>
                     </li>
 #                 end
-                </ul>
-              </li>
-#           end
-#         end
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="https://github.com/Kazuo256/luxproject">GitHub Page</a>
-          </li>
-        </ul>
+#               end
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <a href="https://github.com/Kazuo256/luxproject">
+                    GitHub Page
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="col-sm-2"></div>
+          <div class="col-xs-0 col-md-1 col-lg-2"></div>
         </div>
       </div>
     </nav>
