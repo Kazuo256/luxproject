@@ -113,197 +113,221 @@
                 $(M(ldoc.body))
 #           elseif module then
         
-            <h1>
-              $(module.name)
-              <small>a LUX $(module.kind:gsub("s$", ""))</small>
-            </h1>
+              <h1>
+                $(module.name)
+                <small>a LUX $(module.kind:gsub("s$", ""))</small>
+              </h1>
 
-            $(vspace(2))
-            
-            <p>
-              $(M(module.summary))
-              $(M(module.description))
-            </p>
+              $(vspace(2))
+              
+              <p>
+                $(M(module.summary))
+                $(M(module.description))
+              </p>
 
-        
-#           --- currently works for both Functions and Tables. The params
-#           --- field either contains function parameters or table fields.
-#           local show_return = not ldoc.no_return_or_parms
-#           local show_parms = show_return
-#           for kind, items in module.kinds() do
-
-#             local kitem = module.kinds:get_item(kind)
-#             local has_description = kitem and ldoc.descript(kitem) ~= ""
-              <h2>
-                <a name="$(no_spaces(kind))"></a>
-                $(kind)
-              </h2>
-              $(M(module.kinds:get_section_description(kind),nil))
-#             if kitem then
-#               if has_description then
-                  <div class="section-description">
-                    $(M(ldoc.descript(kitem),kitem))
-                  </div>
-#               end
-#               if kitem.usage then
-                  <h3>Usage:</h3>
-                  <pre class="example">$(ldoc.prettify(kitem.usage[1]))</pre>
-#               end
+#             if module.tags.include then
+                $(M(ldoc.include_file(module.tags.include)))
 #             end
-              <dl class="function">
-#               for item in items() do
-                  <dt>
-                    <a name = "$(item.name)"></a>
-                    <h3 class="text-primary">$(display_name(item))</h3>
-                  </dt>
-                  <dd>
-                    $(M(item.summary))
-                    $(M(item.description))
-        
-#                   if show_parms and item.params and #item.params > 0 then
-#                     local subnames = module.kinds:type_of(item).subnames
-#                     if subnames then
-                        <h4>$(subnames):</h4>
-#                     end
-                      <ul>
-#                       for parm in iter(item.params) do
-#                         local param,sublist = item:subparam(parm)
-#                         if sublist then
-                            <li>
-                              <span class="parameter">
-                                $(sublist)
-                              </span>
-                              $(M(item.params.map[sublist],item))
-                              <ul>
-#                         end
-#                         for p in iter(param) do
-#                           local name = item:display_name_of(p)
-#                           local tp = ldoc.typename(item:type_of_param(p))
-#                           local def = item:default_of_param(p)
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-#                                 if tp ~= '' then
-                                    $(tp)
-#                                 else
-                                    any
-#                                 end
-                                </strong>
-                                $(name)</kbd>
-#                             if def == true then
-                                (<em>optional</em>)
-#                             elseif def then
-                                (<em>default:</em> <code>$(def)</code>)
-#                             end
-#                             if item:readonly(p) then
-                                <em>readonly</em>
-#                             end
-                              <p>
-                                $(M(item.params.map[p],item))
-                              </p>
-                              </li>
-#                         end
-#                         if sublist then
-                            </li></ul>
-#                         end
-#                       end -- for
-                      </ul>
-#                   end -- if params
 
-#                   if show_return and item.retgroups then
-#                     local groups = item.retgroups
-                      <h4>Returns:</h4>
-#                     for i,group in ldoc.ipairs(groups) do
-#                       local li,il = use_li(group)
-                        <ol>
-#                         for r in group:iter() do
-#                           local type, ctypes = item:return_type(r)
-#                           local rt = ldoc.typename(type)
-                            $(li)
-                            <kbd><strong class="text-type">
-                            $(rt ~= '' and rt or 'any')</strong></kbd>
-                            <p>
-                              $(M(r.text,item))
-                            </p>
-                            $(il)
-#                           if ctypes then
-                              <ul>
-#                               for c in ctypes:iter() do
-                                  <li>
-                                    <kbd>
-                                      <strong class="text-type">
-                                        $(ldoc.typename(c.type or 'any'))
-                                      </strong>
-                                      $(c.name)</kbd>
-                                    <p>
-                                      $(M(c.comment,item))
-                                    </p>
-                                  </li>
-#                               end
-                              </ul>
-#                           end -- if ctypes
-#                         end -- for r
-                        </ol>
-#                       if i < #groups then
-                          <h4>Or</h4>
+#             if module.see then
+#               local li,il = use_li(module.see)
+                <h4>See also:</h4>
+                <ul>
+#                 for see in iter(module.see) do
+                    $(li)<a href="$(ldoc.href(see))">$(see.label)</a>$(il)
+#                 end -- for
+                </ul>
+#             end -- if see
+
+#             if module.usage then
+#               local li,il = use_li(module.usage)
+                <h4>Usage:</h4>
+                <ul>
+#                 for usage in iter(module.usage) do
+                    $(li)<pre class="example">$(ldoc.prettify(usage))</pre>$(il)
+#                 end -- for
+                </ul>
+#             end -- if usage
+        
+#             --- currently works for both Functions and Tables. The params
+#             --- field either contains function parameters or table fields.
+#             local show_return = not ldoc.no_return_or_parms
+#             local show_parms = show_return
+#             for kind, items in module.kinds() do
+
+#               local kitem = module.kinds:get_item(kind)
+#               local has_description = kitem and ldoc.descript(kitem) ~= ""
+                <h2>
+                  <a name="$(no_spaces(kind))"></a>
+                  $(kind)
+                </h2>
+                $(M(module.kinds:get_section_description(kind),nil))
+#               if kitem then
+#                 if has_description then
+                    <div class="section-description">
+                      $(M(ldoc.descript(kitem),kitem))
+                    </div>
+#                 end
+#                 if kitem.usage then
+                    <h3>Usage:</h3>
+                    <pre class="example">$(ldoc.prettify(kitem.usage[1]))</pre>
+#                 end
+#               end
+                <dl class="function">
+#                 for item in items() do
+                    <dt>
+                      <a name = "$(item.name)"></a>
+                      <h3 class="text-primary">$(display_name(item))</h3>
+                    </dt>
+                    <dd>
+                      $(M(item.summary))
+                      $(M(item.description))
+        
+#                     if show_parms and item.params and #item.params > 0 then
+#                       local subnames = module.kinds:type_of(item).subnames
+#                       if subnames then
+                          <h4>$(subnames):</h4>
 #                       end
-#                     end -- for group
-#                   end -- if returns
-        
-#                   if item.usage then
-#                     local li,il = use_li(item.usage)
-                      <h4>Usage:</h4>
-                      <ul>
-#                       for usage in iter(item.usage) do
-                          $(li)
-                          <pre class="example">$(ldoc.prettify(usage))</pre>
-                          $(il)
-#                       end -- for
-                      </ul>
-#                   end -- if usage
+                        <ul>
+#                         for parm in iter(item.params) do
+#                           local param,sublist = item:subparam(parm)
+#                           if sublist then
+                              <li>
+                                <span class="parameter">
+                                  $(sublist)
+                                </span>
+                                $(M(item.params.map[sublist],item))
+                                <ul>
+#                           end
+#                           for p in iter(param) do
+#                             local name = item:display_name_of(p)
+#                             local tp = ldoc.typename(item:type_of_param(p))
+#                             local def = item:default_of_param(p)
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+#                                   if tp ~= '' then
+                                      $(tp)
+#                                   else
+                                      any
+#                                   end
+                                  </strong>
+                                  $(name)</kbd>
+#                               if def == true then
+                                  (<em>optional</em>)
+#                               elseif def then
+                                  (<em>default:</em> <code>$(def)</code>)
+#                               end
+#                               if item:readonly(p) then
+                                  <em>readonly</em>
+#                               end
+                                <p>
+                                  $(M(item.params.map[p],item))
+                                </p>
+                                </li>
+#                           end
+#                           if sublist then
+                              </li></ul>
+#                           end
+#                         end -- for
+                        </ul>
+#                     end -- if params
 
-#                   if item.see then
-#                     local li,il = use_li(item.see)
-                      <h4>See also:</h4>
-                      <ul>
-#                       for see in iter(item.see) do
-                          $(li)
-                          <a href="$(see.mod).html#$(see.name)">
-                            $(see.label)
-                          </a>
-                          $(il)
-#                       end -- for
-                      </ul>
-#                   end -- if see
+#                     if show_return and item.retgroups then
+#                       local groups = item.retgroups
+                        <h4>Returns:</h4>
+#                       for i,group in ldoc.ipairs(groups) do
+#                         local li,il = use_li(group)
+                          <ol>
+#                           for r in group:iter() do
+#                             local type, ctypes = item:return_type(r)
+#                             local rt = ldoc.typename(type)
+                              $(li)
+                              <kbd><strong class="text-type">
+                              $(rt ~= '' and rt or 'any')</strong></kbd>
+                              <p>
+                                $(M(r.text,item))
+                              </p>
+                              $(il)
+#                             if ctypes then
+                                <ul>
+#                                 for c in ctypes:iter() do
+                                    <li>
+                                      <kbd>
+                                        <strong class="text-type">
+                                          $(ldoc.typename(c.type or 'any'))
+                                        </strong>
+                                        $(c.name)</kbd>
+                                      <p>
+                                        $(M(c.comment,item))
+                                      </p>
+                                    </li>
+#                                 end
+                                </ul>
+#                             end -- if ctypes
+#                           end -- for r
+                          </ol>
+#                         if i < #groups then
+                            <h4>Or</h4>
+#                         end
+#                       end -- for group
+#                     end -- if returns
+        
+#                     if item.usage then
+#                       local li,il = use_li(item.usage)
+                        <h4>Usage:</h4>
+                        <ul>
+#                         for usage in iter(item.usage) do
+                            $(li)
+                            <pre class="example">$(ldoc.prettify(usage))</pre>
+                            $(il)
+#                         end -- for
+                        </ul>
+#                     end -- if usage
 
-                  </dd>
-                  $(vspace(2))
-#               end -- for items
-              </dl>
-#           end -- for kinds
-        
-#         else -- if module
+#                     if item.see then
+#                       local li,il = use_li(item.see)
+                        <h4>See also:</h4>
+                        <ul>
+#                         for see in iter(item.see) do
+                            $(li)
+                            <a href="$(ldoc.href(see))">
+                              $(see.label)
+                            </a>
+                            $(il)
+#                         end -- for
+                        </ul>
+#                     end -- if see
 
-            <h1>
-              LUX Project <small>documentation and reference pages</small>
-            </h1>
+                    </dd>
+                    $(vspace(2))
+#                 end -- for items
+                </dl>
+#             end -- for kinds
+        
+#           else -- if module
 
-            $(vspace(2))
+              <h1>
+                LUX Project <small>documentation and reference pages</small>
+              </h1>
+
+              $(vspace(2))
         
-#           if ldoc.description then
-              <p>$(M(ldoc.description))</p>
-#           end
+#             if ldoc.description then
+                <p>$(M(ldoc.description))</p>
+#             end
         
-#           if ldoc.full_description then
-              <p>$(M(ldoc.full_description))</p>
-#           end
+#             if ldoc.full_description then
+                <p>$(M(ldoc.full_description))</p>
+#             end
         
-#         end -- if module
+#           end -- if module
         
-        </div> <!-- id="content" -->
-      </div> <!-- id="main" -->
-      <div id="about">
-      </div> <!-- id="about" -->
+          </div> <!-- id="content" -->
+        </div> <!-- id="main" -->
+        <div id="about">
+        </div> <!-- id="about" -->
+      </div>
       <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->
