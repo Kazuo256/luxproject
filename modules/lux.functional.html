@@ -192,352 +192,355 @@
           <div id="content">
 
 
-            <h1>
-              lux.functional
-              <small>a LUX module</small>
-            </h1>
+              <h1>
+                lux.functional
+                <small>a LUX module</small>
+              </h1>
 
-            <div class="row" style="height:2em"></div>
+              <div class="row" style="height:2em"></div>
 
-            <p>
-              LUX&rsquo;s functional programming module.
-               Some functional programming tools lay around here.
-            </p>
-
-
-
-              <h2>
-                <a name="Functions"></a>
-                Functions
-              </h2>
-
-              <dl class="function">
-                  <dt>
-                    <a name = "bindFirst"></a>
-                    <h3 class="text-primary">bindFirst&nbsp;(f, arg)</h3>
-                  </dt>
-                  <dd>
-                    Binds a function&rsquo;s first parameter to the given argument.
+              <p>
+                LUX&rsquo;s functional programming module.
+                 Some functional programming tools lay around here.
+              </p>
 
 
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    <span class="type">function</span>
-                                </strong>
-                                f</kbd>
+
+
+                <h2>
+                  <a name="Functions"></a>
+                  Functions
+                </h2>
+
+                <dl class="function">
+                    <dt>
+                      <a name = "bindFirst"></a>
+                      <h3 class="text-primary">bindFirst&nbsp;(f, arg)</h3>
+                    </dt>
+                    <dd>
+                      Binds a function&rsquo;s first parameter to the given argument.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">function</span>
+                                  </strong>
+                                  f</kbd>
+                                <p>
+                                   function being bound.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">any</span>
+                                  </strong>
+                                  arg</kbd>
+                                <p>
+                                   The bound argument.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              <span class="type">function</span></strong></kbd>
                               <p>
-                                 function being bound.
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    <span class="type">any</span>
-                                </strong>
-                                arg</kbd>
-                              <p>
-                                 The bound argument.
-                              </p>
-                              </li>
-                      </ul>
-
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            <span class="type">function</span></strong></kbd>
-                            <p>
-                               A function that, upon being called, does the same as f, but requires only
+                                 A function that, upon being called, does the same as f, but requires only
  the arguments beyond the first one.
-                            </p>
+                              </p>
 
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "bindLeft"></a>
-                    <h3 class="text-primary">bindLeft&nbsp;(f, arg1[, ...])</h3>
-                  </dt>
-                  <dd>
-                    Binds a function to the given (left-most) arguments.
-                     The arguments must be passed in the apropriate order, according to the
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "bindLeft"></a>
+                      <h3 class="text-primary">bindLeft&nbsp;(f, arg1[, ...])</h3>
+                    </dt>
+                    <dd>
+                      Binds a function to the given (left-most) arguments.
+                       The arguments must be passed in the apropriate order, according to the
  function&rsquo;s specification.
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    <span class="type">function</span>
-                                </strong>
-                                f</kbd>
-                              <p>
-                                 The function being binded.
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    <span class="type">any</span>
-                                </strong>
-                                arg1</kbd>
-                              <p>
-                                 The first bound argument.
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    <span class="type">any</span>
-                                </strong>
-                                ...</kbd>
-                                (<em>optional</em>)
-                              <p>
-                                 The remaining bound arguments, in order.
-                              </p>
-                              </li>
-                      </ul>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">function</span>
+                                  </strong>
+                                  f</kbd>
+                                <p>
+                                   The function being binded.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">any</span>
+                                  </strong>
+                                  arg1</kbd>
+                                <p>
+                                   The first bound argument.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">any</span>
+                                  </strong>
+                                  ...</kbd>
+                                  (<em>optional</em>)
+                                <p>
+                                   The remaining bound arguments, in order.
+                                </p>
+                                </li>
+                        </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            <span class="type">function</span></strong></kbd>
-                            <p>
-                               A function that, upon being called, does the same as f, but requires only the
+                              <kbd><strong class="text-type">
+                              <span class="type">function</span></strong></kbd>
+                              <p>
+                                 A function that, upon being called, does the same as f, but requires only the
  remaining right-most arguments that were not binded with it.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "curry"></a>
-                    <h3 class="text-primary">curry&nbsp;(f[, n=1])</h3>
-                  </dt>
-                  <dd>
-                    Creates a <code>n</code>-curried function based on <code>f</code>.
-
-
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                f</kbd>
-                              <p>
-                                 The function being curried.
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                n</kbd>
-                                (<em>default:</em> <code>1</code>)
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "curry"></a>
+                      <h3 class="text-primary">curry&nbsp;(f[, n=1])</h3>
+                    </dt>
+                    <dd>
+                      Creates a <code>n</code>-curried function based on <code>f</code>.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  f</kbd>
+                                <p>
+                                   The function being curried.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  n</kbd>
+                                  (<em>default:</em> <code>1</code>)
+                                <p>
+                                   How much the function should be curried.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              <span class="type">function</span></strong></kbd>
                               <p>
-                                 How much the function should be curried.
+                                An <code>n</code>-curried version of <code>f</code>.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                          </ol>
 
-                            <kbd><strong class="text-type">
-                            <span class="type">function</span></strong></kbd>
-                            <p>
-                              An <code>n</code>-curried version of <code>f</code>.
-                            </p>
+                        <h4>Usage:</h4>
+                        <ul>
 
-                        </ol>
-
-                      <h4>Usage:</h4>
-                      <ul>
-
-                          <pre class="example">
+                            <pre class="example">
  <span class="keyword">local</span> result = std.curry(<span class="global">print</span>,<span class="number">2</span>)
  result (arg1) (arg2) (arg3, arg4, ...)</pre>
 
-                      </ul>
+                        </ul>
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "reverse"></a>
-                    <h3 class="text-primary">reverse&nbsp;(...)</h3>
-                  </dt>
-                  <dd>
-                    Reverses the order of the arguments.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "reverse"></a>
+                      <h3 class="text-primary">reverse&nbsp;(...)</h3>
+                    </dt>
+                    <dd>
+                      Reverses the order of the arguments.
 
 
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   Arbitrary arguments.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 Arbitrary arguments.
+                                The arguments in reversed order.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The arguments in reversed order.
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "map"></a>
-                    <h3 class="text-primary">map&nbsp;(f, a, ...)</h3>
-                  </dt>
-                  <dd>
-                    Map function.
-                     Might overflow the stack and is not tail recursive.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "map"></a>
+                      <h3 class="text-primary">map&nbsp;(f, a, ...)</h3>
+                    </dt>
+                    <dd>
+                      Map function.
+                       Might overflow the stack and is not tail recursive.
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                f</kbd>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  f</kbd>
+                                <p>
+                                   An unary function
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  a</kbd>
+                                <p>
+                                   First mapped element
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   Other to-be-mapped elements
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 An unary function
+                                All the results of applying f to the given elements one by one.
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                a</kbd>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "expand"></a>
+                      <h3 class="text-primary">expand&nbsp;(n, value, ...)</h3>
+                    </dt>
+                    <dd>
+                      Expand a value into a value list: value, value, &hellip;
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  n</kbd>
+                                <p>
+                                   The number of times to expand.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  value</kbd>
+                                <p>
+                                   The expanded value
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   For internal use inly.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 First mapped element
+                                A list of copies of value.
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
-                              <p>
-                                 Other to-be-mapped elements
-                              </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              All the results of applying f to the given elements one by one.
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "expand"></a>
-                    <h3 class="text-primary">expand&nbsp;(n, value, ...)</h3>
-                  </dt>
-                  <dd>
-                    Expand a value into a value list: value, value, &hellip;
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                </dl>
 
 
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                n</kbd>
-                              <p>
-                                 The number of times to expand.
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                value</kbd>
-                              <p>
-                                 The expanded value
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
-                              <p>
-                                 For internal use inly.
-                              </p>
-                              </li>
-                      </ul>
-
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              A list of copies of value.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-              </dl>
-
-
-        </div> <!-- id="content" -->
-      </div> <!-- id="main" -->
-      <div id="about">
-      </div> <!-- id="about" -->
+          </div> <!-- id="content" -->
+        </div> <!-- id="main" -->
+        <div id="about">
+        </div> <!-- id="about" -->
+      </div>
       <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->

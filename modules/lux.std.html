@@ -192,161 +192,164 @@
           <div id="content">
 
 
-            <h1>
-              lux.std
-              <small>a LUX module</small>
-            </h1>
+              <h1>
+                lux.std
+                <small>a LUX module</small>
+              </h1>
 
-            <div class="row" style="height:2em"></div>
+              <div class="row" style="height:2em"></div>
 
-            <p>
-              LUX&rsquo;s standard module.
-                Here a collection of general-purpose functions are available. This module is
+              <p>
+                LUX&rsquo;s standard module.
+                  Here a collection of general-purpose functions are available. This module is
   also set up in a way that the global environment is accessible through it.
   This allows you to change the current evironment to it add still have access
   to the global default environment.
-            </p>
-
-
-
-              <h2>
-                <a name="Functions"></a>
-                Functions
-              </h2>
-
-              <dl class="function">
-                  <dt>
-                    <a name = "ls"></a>
-                    <h3 class="text-primary">ls&nbsp;(t)</h3>
-                  </dt>
-                  <dd>
-                    Prints all key-value pairs of the given table to the standard output.
-
-
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                t</kbd>
-                              <p>
-                                 The table whose field are to be listed.
-                              </p>
-                              </li>
-                      </ul>
+              </p>
 
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "loadDataFile"></a>
-                    <h3 class="text-primary">loadDataFile&nbsp;(path[, loader])</h3>
-                  </dt>
-                  <dd>
-                    Reads a Lua script as a data file.
-                      Makes and returns a table containing everything that was created in the
+
+                <h2>
+                  <a name="Functions"></a>
+                  Functions
+                </h2>
+
+                <dl class="function">
+                    <dt>
+                      <a name = "ls"></a>
+                      <h3 class="text-primary">ls&nbsp;(t)</h3>
+                    </dt>
+                    <dd>
+                      Prints all key-value pairs of the given table to the standard output.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  t</kbd>
+                                <p>
+                                   The table whose field are to be listed.
+                                </p>
+                                </li>
+                        </ul>
+
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "loadDataFile"></a>
+                      <h3 class="text-primary">loadDataFile&nbsp;(path[, loader])</h3>
+                    </dt>
+                    <dd>
+                      Reads a Lua script as a data file.
+                        Makes and returns a table containing everything that was created in the
   global scope of that script.
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                path</kbd>
-                              <p>
-                                  The path to the data file.
-                              </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                loader</kbd>
-                                (<em>optional</em>)
-                              <p>
-                                  The function used to load the file. Default is Lua&rsquo;s standard <a href="http://www.lua.org/manual/5.3/manual.html#pdf-load">load</a>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  path</kbd>
+                                <p>
+                                    The path to the data file.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  loader</kbd>
+                                  (<em>optional</em>)
+                                <p>
+                                    The function used to load the file. Default is Lua&rsquo;s standard <a href="http://www.lua.org/manual/5.3/manual.html#pdf-load">load</a>
   function.
-                              </p>
-                              </li>
-                      </ul>
+                                </p>
+                                </li>
+                        </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The table representing the data file.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "catch"></a>
-                    <h3 class="text-primary">catch&nbsp;(value)</h3>
-                  </dt>
-                  <dd>
-                    Allows a single-loop <code>for</code> when <code>value</code> is <code>true</code>
-
-
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                value</kbd>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                  The checked value
+                                The table representing the data file.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                          </ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                                A pseudo-iterator function that runs only once.
-                            </p>
 
-                        </ol>
 
-                      <h4>Usage:</h4>
-                      <ul>
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "catch"></a>
+                      <h3 class="text-primary">catch&nbsp;(value)</h3>
+                    </dt>
+                    <dd>
+                      Allows a single-loop <code>for</code> when <code>value</code> is <code>true</code>
 
-                          <pre class="example">
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  value</kbd>
+                                <p>
+                                    The checked value
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
+                              <p>
+                                  A pseudo-iterator function that runs only once.
+                              </p>
+
+                          </ol>
+
+                        <h4>Usage:</h4>
+                        <ul>
+
+                            <pre class="example">
   <span class="keyword">for</span> x <span class="keyword">in</span> std.catch(calculateExpr()) <span class="keyword">do</span>
     <span class="comment">-- this block executes only if the value caught evaluates to "true"
 </span>  <span class="keyword">end</span></pre>
 
-                      </ul>
+                        </ul>
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-              </dl>
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                </dl>
 
 
-        </div> <!-- id="content" -->
-      </div> <!-- id="main" -->
-      <div id="about">
-      </div> <!-- id="about" -->
+          </div> <!-- id="content" -->
+        </div> <!-- id="main" -->
+        <div id="about">
+        </div> <!-- id="about" -->
+      </div>
       <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->

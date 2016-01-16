@@ -192,129 +192,131 @@
           <div id="content">
 
 
-            <h1>
-              lux.prototype
-              <small>a LUX prototype</small>
-            </h1>
+              <h1>
+                lux.prototype
+                <small>a LUX prototype</small>
+              </h1>
 
-            <div class="row" style="height:2em"></div>
+              <div class="row" style="height:2em"></div>
 
-            <p>
-              A prototype-based implementation for object oriented programming.
-                It returns the root prototype object, with which you can create new objects
+              <p>
+                A prototype-based implementation for object oriented programming.
+                  It returns the root prototype object, with which you can create new objects
   using <a href="../prototypes/lux.prototype.html#prototype:new">prototype:new</a>. Objects created this way automatically inherit
   fields and methods from their parent, and may override them. It is not
   possible to inherit from multiple objects.
-            </p>
+              </p>
 
 
 
-              <h2>
-                <a name="Functions"></a>
-                Functions
-              </h2>
 
-              <dl class="function">
-                  <dt>
-                    <a name = "prototype:new"></a>
-                    <h3 class="text-primary">prototype:new&nbsp;(object)</h3>
-                  </dt>
-                  <dd>
-                    Creates a new object from a prototype.
-                      If the self object has a <code>__construct</code> field as a function, it
+
+                <h2>
+                  <a name="Functions"></a>
+                  Functions
+                </h2>
+
+                <dl class="function">
+                    <dt>
+                      <a name = "prototype:new"></a>
+                      <h3 class="text-primary">prototype:new&nbsp;(object)</h3>
+                    </dt>
+                    <dd>
+                      Creates a new object from a prototype.
+                        If the self object has a <code>__construct</code> field as a function, it
   will be applied to the new object. If it has an <code>__init</code> field as
   a table, its contents will be cloned into the new object.
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                object</kbd>
-                              <p>
-                                 A table containing the object&rsquo;s fields.
-                              </p>
-                              </li>
-                      </ul>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  object</kbd>
+                                <p>
+                                   A table containing the object&rsquo;s fields.
+                                </p>
+                                </li>
+                        </ul>
 
 
-                      <h4>Usage:</h4>
-                      <ul>
+                        <h4>Usage:</h4>
+                        <ul>
 
-                          <pre class="example">object = prototype:new { x = <span class="number">42</span>, text = <span class="string">"cheese"</span> }</pre>
+                            <pre class="example">object = prototype:new { x = <span class="number">42</span>, text = <span class="string">"cheese"</span> }</pre>
 
-                      </ul>
+                        </ul>
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "prototype:__super"></a>
-                    <h3 class="text-primary">prototype:__super&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Returns the parent of an object.
-                      Note that this may get confusing if you use prototypes as classes, because
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "prototype:__super"></a>
+                      <h3 class="text-primary">prototype:__super&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Returns the parent of an object.
+                        Note that this may get confusing if you use prototypes as classes, because
   <code>obj:__super()</code> will most likely return the object&rsquo;s class, not
   its class' parent class. In this case, it is better and more explicit to use
   <code>Class:__super()</code> directly.
 
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The object&rsquo;s parent.
-                            </p>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
+                              <p>
+                                The object&rsquo;s parent.
+                              </p>
 
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "prototype:__bind"></a>
-                    <h3 class="text-primary">prototype:__bind&nbsp;(method_name)</h3>
-                  </dt>
-                  <dd>
-                    Binds a method call.
-                      This is just an auxiliary method. Specially useful when you need to provide
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "prototype:__bind"></a>
+                      <h3 class="text-primary">prototype:__bind&nbsp;(method_name)</h3>
+                    </dt>
+                    <dd>
+                      Binds a method call.
+                        This is just an auxiliary method. Specially useful when you need to provide
   a callback function as a method from a specific object.
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                method_name</kbd>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  method_name</kbd>
+                                <p>
+                                   The name of the method being bound.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 The name of the method being bound.
+                                A function binding the given method to the object.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                          </ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              A function binding the given method to the object.
-                            </p>
+                        <h4>Usage:</h4>
+                        <ul>
 
-                        </ol>
-
-                      <h4>Usage:</h4>
-                      <ul>
-
-                          <pre class="example">
+                            <pre class="example">
   <span class="keyword">local</span> object = prototype:new { x = <span class="number">42</span> }
 
   <span class="keyword">function</span> object:get()
@@ -327,45 +329,46 @@
   <span class="comment">-- Will print "42 1337"
 </span>  <span class="global">print</span>(get1(), get2())</pre>
 
-                      </ul>
+                        </ul>
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "prototype:clone"></a>
-                    <h3 class="text-primary">prototype:clone&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Clones the object.
-                      Not to be confused with <a href="../prototypes/lux.prototype.html#prototype:new">prototype:new</a>. This recursevely clones an object
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "prototype:clone"></a>
+                      <h3 class="text-primary">prototype:clone&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Clones the object.
+                        Not to be confused with <a href="../prototypes/lux.prototype.html#prototype:new">prototype:new</a>. This recursevely clones an object
   and its fields. <strong>It may go into an infinite loop if there is a cyclic
   reference inside the object</strong>. This function may also be used to
   clone arbitrary Lua tables.
 
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              A clone of this object.
-                            </p>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
+                              <p>
+                                A clone of this object.
+                              </p>
 
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-              </dl>
+                          </ol>
 
 
-        </div> <!-- id="content" -->
-      </div> <!-- id="main" -->
-      <div id="about">
-      </div> <!-- id="about" -->
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                </dl>
+
+
+          </div> <!-- id="content" -->
+        </div> <!-- id="main" -->
+        <div id="about">
+        </div> <!-- id="about" -->
+      </div>
       <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->

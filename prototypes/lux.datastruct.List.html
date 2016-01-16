@@ -192,32 +192,34 @@
           <div id="content">
 
 
-            <h1>
-              lux.datastruct.List
-              <small>a LUX prototype</small>
-            </h1>
+              <h1>
+                lux.datastruct.List
+                <small>a LUX prototype</small>
+              </h1>
 
-            <div class="row" style="height:2em"></div>
+              <div class="row" style="height:2em"></div>
 
-            <p>
-              LUX&rsquo;s list class.
-                This is a linked list implementation in Lua.
-            </p>
+              <p>
+                LUX&rsquo;s list class.
+                  This is a linked list implementation in Lua.
+              </p>
 
 
 
-              <h2>
-                <a name="Functions"></a>
-                Functions
-              </h2>
 
-              <dl class="function">
-                  <dt>
-                    <a name = "List:__construct"></a>
-                    <h3 class="text-primary">List:__construct&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    The list&rsquo;s constructor may take a sequence of values to initialize the list
+
+                <h2>
+                  <a name="Functions"></a>
+                  Functions
+                </h2>
+
+                <dl class="function">
+                    <dt>
+                      <a name = "List:__construct"></a>
+                      <h3 class="text-primary">List:__construct&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      The list&rsquo;s constructor may take a sequence of values to initialize the list
   with.
 
 
@@ -226,323 +228,324 @@
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:empty"></a>
-                    <h3 class="text-primary">List:empty&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Tells if the list is empty.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:empty"></a>
+                      <h3 class="text-primary">List:empty&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Tells if the list is empty.
 
 
 
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              True if and only if the list is empty.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:size"></a>
-                    <h3 class="text-primary">List:size&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Tells the size of the list.
-
-
-
-
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The number of elements in the list.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:pushBack"></a>
-                    <h3 class="text-primary">List:pushBack&nbsp;(value, ...)</h3>
-                  </dt>
-                  <dd>
-                    Pushes elements at the end of the list.
-
-
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                value</kbd>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 First pushed element.
+                                True if and only if the list is empty.
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:size"></a>
+                      <h3 class="text-primary">List:size&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Tells the size of the list.
+
+
+
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 Other elements to be pushed.
+                                The number of elements in the list.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The list itself.
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:pushFront"></a>
-                    <h3 class="text-primary">List:pushFront&nbsp;(...)</h3>
-                  </dt>
-                  <dd>
-                    Pushes elements at the begining of the list.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:pushBack"></a>
+                      <h3 class="text-primary">List:pushBack&nbsp;(value, ...)</h3>
+                    </dt>
+                    <dd>
+                      Pushes elements at the end of the list.
 
 
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  value</kbd>
+                                <p>
+                                   First pushed element.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   Other elements to be pushed.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 Elements to be pushed.
+                                The list itself.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The list itself
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:front"></a>
-                    <h3 class="text-primary">List:front&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Gives the first element of the list.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:pushFront"></a>
+                      <h3 class="text-primary">List:pushFront&nbsp;(...)</h3>
+                    </dt>
+                    <dd>
+                      Pushes elements at the begining of the list.
 
 
 
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   Elements to be pushed.
+                                </p>
+                                </li>
+                        </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The first element of the list.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:back"></a>
-                    <h3 class="text-primary">List:back&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Gives the last element of the list.
-
-
-
-
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The last element of the list.
-                            </p>
-
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:popBack"></a>
-                    <h3 class="text-primary">List:popBack&nbsp;(n, ...)</h3>
-                  </dt>
-                  <dd>
-                    Pops elements from the end of the list.
-
-
-
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                n</kbd>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 Number of elements to pop.
+                                The list itself
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                ...</kbd>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:front"></a>
+                      <h3 class="text-primary">List:front&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Gives the first element of the list.
+
+
+
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 For internal use.
+                                The first element of the list.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The popped elemnts.
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:popFront"></a>
-                    <h3 class="text-primary">List:popFront&nbsp;(n, t)</h3>
-                  </dt>
-                  <dd>
-                    Pops elements from the the begining of the list.
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:back"></a>
+                      <h3 class="text-primary">List:back&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Gives the last element of the list.
 
 
 
-                        <h4>Parameters:</h4>
-                      <ul>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                n</kbd>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 Number of elements to pop.
+                                The last element of the list.
                               </p>
-                              </li>
-                            <li>
-                              <kbd>
-                                <strong class="text-type">
-                                    any
-                                </strong>
-                                t</kbd>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:popBack"></a>
+                      <h3 class="text-primary">List:popBack&nbsp;(n, ...)</h3>
+                    </dt>
+                    <dd>
+                      Pops elements from the end of the list.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  n</kbd>
+                                <p>
+                                   Number of elements to pop.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  ...</kbd>
+                                <p>
+                                   For internal use.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
                               <p>
-                                 For internal use.
+                                The popped elemnts.
                               </p>
-                              </li>
-                      </ul>
 
-                      <h4>Returns:</h4>
-                        <ol>
-
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              The popped elements.
-                            </p>
-
-                        </ol>
+                          </ol>
 
 
 
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-                  <dt>
-                    <a name = "List:each"></a>
-                    <h3 class="text-primary">List:each&nbsp;()</h3>
-                  </dt>
-                  <dd>
-                    Iterate through the list.
-                      The iteration variable is an accessor function:
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:popFront"></a>
+                      <h3 class="text-primary">List:popFront&nbsp;(n, t)</h3>
+                    </dt>
+                    <dd>
+                      Pops elements from the the begining of the list.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  n</kbd>
+                                <p>
+                                   Number of elements to pop.
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      any
+                                  </strong>
+                                  t</kbd>
+                                <p>
+                                   For internal use.
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
+                              <p>
+                                The popped elements.
+                              </p>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "List:each"></a>
+                      <h3 class="text-primary">List:each&nbsp;()</h3>
+                    </dt>
+                    <dd>
+                      Iterate through the list.
+                        The iteration variable is an accessor function:
   <p><code>l = list:new{&hellip;}</code>
   <p><code>for v in l:each() do print(v()) end</code></p>
 
 
-                      <h4>Returns:</h4>
-                        <ol>
+                        <h4>Returns:</h4>
+                          <ol>
 
-                            <kbd><strong class="text-type">
-                            any</strong></kbd>
-                            <p>
-                              Iterator function.
-                            </p>
+                              <kbd><strong class="text-type">
+                              any</strong></kbd>
+                              <p>
+                                Iterator function.
+                              </p>
 
-                        </ol>
-
-
-
-                  </dd>
-                  <div class="row" style="height:2em"></div>
-              </dl>
+                          </ol>
 
 
-        </div> <!-- id="content" -->
-      </div> <!-- id="main" -->
-      <div id="about">
-      </div> <!-- id="about" -->
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                </dl>
+
+
+          </div> <!-- id="content" -->
+        </div> <!-- id="main" -->
+        <div id="about">
+        </div> <!-- id="about" -->
+      </div>
       <div class="col-xs-0 col-md-2 col-lg-3"></div>
     </div> <!-- content row -->
   </div> <!-- class="container" -->
