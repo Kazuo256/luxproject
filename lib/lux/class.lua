@@ -26,20 +26,25 @@
 --- A class-based implementation object oriented programming.
 --  Ironically, this is actually a prototype, which means it inherits from
 --  @{lux.prototype}, but otherwise provides its own mechanism for OOP.
---
 --  Be sure to check @{instance}, @{inherit} and @{super} usages.
+--  @usage
+--  local MyClass = require 'lux.class' :new{}
 --  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
 --- Defines how an instance of the class should be constructed.
---  @param obj The to-be-constructed object
---  @param ... Any arguments required by the construction
+--  This function is supposed to only be overriden, not called from the user's
+--  side. By populating the <code>obj</code> parameter provided in this
+--  factory-like strategy method is what creates class instances in this OOP
+--  feature. 
+--  @tparam object obj The to-be-constructed object
+--  @param ... Arguments required by the construction
 --  @usage
 --  local MyClass = require 'lux.class' :new{}
---  function MyClass:instance (obj)
+--  function MyClass:instance (obj, x)
 --    local a_number = 42
 --    function obj:show ()
---      print(a_number)
+--      print(a_number + x)
 --    end
 --  end
 function class:instance (obj, ...)
@@ -47,14 +52,18 @@ function class:instance (obj, ...)
 end
 
 --- Makes this class inherit from another.
---  It is necessary to call `self:super(obj, ...)` inside this class'
---  @{instance} definition method.
---  @param another_class The being inherited from
+--  This guarantess that instances from the former are also instances from the
+--  latter. The semantics differs from that of inheritance through prototyping!
+--  Also, it is necessary to call @{super} inside the current class'
+--  @{instance} definition method since there is no way of guessing how the
+--  parent class' constructor should be called.
+--  @tparam class another_class The class being inherited from
 --  @usage
 --  local class = require 'lux.class'
 --  local ParentClass = class:new{}
 --  local ChildClass = class:new{}
 --  ChildClass:inherit(ParentClass)
+--  @see class:super
 function class:inherit (another_class)
   assert(not self.__parent, "Multiple inheritance not allowed!")
   assert(another_class:__super() == class, "Must inherit a class!")
@@ -62,7 +71,13 @@ function class:inherit (another_class)
 end
 
 --- The class constructor.
---  @param ... The constructor parameters as specified in @{instance}
+--  This is how someone actually instantiates objects from this class system.
+--  After having created a new class and defined its @{instance} method, calling
+--  the class itself behaves as expected by calling the constructor that will
+--  use the @{instance} method to create the object.
+--  @param ... The constructor parameters as specified in the @{instance}
+--  @treturn object A new instance from the current class.
+--  definition
 function class:__call (...)
   local obj = {
     __class = self,
@@ -76,7 +91,7 @@ end
 --- Calls the parent class' constructor.
 --  Should only be called inside this class' @{instance} definition method when
 --  it inherits from another class.
---  @param obj The object being constructed by the child class
+--  @tparam object obj The object being constructed by the child class
 --  @param ... The parent class' constructor parameters
 --  @usage
 --  -- After ChildClass inherited ParentClass
@@ -84,6 +99,7 @@ end
 --    self:super(obj, x + y) -- parent's constructor parameters
 --    -- Finish instancing
 --  end
+--  @see class:inherit
 function class:super (obj, ...)
   assert(not obj.__extended, "Already called parent constructor!")
   self.__parent:instance(obj, ...)
