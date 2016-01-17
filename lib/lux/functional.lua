@@ -51,10 +51,10 @@ end
 -- @tparam function f
 -- The function being binded.
 --
--- @tparam any arg1
+-- @param arg1
 -- The first bound argument.
 --
--- @tparam[optchain] any ...
+-- @param[optchain] ...
 -- The remaining bound arguments, in order.
 --
 -- @treturn function
@@ -74,9 +74,9 @@ end
 -- local result = std.curry(print,2)
 -- result (arg1) (arg2) (arg3, arg4, ...)
 --
--- @param f The function being curried.
+-- @tparam function f The function being curried.
 --
--- @param[opt=1] n How much the function should be curried.
+-- @tparam[opt=1] integer n How much the function should be curried.
 --
 -- @treturn function An <code>n</code>-curried version of <code>f</code>.
 function functional.curry (f, n)
@@ -113,7 +113,7 @@ function functional.reverse (...)
 end
 
 --- Map function. Might overflow the stack and is not tail recursive.
---  @param f An unary function
+--  @tparam function f An unary function
 --  @param a First mapped element
 --  @param ... Other to-be-mapped elements
 --  @return All the results of applying f to the given elements one by one.
@@ -126,7 +126,7 @@ function functional.map (f, a, ...)
 end
 
 --- Expand a value into a value list: value, value, ...
---  @param n The number of times to expand.
+--  @tparam integer n The number of times to expand.
 --  @param value The expanded value
 --  @param ... For internal use inly.
 --  @return A list of copies of value.
