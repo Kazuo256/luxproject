@@ -98,8 +98,19 @@
           <!-- Menu -->
         
 #         local function no_spaces(s) return s:gsub('%s','_') end
-#         local function display_name(item)
-#           if item.type == 'function' then return item.name..'&nbsp;'..item.args
+#         local function display_name(item,is_constructor)
+#           if item.type == 'function' then
+#             local name = item.name
+#             if is_constructor then
+#               local rest = name:gsub("^.-:", "")
+#               local class = name:gsub(".-(%w+):.*", "%1")
+#               if rest == class then
+#                 name = class
+#               else
+#                 name = class..":"..rest
+#               end
+#             end
+#             return name..'&nbsp;'..item.args
 #           else return item.name end
 #         end
 #         local function use_li(ls)
@@ -113,9 +124,12 @@
                 $(M(ldoc.body))
 #           elseif module then
         
+#             local singular = { classes = "class", modules = "module",
+#                                prototypes = "prototype",
+#                                examples = "example" }
               <h1>
                 $(module.name)
-                <small>a LUX $(module.kind:gsub("s$", ""))</small>
+                <small>a LUX $(singular[module.kind])</small>
               </h1>
 
               $(vspace(2))
@@ -177,7 +191,9 @@
 #                 for item in items() do
                     <dt>
                       <a name = "$(item.name)"></a>
-                      <h3 class="text-primary">$(display_name(item))</h3>
+                      <h3 class="text-primary">
+                        $(display_name(item, kind == "Constructors "))
+                      </h3>
                     </dt>
                     <dd>
                       $(M(item.summary))

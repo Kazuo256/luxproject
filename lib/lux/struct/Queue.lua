@@ -27,6 +27,16 @@
 --  @classmod lux.struct.Queue
 local Queue = require 'lux.class' :new{}
 
+local function nothing()
+  return nothing
+end
+
+--- Constructors
+--  @section constructors
+
+--- Default constructor.
+--  @function Queue
+--  @tparam integer max The queue max capacity
 function Queue:instance (obj, max)
 
   assert(max > 1)
@@ -36,17 +46,24 @@ function Queue:instance (obj, max)
   local size = 0
 
   for i=1,max do
-    queue[i] = false
+    queue[i] = nothing
   end
 
+  --- Methods
+  --  @section methods
+
+  --- Tells whether the queue is empty.
+  --  @treturn boolean True if the queue is empty, false otherwise
   function obj:isEmpty ()
     return size <= 0
   end
 
+  --- Tells whether the queue is full.
   function obj:isFull ()
     return size >= max
   end
 
+  --- Pushes a value into the queue.
   function obj:push (item, ...)
     if not item and select('#', ...) == 0 then
       return
@@ -59,19 +76,21 @@ function Queue:instance (obj, max)
     return self:push(...)
   end
 
+  --- Pops a value from the queue.
   function obj:pop (n)
     if n and n <= 0 then
       return
     else
       assert(not self:isEmpty())
       local value = queue[head]
-      queue[head] = false
+      queue[head] = nothing
       head = (head%max) + 1
       size = size - 1
       return value, self:pop(n and (n-1) or 0)
     end
   end
 
+  --- Pops all values from the queue.
   function obj:popAll ()
     return self:pop(size)
   end
@@ -82,10 +101,22 @@ function Queue:instance (obj, max)
     end
   end
 
+  --- Iterates through the queue popping everything.
   function obj:popEach ()
     return coroutine.wrap(iterate)
   end
 
+end
+
+--- Constructors
+--  @section constructors
+
+--- Construct from sequence
+--  @tparam sequence seq A sequence containing the new queue's content
+function Queue:fromSequence(seq)
+  local queue = Queue(#seq)
+  queue:push(table.unpack(seq))
+  return queue
 end
 
 return Queue
