@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>LUX Documentation and Reference</title>
-    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
     <link rel="stylesheet"
     href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script
@@ -13,6 +12,7 @@
     <script
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
     </script>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
 </head>
 <body>
 
@@ -55,21 +55,9 @@
                           </a>
                         </li>
                         <li
-                          >
-                          <a href="../modules/lux.pack.html">
-                            lux.pack
-                          </a>
-                        </li>
-                        <li
                           class="active">
                           <a href="../modules/lux.portable.html">
                             lux.portable
-                          </a>
-                        </li>
-                        <li
-                          >
-                          <a href="../modules/lux.std.html">
-                            lux.std
                           </a>
                         </li>
                         <li
@@ -216,7 +204,9 @@
                 <dl class="function">
                     <dt>
                       <a name = "loadWithEnv"></a>
-                      <h3 class="text-primary">loadWithEnv&nbsp;(f, env[, source])</h3>
+                      <h3 class="text-primary">
+                        loadWithEnv&nbsp;(f, env[, source])
+                      </h3>
                     </dt>
                     <dd>
                       Re-loads a funcion with the given env and an optional chunk name.

@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>LUX Documentation and Reference</title>
-    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
     <link rel="stylesheet"
     href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script
@@ -13,6 +12,7 @@
     <script
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
     </script>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
 </head>
 <body>
 
@@ -56,20 +56,8 @@
                         </li>
                         <li
                           >
-                          <a href="../modules/lux.pack.html">
-                            lux.pack
-                          </a>
-                        </li>
-                        <li
-                          >
                           <a href="../modules/lux.portable.html">
                             lux.portable
-                          </a>
-                        </li>
-                        <li
-                          >
-                          <a href="../modules/lux.std.html">
-                            lux.std
                           </a>
                         </li>
                         <li
@@ -216,7 +204,9 @@
                 <dl class="function">
                     <dt>
                       <a name = "bindFirst"></a>
-                      <h3 class="text-primary">bindFirst&nbsp;(f, arg)</h3>
+                      <h3 class="text-primary">
+                        bindFirst&nbsp;(f, arg)
+                      </h3>
                     </dt>
                     <dd>
                       Binds a function&rsquo;s first parameter to the given argument.
@@ -265,7 +255,9 @@
                     <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "bindLeft"></a>
-                      <h3 class="text-primary">bindLeft&nbsp;(f, arg1[, ...])</h3>
+                      <h3 class="text-primary">
+                        bindLeft&nbsp;(f, arg1[, ...])
+                      </h3>
                     </dt>
                     <dd>
                       Binds a function to the given (left-most) arguments.
@@ -287,7 +279,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      <span class="type">any</span>
+                                      any
                                   </strong>
                                   arg1</kbd>
                                 <p>
@@ -297,7 +289,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      <span class="type">any</span>
+                                      any
                                   </strong>
                                   ...</kbd>
                                   (<em>optional</em>)
@@ -325,7 +317,9 @@
                     <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "curry"></a>
-                      <h3 class="text-primary">curry&nbsp;(f[, n=1])</h3>
+                      <h3 class="text-primary">
+                        curry&nbsp;(f[, n=1])
+                      </h3>
                     </dt>
                     <dd>
                       Creates a <code>n</code>-curried function based on <code>f</code>.
@@ -337,7 +331,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <span class="type">function</span>
                                   </strong>
                                   f</kbd>
                                 <p>
@@ -347,7 +341,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <span class="type">integer</span>
                                   </strong>
                                   n</kbd>
                                   (<em>default:</em> <code>1</code>)
@@ -382,7 +376,9 @@
                     <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "reverse"></a>
-                      <h3 class="text-primary">reverse&nbsp;(...)</h3>
+                      <h3 class="text-primary">
+                        reverse&nbsp;(...)
+                      </h3>
                     </dt>
                     <dd>
                       Reverses the order of the arguments.
@@ -420,7 +416,9 @@
                     <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "map"></a>
-                      <h3 class="text-primary">map&nbsp;(f, a, ...)</h3>
+                      <h3 class="text-primary">
+                        map&nbsp;(f, a, ...)
+                      </h3>
                     </dt>
                     <dd>
                       Map function.
@@ -431,7 +429,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <span class="type">function</span>
                                   </strong>
                                   f</kbd>
                                 <p>
@@ -477,7 +475,9 @@
                     <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "expand"></a>
-                      <h3 class="text-primary">expand&nbsp;(n, value, ...)</h3>
+                      <h3 class="text-primary">
+                        expand&nbsp;(n, value, ...)
+                      </h3>
                     </dt>
                     <dd>
                       Expand a value into a value list: value, value, &hellip;
@@ -489,7 +489,7 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <span class="type">integer</span>
                                   </strong>
                                   n</kbd>
                                 <p>
