@@ -10,9 +10,7 @@ cannot be found in the standard library of the language.
 ]]
 
 full_description = [[
-## Let us see
-
-Well that worked!?
+WIP
 ]]
 
 file = "lib"
@@ -24,7 +22,6 @@ merge = true
 manual_url "http://www.lua.org/manual/5.3/manual.html"
 examples = "examples"
 format = "discount"
---not_luadoc = true
 
 new_type("prototype", "Prototypes", true)
 new_type("constructor","Constructors",false,"param")

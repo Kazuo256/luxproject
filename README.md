@@ -1,37 +1,21 @@
 
-Lua Utility eXtension Project
-=============================
+LUX Project
+===========
 
 This document is still a stub.
 
-1. Description:
+Lua Utility eXTension is a Lua-only library compatible with Lua 5.1 through
+Lua 5.3 which provides a handful of features for everyday Lua programming that
+cannot be found in the standard library of the language. Features included are:
 
-  Lua Utility eXtension (LUX) is a project whose objective is to make some extension
-  facilities to the programming language Lua. It is written in Lua 5.X,
-  which means you may use it in your own project without having to worry
-  (much) about which Lua distribution you are using - it may very well be your
-  own distribution - as long as it is derived from Lua 5.1 or later.
++ A prototype-based Object Oriented system
++ A class-based Object Oriented system
++ A functional programming module
++ An unit test module
++ A macro processor feature
 
-  The extensions this project intends to provide for now are:
-  - Some all-purpose functionalities that are commonly needed.
-  - A simple Object Oriented system.
-  - A Functional utility module.
-  - An Unit Test module.
-  - A Mock module.
-  - A Macro feature module.
+## Installation
 
-  New extensions may appear on the future, as I learn more and think up new
-  ideas ;).
-
-2. Usage notes:
-
-  1. Importing LUX
-
-    The Lua module itself is named as "lux", so import it with
-
-    ```lua
-    require 'lux.object'
-    ```
-
-    for instance.
+Basically put the the lib/lux folder into your lua path. We'll eventually make a
+luarock for this library.
 
