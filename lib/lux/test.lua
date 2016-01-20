@@ -39,7 +39,7 @@ function test.unit (unit_name)
   if not script then
     print(err)
   end
-  script = port.loadWithEnv(script, setmetatable({}, test_mttab), 'unit_name') ()
+  port.loadWithEnv(script, setmetatable({}, test_mttab), unit_name) ()
   local before = tests.before or function () end
   for key,case in pairs(tests) do
     local name = string.match(key, "^test_([%w_]+)$")
@@ -51,7 +51,7 @@ function test.unit (unit_name)
       else
         term.write("<bright><red>[Failure]<clear> ")
       end
-      term.write("<bright>"..unit_name.."."..name.."<clear>\n")
+      term.write("<bright>"..unit_name.."/"..name.."<clear>\n")
       if err then term.line(err) end
     end
   end
