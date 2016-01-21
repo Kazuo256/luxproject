@@ -32,6 +32,10 @@
 --  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
+function class:__construct ()
+  self.__call = class.__call
+end
+
 --- Defines how an instance of the class should be constructed.
 --  This function is supposed to only be overriden, not called from the user's
 --  side. By populating the <code>obj</code> parameter provided in this
