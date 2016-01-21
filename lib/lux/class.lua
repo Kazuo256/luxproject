@@ -32,10 +32,6 @@
 --  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
-function class:__construct ()
-  self.__call = class.__call
-end
-
 --- Defines how an instance of the class should be constructed.
 --  This function is supposed to only be overriden, not called from the user's
 --  side. By populating the <code>obj</code> parameter provided in this
@@ -91,6 +87,10 @@ function class:__call (...)
   assert(obj.__extended, "Missing call to parent constructor!")
   return setmetatable(obj, obj)
 end
+
+class.__init = {
+  __call = class.__call
+}
 
 --- Calls the parent class' constructor.
 --  Should only be called inside this class' @{instance} definition method when
