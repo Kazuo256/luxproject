@@ -67,7 +67,7 @@
                           </a>
                         </li>
                         <li
-                          >
+                          class="active">
                           <a href="../modules/lux.path.html">
                             lux.path
                           </a>
@@ -79,7 +79,7 @@
                           </a>
                         </li>
                         <li
-                          class="active">
+                          >
                           <a href="../modules/lux.color.html">
                             lux.color
                           </a>
@@ -181,58 +181,16 @@
 
 
               <h1>
-                lux.color
+                lux.path
                 <small>a LUX module</small>
               </h1>
 
               <div class="row" style="height:2em"></div>
 
               <p>
-                LUX&rsquo;s terminal utility module.
-                 <p>
- The terminal output functions take strings with formatted colors as
- arguments. That means sush string may have a color tag. There are three types
- of color tags: attributes, foreground and background colors. Tags must be
- given between <code> &lt; </code>and<code> ></code>. Once used, a tag remains
- active in the terminal, until some other tag overwrites it. Note that the
- color tag remains active even after the program has finished.
- </p></p>
+                A module for managing Lua&rsquo;s paths.
 
-<p> <p>Atribute tags:</p>
- <ul>
-  <li><code>reset</code></li>
-  <li><code>clear</code></li>
-  <li><code>bright</code></li>
-  <li><code>dim</code></li>
-  <li><code>underscore</code></li>
-  <li><code>blink</code></li>
-  <li><code>reverse</code></li>
-  <li><code>hidden</code></li>
- </ul></p>
 
-<p> <p>Foreground color tags:</p>
- <ul>
-  <li><code>black</code></li>
-  <li><code>red</code></li>
-  <li><code>green</code></li>
-  <li><code>yellow</code></li>
-  <li><code>blue</code></li>
-  <li><code>magenta</code></li>
-  <li><code>cyan</code></li>
-  <li><code>white</code></li>
-  </ul></p>
-
-<p> <p>Background color tags:</p>
- <ul>
-  <li><code>onblack</code></li>
-  <li><code>onred</code></li>
-  <li><code>ongreen</code></li>
-  <li><code>onyellow</code></li>
-  <li><code>onblue</code></li>
-  <li><code>onmagenta</code></li>
-  <li><code>oncyan</code></li>
-  <li><code>onwhite</code></li>
-  </ul>
               </p>
 
 
@@ -246,13 +204,13 @@
 
                 <dl class="function">
                     <dt>
-                      <a name = "terminal.line"></a>
+                      <a name = "clear"></a>
                       <h3 class="text-primary">
-                        terminal.line&nbsp;(text)
+                        clear&nbsp;(default_path, set)
                       </h3>
                     </dt>
                     <dd>
-                      Print a line with formatted colors.
+                      Clears all registered paths and set path handler
 
 
 
@@ -261,11 +219,21 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <span class="type">function</span>
                                   </strong>
-                                  text</kbd>
+                                  default_path</kbd>
                                 <p>
-                                   A string possibly containing color tags.
+                                    The default path
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <span class="type">function</span>
+                                  </strong>
+                                  set</kbd>
+                                <p>
+                                    A function that sets the current path
                                 </p>
                                 </li>
                         </ul>
@@ -276,13 +244,13 @@
                     </dd>
                     <div class="row" style="height:2em"></div>
                     <dt>
-                      <a name = "terminal.write"></a>
+                      <a name = "add"></a>
                       <h3 class="text-primary">
-                        terminal.write&nbsp;(text)
+                        add&nbsp;(id, path)
                       </h3>
                     </dt>
                     <dd>
-                      Writes to the standard output with formatted colors.
+                      Adds a path.
 
 
 
@@ -291,17 +259,73 @@
                               <li>
                                 <kbd>
                                   <strong class="text-type">
-                                      any
+                                      <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a>
                                   </strong>
-                                  text</kbd>
+                                  id</kbd>
                                 <p>
-                                   A string possibly containing color tags.
+                                    An identifier for the path
+                                </p>
+                                </li>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a>
+                                  </strong>
+                                  path</kbd>
+                                <p>
+                                    The path added
                                 </p>
                                 </li>
                         </ul>
 
 
 
+                        <h4>See also:</h4>
+                        <ul>
+
+                            <a href="../modules/lux.path.html#remove">
+                              path.remove
+                            </a>
+
+                        </ul>
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "remove"></a>
+                      <h3 class="text-primary">
+                        remove&nbsp;(id)
+                      </h3>
+                    </dt>
+                    <dd>
+                      Removes the path assigned to the given identifier.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a>
+                                  </strong>
+                                  id</kbd>
+                                <p>
+                                    The identifier for the to-be-removed path
+                                </p>
+                                </li>
+                        </ul>
+
+
+
+                        <h4>See also:</h4>
+                        <ul>
+
+                            <a href="../modules/lux.path.html#add">
+                              path.add
+                            </a>
+
+                        </ul>
 
                     </dd>
                     <div class="row" style="height:2em"></div>
