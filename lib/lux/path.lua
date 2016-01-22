@@ -30,20 +30,27 @@ local path = {}
 local paths
 local index
 
-local default = package.path
+local default
+local set_path
 
 local function update_path ()
   local result = default
   for _,p in ipairs(paths) do
     result = result .. ";" .. p.path
   end
-  package.path = result
+  set_path(result)
 end
 
---- Clears all registered paths.
-function path.clear ()
+--- Clears all registered paths and set path handler
+--  @tparam function default_path
+--  The default path
+--  @tparam function set
+--  A function that sets the current path
+function path.clear (default_path, set)
   paths = {}
   index = {}
+  default = default_path
+  set_path = set
   update_path()
 end
 
@@ -74,7 +81,7 @@ function path.remove (id)
   update_path()
 end
 
-path.clear()
+path.clear(package.path, function (p) package.path = p end)
 
 return path
 
