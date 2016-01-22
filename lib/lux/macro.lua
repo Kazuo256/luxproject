@@ -24,7 +24,7 @@
 --]]
 
 --- A module that provides a macro processor
---  @module lux.module
+--  @module lux.macro
 local macro = {}
 
 local port        = require 'lux.portable'
@@ -54,6 +54,11 @@ local function handleDirective (mod, code)
   return ''
 end
 
+--- Processes the given string expanding the macros.
+--  @tparam string str
+--  String to be processed.
+--  @tparam table env
+--  The Lua environment used to process the string.
 function macro.process (str, env)
   env = env or {}
   local code = "local output = ''\n"
