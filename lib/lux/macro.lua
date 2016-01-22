@@ -30,10 +30,13 @@ local macro = {}
 local port        = require 'lux.portable'
 local functional  = require 'lux.functional'
 
+local evil_regex = "(.-)%$([=!])(.-)([=!]?[%$\n])"
+
 local function directiveIterator (str)
   local yield = coroutine.yield
-  for input, mod, directive, tail in str:gmatch "(.-)%$(%p)(.-)(%p?[%$\n])" do
-    assert(tail == "\n" or tail == mod.."$", "start/close mismatch")
+  for input, mod, directive, tail in str:gmatch(evil_regex) do
+    assert(tail == "\n" or tail == mod.."$",
+           "\nstart/close mismatch: ("..mod..","..tail..")")
     yield(input, mod, directive, #input + 1 + #mod + #directive + #tail)
   end
 end
