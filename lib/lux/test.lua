@@ -35,11 +35,11 @@ function test.unit (unit_name)
   local tests = {}
   local test_mttab = { __newindex = tests, __index = _G }
   local unit_script = "test/units/"..string.gsub(unit_name, "%.", "/")..".lua"
-  local script, err = loadfile(unit_script)
+  local script, err = loadfile(unit_script, 'bt', setmetatable({}, test_mttab))
   if not script then
     print(err)
   end
-  port.loadWithEnv(script, setmetatable({}, test_mttab), unit_name) ()
+  script()
   local before = tests.before or function () end
   for key,case in pairs(tests) do
     local name = string.match(key, "^test_([%w_]+)$")
@@ -52,7 +52,9 @@ function test.unit (unit_name)
         term.write("<bright><red>[Failure]<clear> ")
       end
       term.write("<bright>"..unit_name.."/"..name.."<clear>\n")
-      if err then term.line(err) end
+      if err then
+        term.line(err)
+      end
     end
   end
 end

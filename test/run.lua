@@ -29,6 +29,6 @@ local test = require 'lux.test'
 
 test.unit "lux.prototype"
 test.unit "lux.struct.List"
-test.unit "lux.macro.Processor"
+test.unit "lux.macro"
 test.unit "lux.functional"
 

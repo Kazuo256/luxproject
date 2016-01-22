@@ -29,9 +29,9 @@ asdasdasd
   {
     name = "single_for",
     input = [[
-$: for i=1,3 do
+$! for i=1,3 do
 foo
-$: end
+$! end
 ]],
     output = [[
 foo
@@ -42,9 +42,9 @@ foo
   {
     name = "single_nested_for",
     input = [[
-$: for i=1,3 do
-$: for j=1,2 do :$bar $: end :$
-$: end
+$! for i=1,3 do
+$! for j=1,2 do !$bar $! end !$
+$! end
 ]],
     output = [[
 bar bar 
@@ -55,9 +55,9 @@ bar bar
   {
     name = "single_progressive_for",
     input = [[
-$: for i=1,5 do
-$: for j=1,i do :$*$: end :$
-$: end
+$! for i=1,5 do
+$! for j=1,i do !$*$! end !$
+$! end
 ]],
     output = [[
 *
@@ -73,11 +73,11 @@ function before ()
 end
 
 local function make_error_text (errmsg, result)
-  return tostring(errmsg) .. " ("..outstream.stored..")"
+  return tostring(errmsg) .. " ("..tostring(result)..")\n"..debug.traceback()
 end
 
 for _,fixture in ipairs(fixtures) do
-  port.getEnv()["test_"..fixture.name] = function ()
+  _ENV["test_"..fixture.name] = function ()
     local result
     local check, errmsg = pcall(
       function ()
@@ -88,7 +88,7 @@ for _,fixture in ipairs(fixtures) do
       assert(not check, make_error_text(errmsg, result))
     else
       assert(check and result == fixture.output,
-             make_error_text(errmsg, outstream.stored))
+             make_error_text(errmsg, result))
     end
   end
 end

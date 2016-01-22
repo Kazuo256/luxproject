@@ -33,7 +33,7 @@ local functional  = require 'lux.functional'
 local function directiveIterator (str)
   local yield = coroutine.yield
   for input, mod, directive, tail in str:gmatch "(.-)%$(%p)(.-)(%p?[%$\n])" do
-    assert(tail == "\n" or tail == mod.."$")
+    assert(tail == "\n" or tail == mod.."$", "start/close mismatch")
     yield(input, mod, directive, #input + 1 + #mod + #directive + #tail)
   end
 end
@@ -45,7 +45,7 @@ end
 local function handleDirective (mod, code)
   if mod == '=' then
     return "output = output .. " .. code .. "\n"
-  elseif mod == ':' then
+  elseif mod == '!' then
     return code.."\n"
   end
   return ''
@@ -62,7 +62,7 @@ function macro.process (str, env)
   end
   code = code .. "output = output .. " .. "[[\n" .. str:sub(count) .. "]]\n"
   code = code .. "return output\n"
-  return port.loadWithEnv(assert(load(code)), env) ()
+  return assert(load(code, "macro_code", 'bt', env)) ()
 end
 
 return macro
