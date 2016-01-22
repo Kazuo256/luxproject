@@ -23,12 +23,12 @@
 --
 --]]
 
+--- A module that provides a macro processor
+--  @module lux.module
+local macro = {}
 
---- This class represents a macro configuration.
--- @classmod macro.Specification
-local Specification = require 'lux.prototype' :new {}
-
-local functional = require 'lux.functional'
+local port        = require 'lux.portable'
+local functional  = require 'lux.functional'
 
 local function directiveIterator (str)
   local yield = coroutine.yield
@@ -38,9 +38,32 @@ local function directiveIterator (str)
   end
 end
 
-function Specification:iterateDirectives (str)
+local function iterateDirectives (str)
   return coroutine.wrap(functional.bindLeft(directiveIterator, str))
 end
 
-return Specification
+local function handleDirective (mod, code)
+  if mod == '=' then
+    return "output = output .. " .. code .. "\n"
+  elseif mod == ':' then
+    return code.."\n"
+  end
+  return ''
+end
+
+function macro.process (str, env)
+  env = env or {}
+  local code = "local output = ''\n"
+  local count = 1
+  for input, mod, directive, step in iterateDirectives(str) do
+    code = code .. "output = output .. " .. "[[\n" .. input .. "]]\n"
+    code = code .. handleDirective(mod, directive)
+    count = count + step
+  end
+  code = code .. "output = output .. " .. "[[\n" .. str:sub(count) .. "]]\n"
+  code = code .. "return output\n"
+  return port.loadWithEnv(assert(load(code)), env) ()
+end
+
+return macro
 

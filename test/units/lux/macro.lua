@@ -1,8 +1,7 @@
 
-local Processor = require 'lux.macro.Processor'
-local port      = require 'lux.portable'
+local macro = require 'lux.macro'
+local port  = require 'lux.portable'
 
-local proc, instream, outstream
 local fixtures = {
   {
     name = "no_macro",
@@ -67,41 +66,10 @@ $: end
 ****
 *****
 ]]
-  },
-  {
-    name = "single_stringdump",
-    input = [[
-x = $|"a".."b"|$
-]],
-    output =
-"x = [[ab]]\n"
-  },
-  {
-    name = "single_stringquote",
-    input = [[
-x = $=mq("a".."b")=$
-]],
-    output =
-"x = [[ab]]\n"
   }
 }
 
 function before ()
-  proc = Processor:new {}
-  instream = {}
-  function instream:read (quantity)
-    assert(quantity == "*a")
-    return self.input
-  end
-  outstream = {
-    stored = ""
-  }
-  function outstream:write (data)
-    self.stored = self.stored .. data
-  end
-  function outstream:check (output)
-    return self.stored == output
-  end
 end
 
 local function make_error_text (errmsg, result)
@@ -110,16 +78,17 @@ end
 
 for _,fixture in ipairs(fixtures) do
   port.getEnv()["test_"..fixture.name] = function ()
-    instream.input = fixture.input
+    local result
     local check, errmsg = pcall(
       function ()
-        return proc:process(instream, outstream)
+        result = macro.process(fixture.input, {})
       end
     )
     if fixture.fails then
-      assert(not check, make_error_text(errmsg, outstream.stored))
+      assert(not check, make_error_text(errmsg, result))
     else
-      assert(check and outstream:check(fixture.output), make_error_text(errmsg, outstream.stored))
+      assert(check and result == fixture.output,
+             make_error_text(errmsg, outstream.stored))
     end
   end
 end

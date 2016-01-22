@@ -1,29 +1,24 @@
 
 package.path = package.path..";./lib/?.lua"
 
-local Processor = require 'lux.macro.Processor'
-local stream    = require 'lux.stream'
+local macro = require 'lux.macro'
 
-local input = stream.File:new {
-  path = "./test/input.in.lua"
-}
-local output = stream.File:new {
-  path = "./test/input.lua",
-  mode = "w"
-}
+local input = io.open("./test/input.in.lua")
 
-local proc = Processor:new {}
+local output = io.open("./test/input.lua", "w")
 
-functions = {
-  foo = {
-    args = { "x", "y", "z" },
-    result = "x+y+z"
-  },
-  bar = {
-    args = { "a" },
-    result = "foo(a,a,a)"
+local env = setmetatable({
+  functions = {
+    foo = {
+      args = { "x", "y", "z" },
+      result = "x+y+z"
+    },
+    bar = {
+      args = { "a" },
+      result = "foo(a,a,a)"
+    }
   }
-}
+}, { __index = _ENV })
 
-proc:process(input, output)
+output:write(macro.process(input:read "*a", env))
 
