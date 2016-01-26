@@ -32,7 +32,7 @@ local port        = require 'lux.portable'
 --- Processes the given string expanding the macros. There are two kinds of
 --  expanded macros:
 --
---  1. Lines starting with `$`: the whole line is inserted in the generator code
+--  1. Lines starting with `#`: the whole line is inserted in the generator code
 --  2. Expressions wrapped in `$(...)`: the expression is inserted into that
 --     part of the string
 --
@@ -60,7 +60,7 @@ function macro.process (str, env)
   table.insert(chunks,
                "local function out (str) output = output .. tostring(str) end")
   for line in str:gmatch "([^\n]*\n?)()" do
-    if line:find "^%$" then
+    if line:find "^#" then
       table.insert(chunks, line:sub(2))
     else
       local last = 1
