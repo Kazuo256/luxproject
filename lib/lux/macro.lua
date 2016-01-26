@@ -28,49 +28,38 @@
 local macro = {}
 
 local port        = require 'lux.portable'
-local functional  = require 'lux.functional'
-
-local evil_regex = "(.-)%$([=!])(.-)([=!]?[%$\n])"
-
-local function directiveIterator (str)
-  local yield = coroutine.yield
-  for input, mod, directive, tail in str:gmatch(evil_regex) do
-    assert(tail == "\n" or tail == mod.."$",
-           "\nstart/close mismatch: ("..mod..","..tail..")")
-    yield(input, mod, directive, #input + 1 + #mod + #directive + #tail)
-  end
-end
-
-local function iterateDirectives (str)
-  return coroutine.wrap(functional.bindLeft(directiveIterator, str))
-end
-
-local function handleDirective (mod, code)
-  if mod == '=' then
-    return "output = output .. " .. code .. "\n"
-  elseif mod == '!' then
-    return code.."\n"
-  end
-  return ''
-end
 
 --- Processes the given string expanding the macros.
 --  @tparam string str
 --  String to be processed.
 --  @tparam table env
 --  The Lua environment used to process the string.
+--  @see http://lua-users.org/wiki/SimpleLuaPreprocessor
 function macro.process (str, env)
-  env = env or {}
-  local code = "local output = ''\n"
-  local count = 1
-  for input, mod, directive, step in iterateDirectives(str) do
-    code = code .. "output = output .. " .. "[[\n" .. input .. "]]\n"
-    code = code .. handleDirective(mod, directive)
-    count = count + step
+  assert(port.minVersion(5, 3), "This function requires Lua 5.3 or later")
+  local chunks = {}
+  env = setmetatable({ tostring = tostring }, { __index = (env or {})})
+  table.insert(chunks, "local output = ''")
+  table.insert(chunks,
+               "local function out (str) output = output .. tostring(str) end")
+  for line in str:gmatch "([^\n]*\n?)()" do
+    if line:find "^%$" then
+      table.insert(chunks, line:sub(2))
+    else
+      local last = 1
+      for text, expr, index in line:gmatch "(.-)$(%b())()" do
+        last = index
+        if text ~= "" then
+          table.insert(chunks, string.format("out %q", text))
+        end
+        table.insert(chunks, string.format("out%s", expr))
+      end
+      table.insert(chunks, string.format("out %q", line:sub(last)))
+    end
   end
-  code = code .. "output = output .. " .. "[[\n" .. str:sub(count) .. "]]\n"
-  code = code .. "return output\n"
-  return assert(load(code, "macro_code", 'bt', env)) ()
+  table.insert(chunks, "return output\n")
+  local code = table.concat(chunks, '\n')
+  return assert(load(code, 'macro', 't', env)) ()
 end
 
 return macro

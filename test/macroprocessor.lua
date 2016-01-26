@@ -20,5 +20,7 @@ local env = setmetatable({
   }
 }, { __index = _ENV })
 
-output:write(macro.process(input:read "*a", env))
+local result = macro.process(input:read "*a", env)
+print(result)
+output:write(result)
 
