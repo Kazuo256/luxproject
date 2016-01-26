@@ -27,7 +27,7 @@
 --  @module lux.macro
 local macro = {}
 
-local port        = require 'lux.portable'
+local port = require 'lux.portable'
 
 --- Processes the given string expanding the macros. There are two kinds of
 --  expanded macros:
@@ -55,7 +55,8 @@ local port        = require 'lux.portable'
 function macro.process (str, env)
   assert(port.minVersion(5, 3), "This function requires Lua 5.3 or later")
   local chunks = {}
-  env = setmetatable({ tostring = tostring }, { __index = (env or {})})
+  env = env or {}
+  table.insert(chunks, "local tostring = ...")
   table.insert(chunks, "local output = ''")
   table.insert(chunks,
                "local function out (str) output = output .. tostring(str) end")
@@ -76,7 +77,7 @@ function macro.process (str, env)
   end
   table.insert(chunks, "return output\n")
   local code = table.concat(chunks, '\n')
-  local check, result = pcall(assert(load(code, 'macro', 't', env)))
+  local check, result = pcall(assert(load(code, 'macro', 't', env)), tostring)
   if not check then
     return error(result .. " in macro code:\n" .. code)
   else
