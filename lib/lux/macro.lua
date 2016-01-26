@@ -29,12 +29,29 @@ local macro = {}
 
 local port        = require 'lux.portable'
 
---- Processes the given string expanding the macros.
+--- Processes the given string expanding the macros. There are two kinds of
+--  expanded macros:
+--
+--  1. Lines starting with `$`: the whole line is inserted in the generator code
+--  2. Expressions wrapped in `$(...)`: the expression is inserted into that
+--     part of the string
+--
+--  The implementation is based on
+--  [this article](http://lua-users.org/wiki/SimpleLuaPreprocessor).
+--
 --  @tparam string str
 --  String to be processed.
+--
 --  @tparam table env
 --  The Lua environment used to process the string.
---  @see http://lua-users.org/wiki/SimpleLuaPreprocessor
+--
+--  @treturn string
+--  The expanded string
+--
+--  @usage
+--  local macro = require 'lux.macro'
+--  local expanded = macro.process("the answer is $(6*x)", { x = 7 })
+--  assert(expanded == "the answer is 42")
 function macro.process (str, env)
   assert(port.minVersion(5, 3), "This function requires Lua 5.3 or later")
   local chunks = {}
