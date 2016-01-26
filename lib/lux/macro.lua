@@ -78,7 +78,7 @@ function macro.process (str, env)
   local code = table.concat(chunks, '\n')
   local check, result = pcall(assert(load(code, 'macro', 't', env)))
   if not check then
-    return error(result .. "Macro code:\n" .. code)
+    return error(result .. " in macro code:\n" .. code)
   else
     return result
   end
