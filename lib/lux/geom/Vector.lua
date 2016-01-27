@@ -150,6 +150,10 @@ function Vector:sub (v)
   self[4] = self[4] - v[4]
 end
 
+function Vector:map (f)
+  return Vector:new { f(self[1]), f(self[2]), f(self[3]), f(self[4]) }
+end
+
 function Vector:unpack ()
   return self[1], self[2], self[3], self[4]
 end
