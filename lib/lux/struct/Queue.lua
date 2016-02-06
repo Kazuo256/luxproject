@@ -31,13 +31,17 @@ local function nothing()
   return nothing
 end
 
+local assert    = assert
+local select    = select
+local coroutine = couroutine
+
 --- Constructors
 --  @section constructors
 
 --- Default constructor.
 --  @function Queue
 --  @tparam integer max The queue max capacity
-function Queue:instance (obj, max)
+function Queue:instance (_ENV, max)
 
   assert(max > 1)
 
@@ -54,55 +58,55 @@ function Queue:instance (obj, max)
 
   --- Tells whether the queue is empty.
   --  @treturn boolean True if the queue is empty, false otherwise
-  function obj:isEmpty ()
+  function isEmpty ()
     return size <= 0
   end
 
   --- Tells whether the queue is full.
-  function obj:isFull ()
+  function isFull ()
     return size >= max
   end
 
   --- Pushes a value into the queue.
-  function obj:push (item, ...)
+  function push (item, ...)
     if not item and select('#', ...) == 0 then
       return
     elseif item then
-      assert(not self:isFull(), "Queue full: "..size.."/"..max)
+      assert(not isFull(), "Queue full: "..size.."/"..max)
       queue[tail] = item
       tail = (tail%max) + 1
       size = size + 1
     end
-    return self:push(...)
+    return push(...)
   end
 
   --- Pops a value from the queue.
-  function obj:pop (n)
+  function pop (n)
     if n and n <= 0 then
       return
     else
-      assert(not self:isEmpty())
+      assert(not isEmpty())
       local value = queue[head]
       queue[head] = nothing
       head = (head%max) + 1
       size = size - 1
-      return value, self:pop(n and (n-1) or 0)
+      return value, pop(n and (n-1) or 0)
     end
   end
 
   --- Pops all values from the queue.
-  function obj:popAll ()
-    return self:pop(size)
+  function popAll ()
+    return pop(size)
   end
 
   local function iterate ()
-    while not obj:isEmpty() do
-      coroutine.yield(obj:pop())
+    while not isEmpty() do
+      coroutine.yield(pop())
     end
   end
 
   --- Iterates through the queue popping everything.
-  function obj:popEach ()
+  function popEach ()
     return coroutine.wrap(iterate)
   end
 
@@ -115,8 +119,9 @@ end
 --  @tparam sequence seq A sequence containing the new queue's content
 function Queue:fromSequence(seq)
   local queue = Queue(#seq)
-  queue:push(table.unpack(seq))
+  queue.push(table.unpack(seq))
   return queue
 end
 
 return Queue
+
