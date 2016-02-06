@@ -37,7 +37,7 @@ local function update_path ()
 end
 
 --- Gets the current path.
---  @tresult string The current path
+--  @treturn string The current path
 function path.get ()
   local result = ""
   for _,p in ipairs(paths) do
@@ -47,9 +47,9 @@ function path.get ()
 end
 
 --- Searches for a lua module in the current path.
---  @tparam string The module to be searched
+--  @tparam string mod The module to be searched
 --  @treturn string
---  The path to the Lua file if it is found, or else ```nil``` plus the the
+--  The path to the Lua file if it is found, or else `nil` plus the the
 --  sequence of files it checked.
 function path.search (mod)
   local checks = {}

@@ -25,7 +25,7 @@
 
 --- This script takes over Lua's require mechanism and enforces that all lua
 --  loaded scripts be pre-processed by LUX's macro engine.
---  @script
+--  @module lux.macro.takeover
 
 local port  = require 'lux.portable'
 local path  = require 'lux.path'
