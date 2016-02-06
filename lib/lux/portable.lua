@@ -63,7 +63,7 @@ function portable.isVersion(major, minor)
 end
 
 function portable.minVersion(major, minor)
-  return major >= lua_major and minor >= lua_minor
+  return major <= lua_major and minor <= lua_minor
 end
 
 function portable.pushEnvironment (env)
