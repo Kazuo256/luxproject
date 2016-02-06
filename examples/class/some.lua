@@ -1,19 +1,23 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
+require 'lux.macro.takeover'
+
+local print = print
+
 local class = require 'lux.class'
 
 Example = class:new{}
 
-function Example:instance (obj, attr1, attr2)
+function Example:instance (_ENV, attr1, attr2)
   
   local x, y = 42, 1337
 
-  function obj:getXY()
+  function getXY()
     return x, y
   end
 
-  function obj:foo ()
+  function foo ()
     print("foo", attr1, attr2)
     x, y = x+y, x*y
   end
@@ -27,23 +31,23 @@ end
 obj = Example('asd', 'dsa')
 obj2 = Example:fromArray({true, false})
 
-obj:foo()
-obj2:foo()
+obj.foo()
+obj2.foo()
 
 local NotExample = class:new{}
 
 NotExample:inherit(Example)
 
-function NotExample:instance (obj)
+function NotExample:instance (_ENV)
   
-  self:super(obj, {}, function () end)
+  self:super(_ENV, {}, function () end)
 
-  function obj:__call ()
+  function __operator:call ()
     print "called obj"
   end
 
 end
 
 obj3 = NotExample()
-obj3:foo()
+obj3.foo()
 obj3()

@@ -37,20 +37,38 @@ local class = require 'lux.prototype' :new {}
 
 --- Defines how an instance of the class should be constructed.
 --  This function is supposed to only be overriden, not called from the user's
---  side. By populating the <code>obj</code> parameter provided in this
---  factory-like strategy method is what creates class instances in this OOP
---  feature. 
---  @tparam object obj The to-be-constructed object
---  @param ... Arguments required by the construction
+--  side. By populating the `_ENV` parameter provided in this factory-like
+--  strategy method is what creates class instances in this OOP feature. 
+--  This is actually done automatically: every "global" variable or function
+--  you define inside this function is instead stored as a corresponding object
+--  field.
+--
+--  @tparam object _ENV
+--  The to-be-constructed object. Its name must be exactly `_ENV`
+--
+--  @param ...
+--  Arguments required by the construction of objects from the current class
+--
+--  @see some.lua
+--
 --  @usage
 --  local MyClass = require 'lux.class' :new{}
---  function MyClass:instance (obj, x)
+--  local print = print -- must explicitly enclosure dependencies
+--  function MyClass:instance (_ENV, x)
+--    -- public field
+--    y = 1337
+--    -- private field
 --    local a_number = 42
---    function obj:show ()
+--    -- public method
+--    function show ()
 --      print(a_number + x)
 --    end
 --  end
-function class:instance (obj, ...)
+--
+--  myobj = MyClass(8001)
+--  -- call without colons!
+--  myobj.show()
+function class:instance (_ENV, ...)
   -- Does nothing
 end
 
@@ -60,17 +78,37 @@ end
 --  Also, it is necessary to call @{super} inside the current class'
 --  @{instance} definition method since there is no way of guessing how the
 --  parent class' constructor should be called.
---  @tparam class another_class The class being inherited from
+--
+--  @tparam class another_class
+--  The class being inherited from
+--
+--  @see class:super
+--
 --  @usage
 --  local class = require 'lux.class'
 --  local ParentClass = class:new{}
 --  local ChildClass = class:new{}
 --  ChildClass:inherit(ParentClass)
---  @see class:super
 function class:inherit (another_class)
   assert(not self.__parent, "Multiple inheritance not allowed!")
   assert(another_class:__super() == class, "Must inherit a class!")
   self.__parent = another_class
+end
+
+local function makeInstance (ofclass, obj, ...)
+#if port.minVersion(5,2) then
+  ofclass:instance(obj, ...)
+#else
+  setfenv(ofclass.instance, obj)
+  ofclass:instance(obj, ...)
+  setfenv(ofclass.instance, getfenv())
+#end
+end
+
+local operator_meta = {}
+
+function operator_meta:__newindex (key, value)
+  rawset(self, "__"..key, value)
 end
 
 --- The class constructor.
@@ -78,17 +116,21 @@ end
 --  After having created a new class and defined its @{instance} method, calling
 --  the class itself behaves as expected by calling the constructor that will
 --  use the @{instance} method to create the object.
---  @param ... The constructor parameters as specified in the @{instance}
---  @treturn object A new instance from the current class.
---  definition
+--
+--  @param ...
+--  The constructor parameters as specified in the @{instance}
+--
+--  @treturn object
+--  A new instance from the current class.
 function class:__call (...)
   local obj = {
     __class = self,
-    __extended = not self.__parent
+    __extended = not self.__parent,
+    __operator = setmetatable({}, operator_meta)
   }
-  self:instance(obj, ...)
+  makeInstance(self, obj, ...)
   assert(obj.__extended, "Missing call to parent constructor!")
-  return setmetatable(obj, obj)
+  return setmetatable(obj, obj.__operator)
 end
 
 class.__init = {
@@ -98,18 +140,25 @@ class.__init = {
 --- Calls the parent class' constructor.
 --  Should only be called inside this class' @{instance} definition method when
 --  it inherits from another class.
---  @tparam object obj The object being constructed by the child class
---  @param ... The parent class' constructor parameters
+--
+--  @tparam object obj
+--  The object being constructed by the child class, that is, the `_ENV`
+--  parameter passed to @{instance}
+--
+--  @param ...
+--  The parent class' constructor parameters
+--
+--  @see class:inherit
+--
 --  @usage
 --  -- After ChildClass inherited ParentClass
---  function ChildClass:instance (obj, x, y)
---    self:super(obj, x + y) -- parent's constructor parameters
+--  function ChildClass:instance (_ENV, x, y)
+--    self:super(_ENV, x + y) -- parent's constructor parameters
 --    -- Finish instancing
 --  end
---  @see class:inherit
 function class:super (obj, ...)
   assert(not obj.__extended, "Already called parent constructor!")
-  self.__parent:instance(obj, ...)
+  makeInstance(self.__parent, obj, ...)
   obj.__extended = true
 end
 
