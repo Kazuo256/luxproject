@@ -27,6 +27,9 @@
 --  Ironically, this is actually a prototype, which means it inherits from
 --  @{lux.prototype}, but otherwise provides its own mechanism for OOP.
 --  Be sure to check @{instance}, @{inherit} and @{super} usages.
+--
+--  ***This module requires macro takeover in order to work properly***
+--
 --  @usage
 --  local MyClass = require 'lux.class' :new{}
 --  @prototype lux.class

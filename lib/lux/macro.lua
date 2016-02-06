@@ -53,7 +53,6 @@ local port = require 'lux.portable'
 --  local expanded = macro.process("the answer is $(6*x)", { x = 7 })
 --  assert(expanded == "the answer is 42")
 function macro.process (str, env)
-  assert(port.minVersion(5, 3), "This function requires Lua 5.3 or later")
   local chunks = {}
   env = env or {}
   table.insert(chunks, "local tostring = ...")
@@ -77,7 +76,14 @@ function macro.process (str, env)
   end
   table.insert(chunks, "return output\n")
   local code = table.concat(chunks, '\n')
-  local check, result = pcall(assert(load(code, 'macro', 't', env)), tostring)
+  local chunk
+  if port.minVersion(5,2) then
+    chunk = assert(load(code, 'macro', 't', env))
+  else
+    chunk = assert(load(code, 'macro'))
+    setfenv(chunk, env)
+  end
+  local check, result = pcall(chunk, tostring)
   if not check then
     return error(result .. " in macro code:\n" .. code)
   else
