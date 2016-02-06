@@ -30,15 +30,40 @@ local path = {}
 local paths
 local index
 
-local default
 local set_path
 
 local function update_path ()
-  local result = default
+  set_path(path.get())
+end
+
+--- Gets the current path.
+--  @treturn string The current path
+function path.get ()
+  local result = ""
   for _,p in ipairs(paths) do
     result = result .. ";" .. p.path
   end
-  set_path(result)
+  return result
+end
+
+--- Searches for a lua module in the current path.
+--  @tparam string mod The module to be searched
+--  @treturn string
+--  The path to the Lua file if it is found, or else `nil` plus the the
+--  sequence of files it checked.
+function path.search (mod)
+  local checks = {}
+  local file = mod:gsub('%.', '/')
+  for _,entry in pairs(paths) do
+    local filename = entry.path:gsub('%?', file)
+    local file = io.open(filename, 'r')
+    if file then
+      file:close()
+      return filename
+    end
+    table.insert(checks, filename)
+  end
+  return nil, checks
 end
 
 --- Clears all registered paths and set path handler
@@ -49,8 +74,12 @@ end
 function path.clear (default_path, set)
   paths = {}
   index = {}
-  default = default_path
   set_path = set
+  local id = 1
+  for p in default_path:gmatch "([^;]+)" do
+    path.add(id, p)
+    id = id + 1
+  end
   update_path()
 end
 

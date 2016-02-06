@@ -33,7 +33,7 @@ local lua_major, lua_minor = (function (a,b)
   return tonumber(a), tonumber(b)
 end) (_VERSION:match "(%d+)%.(%d+)")
 
-assert(lua_major >= 5) -- for sanity
+assert(lua_major >= 5 and lua_minor >= 1) -- for sanity
 
 local env_stack = {}
 local push = table.insert
@@ -63,7 +63,7 @@ function portable.isVersion(major, minor)
 end
 
 function portable.minVersion(major, minor)
-  return major >= lua_major and minor >= lua_minor
+  return major <= lua_major and minor <= lua_minor
 end
 
 function portable.pushEnvironment (env)
