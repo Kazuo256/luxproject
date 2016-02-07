@@ -33,7 +33,7 @@ end
 
 local assert    = assert
 local select    = select
-local coroutine = couroutine
+local coroutine = coroutine
 
 --- Constructors
 --  @section constructors
