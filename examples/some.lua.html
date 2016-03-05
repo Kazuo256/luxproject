@@ -62,6 +62,12 @@
                         </li>
                         <li
                           >
+                          <a href="../modules/lux.macro.takeover.html">
+                            lux.macro.takeover
+                          </a>
+                        </li>
+                        <li
+                          >
                           <a href="../modules/lux.pack.html">
                             lux.pack
                           </a>
@@ -186,19 +192,23 @@
 
 <span class="global">package</span>.path = <span class="global">package</span>.path .. <span class="string">";./lib/?.lua"</span>
 
+<span class="global">require</span> <span class="string">'lux.macro.takeover'</span>
+
+<span class="keyword">local</span> <span class="global">print</span> = <span class="global">print</span>
+
 <span class="keyword">local</span> class = <span class="global">require</span> <span class="string">'lux.class'</span>
 
 Example = class:new{}
 
-<span class="keyword">function</span> Example:instance (obj, attr1, attr2)
+<span class="keyword">function</span> Example:instance (_ENV, attr1, attr2)
 
   <span class="keyword">local</span> x, y = <span class="number">42</span>, <span class="number">1337</span>
 
-  <span class="keyword">function</span> obj:getXY()
+  <span class="keyword">function</span> getXY()
     <span class="keyword">return</span> x, y
   <span class="keyword">end</span>
 
-  <span class="keyword">function</span> obj:foo ()
+  <span class="keyword">function</span> foo ()
     <span class="global">print</span>(<span class="string">"foo"</span>, attr1, attr2)
     x, y = x+y, x*y
   <span class="keyword">end</span>
@@ -212,25 +222,25 @@ Example = class:new{}
 obj = Example(<span class="string">'asd'</span>, <span class="string">'dsa'</span>)
 obj2 = Example:fromArray({<span class="keyword">true</span>, <span class="keyword">false</span>})
 
-obj:foo()
-obj2:foo()
+obj.foo()
+obj2.foo()
 
 <span class="keyword">local</span> NotExample = class:new{}
 
 NotExample:inherit(Example)
 
-<span class="keyword">function</span> NotExample:instance (obj)
+<span class="keyword">function</span> NotExample:instance (_ENV)
 
-  self:super(obj, {}, <span class="keyword">function</span> () <span class="keyword">end</span>)
+  self:super(_ENV, {}, <span class="keyword">function</span> () <span class="keyword">end</span>)
 
-  <span class="keyword">function</span> obj:__call ()
+  <span class="keyword">function</span> __operator:call ()
     <span class="global">print</span> <span class="string">"called obj"</span>
   <span class="keyword">end</span>
 
 <span class="keyword">end</span>
 
 obj3 = NotExample()
-obj3:foo()
+obj3.foo()
 obj3()</pre>
 
 

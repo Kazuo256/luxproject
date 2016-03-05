@@ -62,6 +62,12 @@
                         </li>
                         <li
                           >
+                          <a href="../modules/lux.macro.takeover.html">
+                            lux.macro.takeover
+                          </a>
+                        </li>
+                        <li
+                          >
                           <a href="../modules/lux.pack.html">
                             lux.pack
                           </a>
@@ -203,6 +209,74 @@
                 </h2>
 
                 <dl class="function">
+                    <dt>
+                      <a name = "get"></a>
+                      <h3 class="text-primary">
+                        get&nbsp;()
+                      </h3>
+                    </dt>
+                    <dd>
+                      Gets the current path.
+
+
+
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a></strong></kbd>
+                              <p>
+                                The current path
+                              </p>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
+                    <dt>
+                      <a name = "search"></a>
+                      <h3 class="text-primary">
+                        search&nbsp;(mod)
+                      </h3>
+                    </dt>
+                    <dd>
+                      Searches for a lua module in the current path.
+
+
+
+                          <h4>Parameters:</h4>
+                        <ul>
+                              <li>
+                                <kbd>
+                                  <strong class="text-type">
+                                      <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a>
+                                  </strong>
+                                  mod</kbd>
+                                <p>
+                                   The module to be searched
+                                </p>
+                                </li>
+                        </ul>
+
+                        <h4>Returns:</h4>
+                          <ol>
+
+                              <kbd><strong class="text-type">
+                              <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a></strong></kbd>
+                              <p>
+                                  The path to the Lua file if it is found, or else <code>nil</code> plus the the
+  sequence of files it checked.
+                              </p>
+
+                          </ol>
+
+
+
+                    </dd>
+                    <div class="row" style="height:2em"></div>
                     <dt>
                       <a name = "clear"></a>
                       <h3 class="text-primary">

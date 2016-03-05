@@ -62,6 +62,12 @@
                         </li>
                         <li
                           >
+                          <a href="../modules/lux.macro.takeover.html">
+                            lux.macro.takeover
+                          </a>
+                        </li>
+                        <li
+                          >
                           <a href="../modules/lux.pack.html">
                             lux.pack
                           </a>
@@ -211,8 +217,18 @@
                     </dt>
                     <dd>
                       Processes the given string expanding the macros.
+                       There are two kinds of
+  expanded macros:</p>
+
+<ol>
+<li>Lines starting with <code>#</code>: the whole line is inserted in the generator code</li>
+<li>Expressions wrapped in <code>$(&hellip;)</code>: the expression is inserted into that
+part of the string</li>
+</ol>
 
 
+<p>  The implementation is based on
+  <a href="http://lua-users.org/wiki/SimpleLuaPreprocessor">this article</a>.
 
                           <h4>Parameters:</h4>
                         <ul>
@@ -238,7 +254,26 @@
                                 </li>
                         </ul>
 
+                        <h4>Returns:</h4>
+                          <ol>
 
+                              <kbd><strong class="text-type">
+                              <a class="type" href="http://www.lua.org/manual/5.3/manual.html#5.4">string</a></strong></kbd>
+                              <p>
+                                  The expanded string
+                              </p>
+
+                          </ol>
+
+                        <h4>Usage:</h4>
+                        <ul>
+
+                            <pre class="example">
+  <span class="keyword">local</span> macro = <span class="global">require</span> <span class="string">'lux.macro'</span>
+  <span class="keyword">local</span> expanded = macro.process(<span class="string">"the answer is $(6*x)"</span>, { x = <span class="number">7</span> })
+  <span class="global">assert</span>(expanded == <span class="string">"the answer is 42"</span>)</pre>
+
+                        </ul>
 
 
                     </dd>

@@ -61,7 +61,7 @@
                           </a>
                         </li>
                         <li
-                          >
+                          class="active">
                           <a href="../modules/lux.macro.takeover.html">
                             lux.macro.takeover
                           </a>
@@ -106,7 +106,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li
-                          class="active">
+                          >
                           <a href="../classes/lux.struct.Queue.html">
                             lux.struct.Queue
                           </a>
@@ -187,14 +187,15 @@
 
 
               <h1>
-                lux.struct.Queue
-                <small>a LUX class</small>
+                lux.macro.takeover
+                <small>a LUX module</small>
               </h1>
 
               <div class="row" style="height:2em"></div>
 
               <p>
-                An array-based queue.
+                This script takes over Lua&rsquo;s require mechanism and enforces that all lua
+  loaded scripts be pre-processed by LUX&rsquo;s macro engine.
 
 
               </p>
@@ -202,233 +203,6 @@
 
 
 
-
-                <h2>
-                  <a name="Constructors_"></a>
-                  Constructors
-                </h2>
-
-                <dl class="function">
-                    <dt>
-                      <a name = "lux.struct.Queue:Queue"></a>
-                      <h3 class="text-primary">
-                        Queue&nbsp;(max)
-                      </h3>
-                    </dt>
-                    <dd>
-                      Default constructor.
-
-
-
-                          <h4>Parameters:</h4>
-                        <ul>
-                              <li>
-                                <kbd>
-                                  <strong class="text-type">
-                                      <span class="type">integer</span>
-                                  </strong>
-                                  max</kbd>
-                                <p>
-                                   The queue max capacity
-                                </p>
-                                </li>
-                        </ul>
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "lux.struct.Queue:fromSequence"></a>
-                      <h3 class="text-primary">
-                        Queue:fromSequence&nbsp;(seq)
-                      </h3>
-                    </dt>
-                    <dd>
-                      Construct from sequence
-
-
-
-                          <h4>Parameters:</h4>
-                        <ul>
-                              <li>
-                                <kbd>
-                                  <strong class="text-type">
-                                      <span class="type">sequence</span>
-                                  </strong>
-                                  seq</kbd>
-                                <p>
-                                   A sequence containing the new queue&rsquo;s content
-                                </p>
-                                </li>
-                        </ul>
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                </dl>
-
-                <h2>
-                  <a name="Methods_"></a>
-                  Methods
-                </h2>
-
-                <dl class="function">
-                    <dt>
-                      <a name = "obj:isEmpty"></a>
-                      <h3 class="text-primary">
-                        obj:isEmpty&nbsp;()
-                      </h3>
-                    </dt>
-                    <dd>
-                      Tells whether the queue is empty.
-
-
-
-
-                        <h4>Returns:</h4>
-                          <ol>
-
-                              <kbd><strong class="text-type">
-                              <span class="type">boolean</span></strong></kbd>
-                              <p>
-                                True if the queue is empty, false otherwise
-                              </p>
-
-                          </ol>
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "obj:isFull"></a>
-                      <h3 class="text-primary">
-                        obj:isFull&nbsp;()
-                      </h3>
-                    </dt>
-                    <dd>
-                      Tells whether the queue is full.
-
-
-
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "obj:push"></a>
-                      <h3 class="text-primary">
-                        obj:push&nbsp;(item, ...)
-                      </h3>
-                    </dt>
-                    <dd>
-                      Pushes a value into the queue.
-
-
-
-                          <h4>Parameters:</h4>
-                        <ul>
-                              <li>
-                                <kbd>
-                                  <strong class="text-type">
-                                      any
-                                  </strong>
-                                  item</kbd>
-                                <p>
-
-
-                                </p>
-                                </li>
-                              <li>
-                                <kbd>
-                                  <strong class="text-type">
-                                      any
-                                  </strong>
-                                  ...</kbd>
-                                <p>
-
-
-                                </p>
-                                </li>
-                        </ul>
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "obj:pop"></a>
-                      <h3 class="text-primary">
-                        obj:pop&nbsp;(n)
-                      </h3>
-                    </dt>
-                    <dd>
-                      Pops a value from the queue.
-
-
-
-                          <h4>Parameters:</h4>
-                        <ul>
-                              <li>
-                                <kbd>
-                                  <strong class="text-type">
-                                      any
-                                  </strong>
-                                  n</kbd>
-                                <p>
-
-
-                                </p>
-                                </li>
-                        </ul>
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "obj:popAll"></a>
-                      <h3 class="text-primary">
-                        obj:popAll&nbsp;()
-                      </h3>
-                    </dt>
-                    <dd>
-                      Pops all values from the queue.
-
-
-
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                    <dt>
-                      <a name = "obj:popEach"></a>
-                      <h3 class="text-primary">
-                        obj:popEach&nbsp;()
-                      </h3>
-                    </dt>
-                    <dd>
-                      Iterates through the queue popping everything.
-
-
-
-
-
-
-
-                    </dd>
-                    <div class="row" style="height:2em"></div>
-                </dl>
 
 
           </div> <!-- id="content" -->
