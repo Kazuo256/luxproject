@@ -29,6 +29,9 @@ local macro = {}
 
 local port = require 'lux.portable'
 
+local stmt_regex = "^%s"
+local expr_regex = "(.-)%s(%%b())()"
+
 --- Processes the given string expanding the macros. There are two kinds of
 --  expanded macros:
 --
@@ -52,19 +55,21 @@ local port = require 'lux.portable'
 --  local macro = require 'lux.macro'
 --  local expanded = macro.process("the answer is $(6*x)", { x = 7 })
 --  assert(expanded == "the answer is 42")
-function macro.process (str, env)
-  local chunks = {}
+function macro.process (str, env, stmt_token, expr_token)
   env = env or {}
+  stmt_token = stmt_token or '#'
+  expr_token = expr_token or '$'
+  local chunks = {}
   table.insert(chunks, "local tostring = ...")
   table.insert(chunks, "local output = ''")
   table.insert(chunks,
                "local function out (str) output = output .. tostring(str) end")
   for line in str:gmatch "([^\n]*\n?)()" do
-    if line:find "^#" then
+    if line:find(stmt_regex:format(stmt_token)) then
       table.insert(chunks, line:sub(2))
     else
       local last = 1
-      for text, expr, index in line:gmatch "(.-)$(%b())()" do
+      for text, expr, index in line:gmatch(expr_regex:format(expr_token)) do
         last = index
         if text ~= "" then
           table.insert(chunks, string.format("out %q", text))
