@@ -53,9 +53,9 @@ end
 --  sequence of files it checked.
 function path.search (mod)
   local checks = {}
-  local file = mod:gsub('%.', '/')
+  local modpath = mod:gsub('%.', '/')
   for _,entry in pairs(paths) do
-    local filename = entry.path:gsub('%?', file)
+    local filename = entry.path:gsub('%?', modpath)
     local file = io.open(filename, 'r')
     if file then
       file:close()
@@ -74,7 +74,7 @@ end
 function path.clear (default_path, set)
   paths = {}
   index = {}
-  set_path = set
+  set_path = set or function (p) package.path = p end
   local id = 1
   for p in default_path:gmatch "([^;]+)" do
     path.add(id, p)
@@ -110,7 +110,6 @@ function path.remove (id)
   update_path()
 end
 
-path.clear(package.path, function (p) package.path = p end)
+path.clear(package.path)
 
 return path
-
