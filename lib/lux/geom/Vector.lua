@@ -150,6 +150,13 @@ function Vector:sub (v)
   self[4] = self[4] - v[4]
 end
 
+function Vector:scale (s)
+  self[1] = self[1] * s
+  self[2] = self[2] * s
+  self[3] = self[3] * s
+  self[4] = self[4] * s
+end
+
 function Vector:map (f, ...)
   return Vector:new {
     f(self[1], ...),
@@ -164,4 +171,3 @@ function Vector:unpack ()
 end
 
 return Vector
-
