@@ -43,8 +43,9 @@ local class = require 'lux.prototype' :new {}
 --  you define inside this function is instead stored as a corresponding object
 --  field.
 --
---  @tparam object _ENV
---  The to-be-constructed object. Its name must be exactly `_ENV`
+--  @tparam object obj
+--  The to-be-constructed object. On Lua5.2+, you may name it _ENV if you know
+--  what you are doing.
 --
 --  @param ...
 --  Arguments required by the construction of objects from the current class
