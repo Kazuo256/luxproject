@@ -35,8 +35,6 @@
 --  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
-local port = require 'lux.portable'
-
 --- Defines how an instance of the class should be constructed.
 --  This function is supposed to only be overriden, not called from the user's
 --  side. By populating the `_ENV` parameter provided in this factory-like
@@ -99,16 +97,8 @@ end
 
 local makeInstance
 
-if port.minVersion(5,2) then
-  function makeInstance (ofclass, obj, ...)
-    ofclass:instance(obj, ...)
-  end
-else
-  function makeInstance (ofclass, obj, ...)
-    setfenv(ofclass.instance, obj)
-    ofclass:instance(obj, ...)
-    setfenv(ofclass.instance, getfenv())
-  end
+function makeInstance (ofclass, obj, ...)
+  ofclass:instance(obj, ...)
 end
 
 local operator_meta = {}

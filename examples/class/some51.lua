@@ -1,13 +1,19 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
+--require 'lux.macro.takeover'
+require 'lux.portable'
+
 local print = print
+local setfenv = setfenv
 
 local class = require 'lux.class'
 
 Example = class:new{}
 
-function Example:instance (_ENV, attr1, attr2)
+function Example:instance (obj, attr1, attr2)
+
+  setfenv(1, obj)
 
   local x, y = 42, 1337
 
@@ -36,9 +42,11 @@ local NotExample = class:new{}
 
 NotExample:inherit(Example)
 
-function NotExample:instance (_ENV)
+function NotExample:instance (obj)
 
-  self:super(_ENV, {}, function () end)
+  setfenv(1, obj)
+
+  self:super(obj, {}, function () end)
 
   function __operator:call ()
     print "called obj"

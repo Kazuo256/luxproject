@@ -49,6 +49,7 @@ end
 
 local function searchAndPreprocess (mod)
   local filename,checks = path.search(mod)
+  local load = port.minVersion(5,2) and load or loadstring
   if not filename then
     return nil, notFoundMsg(mod, checks)
   end
