@@ -153,6 +153,12 @@
                             some.lua
                           </a>
                         </li>
+                        <li
+                          >
+                          <a href="../examples/some51.lua.html">
+                            some51.lua
+                          </a>
+                        </li>
                     </ul>
                   </li>
             </ul>
@@ -219,7 +225,7 @@
                     <dt>
                       <a name = "class:instance"></a>
                       <h3 class="text-primary">
-                        class:instance&nbsp;(_ENV, ...)
+                        class:instance&nbsp;(obj, ...)
                       </h3>
                     </dt>
                     <dd>
@@ -238,9 +244,10 @@
                                   <strong class="text-type">
                                       <span class="type">object</span>
                                   </strong>
-                                  _ENV</kbd>
+                                  obj</kbd>
                                 <p>
-                                    The to-be-constructed object. Its name must be exactly <code>_ENV</code>
+                                    The to-be-constructed object. On Lua5.2+, you may name it _ENV if you know
+  what you are doing.
                                 </p>
                                 </li>
                               <li>
@@ -262,13 +269,13 @@
                             <pre class="example">
   <span class="keyword">local</span> MyClass = <span class="global">require</span> <span class="string">'lux.class'</span> :new{}
   <span class="keyword">local</span> <span class="global">print</span> = <span class="global">print</span> <span class="comment">-- must explicitly enclosure dependencies
-</span>  <span class="keyword">function</span> MyClass:instance (_ENV, x)
+</span>  <span class="keyword">function</span> MyClass:instance (obj, x)
     <span class="comment">-- public field
-</span>    y = <span class="number">1337</span>
+</span>    obj.y = <span class="number">1337</span>
     <span class="comment">-- private field
 </span>    <span class="keyword">local</span> a_number = <span class="number">42</span>
     <span class="comment">-- public method
-</span>    <span class="keyword">function</span> show ()
+</span>    <span class="keyword">function</span> obj.show ()
       <span class="global">print</span>(a_number + x)
     <span class="keyword">end</span>
   <span class="keyword">end</span>
@@ -425,8 +432,8 @@
 
                             <pre class="example">
   <span class="comment">-- After ChildClass inherited ParentClass
-</span>  <span class="keyword">function</span> ChildClass:instance (_ENV, x, y)
-    self:super(_ENV, x + y) <span class="comment">-- parent's constructor parameters
+</span>  <span class="keyword">function</span> ChildClass:instance (obj, x, y)
+    self:super(obj, x + y) <span class="comment">-- parent's constructor parameters
 </span>    <span class="comment">-- Finish instancing
 </span>  <span class="keyword">end</span></pre>
 
