@@ -1,7 +1,6 @@
 
 package.path = package.path .. ";./lib/?.lua"
 
---require 'lux.macro.takeover'
 require 'lux.portable'
 
 local print = print
