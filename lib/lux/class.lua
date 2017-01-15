@@ -35,8 +35,6 @@
 --  @prototype lux.class
 local class = require 'lux.prototype' :new {}
 
-local port = require 'lux.portable'
-
 --- Defines how an instance of the class should be constructed.
 --  This function is supposed to only be overriden, not called from the user's
 --  side. By populating the `_ENV` parameter provided in this factory-like
@@ -56,13 +54,13 @@ local port = require 'lux.portable'
 --  @usage
 --  local MyClass = require 'lux.class' :new{}
 --  local print = print -- must explicitly enclosure dependencies
---  function MyClass:instance (_ENV, x)
+--  function MyClass:instance (obj, x)
 --    -- public field
---    y = 1337
+--    obj.y = 1337
 --    -- private field
 --    local a_number = 42
 --    -- public method
---    function show ()
+--    function obj.show ()
 --      print(a_number + x)
 --    end
 --  end
@@ -99,16 +97,8 @@ end
 
 local makeInstance
 
-if port.minVersion(5,2) then
-  function makeInstance (ofclass, obj, ...)
-    ofclass:instance(obj, ...)
-  end
-else
-  function makeInstance (ofclass, obj, ...)
-    setfenv(ofclass.instance, obj)
-    ofclass:instance(obj, ...)
-    setfenv(ofclass.instance, getfenv())
-  end
+function makeInstance (ofclass, obj, ...)
+  ofclass:instance(obj, ...)
 end
 
 local operator_meta = {}
@@ -158,8 +148,8 @@ class.__init = {
 --
 --  @usage
 --  -- After ChildClass inherited ParentClass
---  function ChildClass:instance (_ENV, x, y)
---    self:super(_ENV, x + y) -- parent's constructor parameters
+--  function ChildClass:instance (obj, x, y)
+--    self:super(obj, x + y) -- parent's constructor parameters
 --    -- Finish instancing
 --  end
 function class:super (obj, ...)

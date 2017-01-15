@@ -39,25 +39,6 @@ local env_stack = {}
 local push = table.insert
 local pop = table.remove
 
-local function getEnv ()
-  if lua_minor <= 1 then
-    return getfenv()
-  else
-    return _ENV
-  end
-end
-
-local function setEnv (env)
-  if lua_minor <= 1 then
-    setfenv(0, env)
-  else
-    _ENV = env
-  end
-end
-
-portable.getEnv = getEnv
-portable.setEnv = setEnv
-
 function portable.isVersion(major, minor)
   return major == lua_major and minor == lua_minor
 end
@@ -66,37 +47,17 @@ function portable.minVersion(major, minor)
   return major <= lua_major and minor <= lua_minor
 end
 
-function portable.pushEnvironment (env)
-  push(env_stack, getEnv())
-  setEnv(env)
-end
-
-function portable.popEnvironment ()
-  setEnv(pop(env_stack))
-end
-
 if lua_minor <= 1 then
   table.unpack = unpack
   table.pack = function (...) return { n = select('#', ...), ... } end
-end
-
---- Re-loads a funcion with the given env and an optional chunk name.
--- It is important to note that the reloaded funcion loses its closure.
--- @function loadWithEnv
--- @param f The original function
--- @param env The new environment
--- @param[opt] source The reloaded funciton chunk name
-if lua_minor <= 1 then
-  function portable.loadWithEnv(f, env, source)
-    local loaded, err = loadstring(string.dump(f, source))
-    if not loaded then return nil, err end
-    return setfenv(loaded, env)
-  end
-else
-  function portable.loadWithEnv(f, env, source)
-    return load(string.dump(f), source, 'b', env)
+  local old_load = load
+  load = function (chunk, ...)
+    if type(chunk) == 'string' then
+      return loadstring(chunk, ...)
+    else
+      return old_load(chunk, ...)
+    end
   end
 end
 
 return portable
-

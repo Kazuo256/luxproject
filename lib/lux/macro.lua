@@ -85,7 +85,7 @@ function macro.process (str, env, stmt_token, expr_token)
   if port.minVersion(5,2) then
     chunk = assert(load(code, 'macro', 't', env))
   else
-    chunk = assert(load(code, 'macro'))
+    chunk = assert(loadstring(code, 'macro'))
     setfenv(chunk, env)
   end
   local check, result = pcall(chunk, tostring)
@@ -97,4 +97,3 @@ function macro.process (str, env, stmt_token, expr_token)
 end
 
 return macro
-
