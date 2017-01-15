@@ -54,13 +54,13 @@ local class = require 'lux.prototype' :new {}
 --  @usage
 --  local MyClass = require 'lux.class' :new{}
 --  local print = print -- must explicitly enclosure dependencies
---  function MyClass:instance (_ENV, x)
+--  function MyClass:instance (obj, x)
 --    -- public field
---    y = 1337
+--    obj.y = 1337
 --    -- private field
 --    local a_number = 42
 --    -- public method
---    function show ()
+--    function obj.show ()
 --      print(a_number + x)
 --    end
 --  end
@@ -148,8 +148,8 @@ class.__init = {
 --
 --  @usage
 --  -- After ChildClass inherited ParentClass
---  function ChildClass:instance (_ENV, x, y)
---    self:super(_ENV, x + y) -- parent's constructor parameters
+--  function ChildClass:instance (obj, x, y)
+--    self:super(obj, x + y) -- parent's constructor parameters
 --    -- Finish instancing
 --  end
 function class:super (obj, ...)
