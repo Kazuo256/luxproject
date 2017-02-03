@@ -1,11 +1,15 @@
 
-LUX Project
-===========
+project = "LUX"
 
+title = "LUX Documentation and Reference"
+
+description = [[
 The Lua Utility eXtension Project is a general purpose Lua distribution
 developed with both [LuaRocks](https://luarocks.org/) and
 [LÖVE](https://love2d.org/) compatibility in mind.
+]]
 
+full_description = [[
 It bundles rocks on a per-project basis, injecting a local rocktree in the
 source tree. This allows LÖVE application developers to distribute their
 dependencies together with the application package, while also benefiting from
@@ -22,11 +26,17 @@ main features present in this Lua distribution:
 7. Macro/Template processing
 8. Unit test tools
 9. Prettified console output
+]]
 
-## Installation
+file = "lib"
+dir = "doc/html"
+pretty = "lxsh"
+style = "doc"
+template = "doc"
+merge = true
+manual_url "http://www.lua.org/manual/5.3/manual.html"
+examples = "examples"
+format = "discount"
 
-Use LuaRocks.
-
-## Documentation
-
-[Latest stable version's documentation](http://kazuo256.github.io/luxproject/)
+new_type("prototype", "Prototypes", true)
+new_type("constructor","Constructors",false,"param")
