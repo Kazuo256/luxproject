@@ -38,4 +38,3 @@ function info.version ()
 end
 
 return info
-

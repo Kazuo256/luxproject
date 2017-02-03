@@ -2,20 +2,31 @@
 LUX Project
 ===========
 
-This document is still a stub.
+The Lua Utility eXtension Project is a general purpose Lua distribution
+developed with both [LuaRocks](https://luarocks.org/) and
+[LÖVE](https://love2d.org/) compatibility in mind.
 
-Lua Utility eXTension is a Lua-only library compatible with Lua 5.1 through
-Lua 5.3 which provides a handful of features for everyday Lua programming that
-cannot be found in the standard library of the language. Features included are:
+It bundles rocks on a per-project basis, injecting a local rocktree in the
+source tree. This allows LÖVE application developers to distribute their
+dependencies together with the application package, while also benefiting from
+the LuaRocks ecosystem. However, the LUX distribution is also completely
+adequate for developing non-LÖVE applications. Here's a quick rundown of the
+main features present in this Lua distribution:
 
-+ A prototype-based Object Oriented system
-+ A class-based Object Oriented system
-+ A functional programming module
-+ An unit test module
-+ A macro processor feature
+1. Portability with Lua 5.1 through 5.3
+2. Rock bundling on a per-project basis
+3. Bundle-aware script execution
+4. Prototype-based Object Oriented system
+5. Class-based Object Oriented system
+6. Functional programming library
+7. Macro/Template processing
+8. Unit test tools
+9. Prettified console output
 
 ## Installation
 
-Basically put the the lib/lux folder into your lua path. We'll eventually make a
-luarock for this library.
+Use LuaRocks.
 
+## Documentation
+
+[Latest stable version's documentation](http://kazuo256.github.io/luxproject/)
