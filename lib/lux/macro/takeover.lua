@@ -54,6 +54,7 @@ local function searchAndPreprocess (mod)
   local file = io.open(filename, 'r')
   local code = macro.process(file:read(port.minVersion(5,3) and 'a' or '*a'),
                              { port = port })
+  file:close()                             
   return load(code, mod)
 end
 
