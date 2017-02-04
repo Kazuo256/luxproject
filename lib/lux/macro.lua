@@ -56,7 +56,7 @@ local expr_regex = "(.-)%s(%%b())()"
 --  assert(expanded == "the answer is 42")
 function macro.process (str, env, stmt_token, expr_token)
   env = env or {}
-  stmt_token = stmt_token or '#'
+  stmt_token = stmt_token or '@'
   expr_token = expr_token or '$'
   local chunks = {}
   table.insert(chunks, "local tostring = ...")
