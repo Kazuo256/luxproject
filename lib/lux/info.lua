@@ -27,7 +27,7 @@
 local info = {}
 
 local major = 0
-local minor = 5
+local minor = 6
 local patch = 0
 
 --- LUX's version.
