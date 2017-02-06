@@ -43,7 +43,6 @@ build = {
     ["lux.path"] = "lib/lux/path.lua",
     ["lux.portable"] = "lib/lux/portable.lua",
     ["lux.prototype"] = "lib/lux/prototype.lua",
-    ["lux.struct.List"] = "lib/lux/struct/List.lua",
     ["lux.struct.Queue"] = "lib/lux/struct/Queue.lua",
     ["lux.term.PrettyPrinter"] = "lib/lux/term/PrettyPrinter.lua",
     ["lux.term.ansicolors"] = "lib/lux/term/ansicolors.lua",
