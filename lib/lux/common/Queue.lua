@@ -55,6 +55,12 @@ function Queue:instance (obj, max)
   --- Methods
   --  @section methods
 
+  --- Tells how many elements are in the queue.
+  --  @treturn number The amount of elements in the queue
+  function obj.getSize ()
+    return size
+  end
+
   --- Tells whether the queue is empty.
   --  @treturn boolean True if the queue is empty, false otherwise
   function obj.isEmpty ()
@@ -100,7 +106,7 @@ function Queue:instance (obj, max)
 
   local function iterator (state)
     local diff = state.diff
-    if diff < max then
+    if diff < size then
       state.diff = diff + 1
       local index = head + diff
       return queue[index <= max and index or index - max]
