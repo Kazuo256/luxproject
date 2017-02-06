@@ -26,8 +26,6 @@
 -- It currently support versions 5.1 through 5.3.
 local portable = {}
 
-local lambda = require 'lux.functional'
-
 local lua_major, lua_minor = (function (a,b)
   return tonumber(a), tonumber(b)
 end) (_VERSION:match "(%d+)%.(%d+)")

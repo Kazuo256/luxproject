@@ -36,7 +36,6 @@ build = {
   modules = {
     ["lux.bundler"] = "lib/lux/bundler.lua",
     ["lux.class"] = "lib/lux/class.lua",
-    ["lux.functional"] = "lib/lux/functional.lua",
     ["lux.geom.Matrix"] = "lib/lux/geom/Matrix.lua",
     ["lux.geom.Vector"] = "lib/lux/geom/Vector.lua",
     ["lux.info"] = "lib/lux/info.lua",
