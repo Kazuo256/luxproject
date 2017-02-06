@@ -12,13 +12,13 @@ pre .string { color: #8080ff; }
 pre .number { color: #f8660d; }
 pre .operator { color: #2239a8; font-weight: bold; }
 pre .preprocessor, pre .prepro { color: #a33243; }
-pre .global { color: #c020c0; }
-pre .user-keyword { color: #c020c0; }
+pre .global { color: #e151e1; }
+pre .user-keyword { color: #e151e1; }
 pre .prompt { color: #558817; }
 pre .url { color: #272fc2; text-decoration: underline; }
 
 .text-type { color: #75A837; }
+body { font-size: 14pt; }
 
 ul { list-style-type: none; }
-pre { background-color: #333; color: #fff; }
-
+pre { background-color: #333; color: #fff; font-size: 12pt; }
