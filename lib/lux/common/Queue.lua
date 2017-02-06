@@ -40,7 +40,7 @@ local coroutine = coroutine
 --- Default constructor.
 --  @function Queue
 --  @tparam integer max The queue max capacity
-function Queue:instance (_ENV, max)
+function Queue:instance (obj, max)
 
   assert(max > 1)
 
@@ -55,58 +55,67 @@ function Queue:instance (_ENV, max)
   --- Methods
   --  @section methods
 
+  --- Tells how many elements are in the queue.
+  --  @treturn number The amount of elements in the queue
+  function obj.getSize ()
+    return size
+  end
+
   --- Tells whether the queue is empty.
   --  @treturn boolean True if the queue is empty, false otherwise
-  function isEmpty ()
+  function obj.isEmpty ()
     return size <= 0
   end
 
   --- Tells whether the queue is full.
-  function isFull ()
+  function obj.isFull ()
     return size >= max
   end
 
   --- Pushes a value into the queue.
-  function push (item, ...)
+  function obj.push (item, ...)
     if not item and select('#', ...) == 0 then
       return
     elseif item then
-      assert(not isFull(), "Queue full: "..size.."/"..max)
+      assert(not obj.isFull(), "queue is full, cannot push any more values")
       queue[tail] = item
       tail = (tail%max) + 1
       size = size + 1
+      return obj.push(...)
     end
-    return push(...)
   end
 
   --- Pops a value from the queue.
-  function pop (n)
+  function obj.pop (n)
     if n and n <= 0 then
       return
     else
-      assert(not isEmpty())
+      assert(not obj.isEmpty(), "queue is empty, there are no values to pop")
       local value = queue[head]
       queue[head] = nothing
       head = (head%max) + 1
       size = size - 1
-      return value, pop(n and (n-1) or 0)
+      return value, obj.pop(n and (n-1) or 0)
     end
   end
 
   --- Pops all values from the queue.
-  function popAll ()
-    return pop(size)
+  function obj.popAll ()
+    return obj.pop(size)
   end
 
-  local function iterate ()
-    while not isEmpty() do
-      coroutine.yield(pop())
+  local function iterator (state)
+    local diff = state.diff
+    if diff < size then
+      state.diff = diff + 1
+      local index = head + diff
+      return queue[index <= max and index or index - max]
     end
   end
 
   --- Iterates through the queue popping everything.
-  function popEach ()
-    return coroutine.wrap(iterate)
+  function obj.each ()
+    return iterator, {diff = 0}
   end
 
 end
