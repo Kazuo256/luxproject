@@ -1,5 +1,5 @@
 package = "luxproject"
-version = "scm-1"
+version = "scm-2"
 source = {
   url = "https://github.com/kazuo256/luxproject/"
 }
