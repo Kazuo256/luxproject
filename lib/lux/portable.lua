@@ -45,13 +45,23 @@ function portable.minVersion(major, minor)
 end
 
 if lua_minor <= 1 then
+
   table.unpack = unpack
   table.pack = function (...) return { n = select('#', ...), ... } end
+
   local old_load = load
+  local mode_err = "attempt to load a %s chunk (mode is %s)"
   load = function (chunk, name, mode, env)
-    --FIXME do not ignore mode parameter!
+    mode = more or "bt"
+    env = env or _G
     local func
     if type(chunk) == 'string' then
+      local is_binary = (string.byte(chunk) == 27)
+      if is_binary and not mode:match("^b") then
+        return nil, mode_err:format("text", mode)
+      elseif not is_binary and not mode:match("b?t") then
+        return nil, mode_err:format("binary", mode)
+      end
       func = loadstring(chunk, name)
     else
       func = old_load(chunk, name)
@@ -59,12 +69,14 @@ if lua_minor <= 1 then
     setfenv(func, env)
     return func
   end
+
   local old_loadfile = loadfile
-  loadfile = function (file, mode, env)
-    --FIXME do not ignore mode parameter!
-    local func = old_loadfile(file)
-    setfenv(func, env)
-    return func
+  loadfile = function (filepath, mode, env)
+    local file = io.open(filepath, "r")
+    if file then
+      local content = file:read '*a'
+      return load(content, filepath, mode, env)
+    end
   end
 end
 
