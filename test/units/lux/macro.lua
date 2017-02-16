@@ -52,9 +52,9 @@ asdasdasd
   {
     name = "single_for",
     input = [[
-# for i=1,3 do
+@ for i=1,3 do
 foo
-# end
+@ end
 ]],
     output = [[
 foo
@@ -65,10 +65,10 @@ foo
   {
     name = "single_nested_for",
     input = [[
-# for i=1,3 do
-#   for j=1,2 do out 'bar;' end
-#   out '\n'
-# end
+@ for i=1,3 do
+@   for j=1,2 do out 'bar;' end
+@   out '\n'
+@ end
 ]],
     output = [[
 bar;bar;
@@ -79,10 +79,10 @@ bar;bar;
   {
     name = "single_progressive_for",
     input = [[
-# for i=1,5 do
-# for j=1,i do out '*' end
-# out '\n'
-# end
+@ for i=1,5 do
+@ for j=1,i do out '*' end
+@ out '\n'
+@ end
 ]],
     output = [[
 *
