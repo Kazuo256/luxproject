@@ -60,7 +60,7 @@ function bundler.install (spec_file)
   local spec = {}
   assert(loadfile(spec_file, 't', spec)) ()
   for _,depstr in ipairs(spec.dependencies) do
-    local rockname = depstr:match("^([^ ]-)")
+    local rockname = depstr:match("^([^ ]+)")
     local code = install_code:format(rockname)
     io.write(code)
     local ok = os.execute(code)
