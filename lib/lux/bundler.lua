@@ -29,6 +29,7 @@ local bundler = {}
 local lpath = "rocktree/share/lua/5.3/?.lua;rocktree/share/lua/5.3/?/init.lua;"
 local lcpath = "rocktree/lib/lua/5.3/?.so;"
 local config_path = "rocktree/config.lua"
+local bin_path = "rocktree/bin/"
 
 local exec_code = [[
 lua -e 'package.path="%s"' \
@@ -44,12 +45,23 @@ export LUAROCKS_CONFIG=%s; luarocks --local --tree=rocktree install %%s
 
 install_code = install_code:format(config_path)
 
-function bundler.run (...)
-  local ok = os.execute(exec_code:format(table.concat({...}, ' ')))
-  if not ok then
-    return false, "Bundled script exited with nonzero status"
+function bundler.run (name, ...)
+  local ok, status, v = false, "File not found", -1
+  local script = io.open(name, 'r') if script then
+    script:close()
+    ok, status, v = os.execute(exec_code:format(table.concat({name, ...}, ' ')))
+  else
+    local path = "./" .. bin_path .. name
+    script = io.open(path, 'r') if script then
+      script:close()
+      ok, status, v = os.execute(table.concat({path, ...}, ' '))
+    end
   end
-  return true
+  if ok == nil then
+    return false, "Bundled script "..status.."ed with "..tostring(v)
+  else
+    return ok, status
+  end
 end
 
 function bundler.install (spec_file)
