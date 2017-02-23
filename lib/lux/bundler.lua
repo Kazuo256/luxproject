@@ -28,6 +28,7 @@ local bundler = {}
 
 local lpath = "rocktree/share/lua/5.3/?.lua;rocktree/share/lua/5.3/?/init.lua;"
 local lcpath = "rocktree/lib/lua/5.3/?.so;"
+local config_path = "rocktree/config.lua"
 
 local exec_code = [[
 lua -e 'package.path="%s"' \
@@ -38,8 +39,10 @@ lua -e 'package.path="%s"' \
 exec_code = exec_code:format(lpath, lcpath)
 
 local install_code = [[
-luarocks --tree=rocktree install %s
+export LUAROCKS_CONFIG=%s; luarocks --local --tree=rocktree install %%s
 ]]
+
+install_code = install_code:format(config_path)
 
 function bundler.run (...)
   local ok = os.execute(exec_code:format(table.concat({...}, ' ')))
@@ -56,6 +59,13 @@ function bundler.install (spec_file)
     return false, "There is no local rocktree directory"
   end
   rocktree:close()
+  local config_file = io.open(config_path, "r")
+  if not config_file then
+    print "[warning] No config file found, creating a new one."
+    config_file = io.open(config_path, "w")
+    config_file:write [[rocks_trees = { { name="user", root="./rocktree" } }]]
+  end
+  config_file:close()
   -- Load dependencies from rockspec
   local spec = {}
   assert(loadfile(spec_file, 't', spec)) ()
