@@ -25,15 +25,15 @@
 local port    = require 'lux.portable'
 local bundler = require 'lux.bundler'
 
-local BIN = 'lux' --arg[0]
+local BIN = arg[0]
 local ARGN = select('#', ...)
 
 local help = ([[
 Usage:
   %s <command> <args...>
 Available commands:
-  run
-  install
+  run <script> <script-args...>
+  install <rockspec>
 ]]):format(BIN)
 
 if ARGN < 1 then
