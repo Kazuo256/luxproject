@@ -118,6 +118,14 @@ function Queue:instance (obj, max)
     return iterator, {diff = 0}
   end
 
+  local function pop_iterator ()
+    return not obj.isEmpty() and obj.pop(1) or nil
+  end
+
+  function obj.popEach ()
+    return pop_iterator
+  end
+
 end
 
 --- Constructors
