@@ -85,6 +85,12 @@ function Queue:instance (obj, max)
     end
   end
 
+  --- Gets the next element of the queue without popping it.
+  --  @return The next element in the queue
+  function obj.next()
+    return queue[head]
+  end
+
   --- Pops a value from the queue.
   function obj.pop (n)
     if n and n <= 0 then
