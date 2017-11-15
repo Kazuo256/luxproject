@@ -76,7 +76,7 @@ function Heap:instance(_obj)
     _size = 0
   end
 
-  function _obj.getNext()
+  function _obj.pop()
     local item = _items[1]
     _items[1] = _items[_size]
     _items[_size] = nil
@@ -85,7 +85,7 @@ function Heap:instance(_obj)
     return table.unpack(item)
   end
 
-  function _obj.add(e, rank)
+  function _obj.push(e, rank)
     rank = rank or 0
     _size = _size + 1
     _items[_size] = {e, rank}
