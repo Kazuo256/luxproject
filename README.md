@@ -13,7 +13,7 @@ the LuaRocks ecosystem. However, the LUX distribution is also completely
 adequate for developing non-LÖVE applications. Here's a quick rundown of the
 main features present in this Lua distribution:
 
-1. Portability with Lua 5.1 through 5.3
+1. Portability through Lua 5.X series starting from 5.1
 2. Rock bundling on a per-project basis
 3. Bundle-aware script execution
 4. Prototype-based Object Oriented system
