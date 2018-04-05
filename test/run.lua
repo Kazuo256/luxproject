@@ -22,10 +22,12 @@
 --
 --]]
 
-package.path = package.path..";./lib/?.lua"
+package.path = package.path..";./lib/?.lua;./lib/?/init.lua"
 
 local test = require 'lux.test'
 
 test.unit "lux.prototype"
 test.unit "lux.macro"
+test.unit "lux.common"
 test.unit "lux.common.Queue"
+
